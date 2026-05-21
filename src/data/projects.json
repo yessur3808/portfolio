@@ -1,0 +1,1371 @@
+[
+  {
+    "id": "defi-wallet-and-token-intelligence",
+    "slug": "defi-wallet-and-token-intelligence",
+    "title": "DeFi Wallet and Token Intelligence",
+    "image": "/projects/featured/defi-wallet-and-token-intelligence.svg",
+    "summary": "Desktop wallet workflows, internal bridge tooling, and live token visualization.",
+    "description": "Delivered wallet UX improvements, cross-chain bridge support, and data-rich token dashboards for large crypto audiences.",
+    "impact": "Improved wallet usability and enabled faster market interpretation across 250+ assets.",
+    "technologies": [
+      "Electron",
+      "React",
+      "TypeScript",
+      "GraphQL",
+      "D3.js",
+      "Cypress"
+    ],
+    "themes": [
+      "Wallet UX",
+      "Data Visualization",
+      "Blockchain"
+    ],
+    "company": "Crypto.com",
+    "period": "2022",
+    "featured": true,
+    "links": {}
+  },
+  {
+    "id": "kyc-automation-suite",
+    "slug": "kyc-automation-suite",
+    "title": "KYC Automation Suite",
+    "image": "/projects/featured/kyc-automation-suite.svg",
+    "summary": "Rebuilt onboarding and verification workflows for fintech operations.",
+    "description": "Modernized KYC services and finance workflow tooling with better schema design, testing, and release discipline.",
+    "impact": "Cut verification turnaround time by 40% while improving team throughput.",
+    "technologies": [
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "Docker",
+      "Jest",
+      "Cypress"
+    ],
+    "themes": [
+      "Fintech",
+      "Automation",
+      "Workflow Optimization"
+    ],
+    "company": "TradeFi",
+    "period": "2021 - 2022",
+    "featured": true,
+    "links": {}
+  },
+  {
+    "id": "newsroom-automation-and-graphics",
+    "slug": "newsroom-automation-and-graphics",
+    "title": "Newsroom Automation and Interactive Graphics",
+    "image": "/projects/featured/newsroom-automation-and-graphics.svg",
+    "summary": "Editorial tools, reusable infographics, and real-time reporting products.",
+    "description": "Built automation systems and interactive data products that accelerated newsroom publishing and improved story quality.",
+    "impact": "Reduced production effort by 70% for recurring data-driven stories.",
+    "technologies": [
+      "D3.js",
+      "Node.js",
+      "JavaScript",
+      "LoopBack",
+      "MySQL",
+      "Vue"
+    ],
+    "themes": [
+      "Media",
+      "Automation",
+      "High-Traffic Web"
+    ],
+    "company": "South China Morning Post",
+    "period": "2018 - 2021",
+    "featured": false,
+    "links": {}
+  },
+  {
+    "id": "enterprise-erp-and-cloud-delivery",
+    "slug": "enterprise-erp-and-cloud-delivery",
+    "title": "Enterprise ERP and Cloud Delivery",
+    "image": "/projects/featured/enterprise-erp-and-cloud-delivery.svg",
+    "summary": "ERP customizations and cloud rollouts for enterprise systems.",
+    "description": "Delivered ERP enhancements and Azure deployments while coordinating implementation workflows across teams.",
+    "impact": "Improved delivery speed and internal coordination across enterprise projects.",
+    "technologies": [
+      "C#",
+      "Azure",
+      "Microsoft ERP",
+      "JavaScript",
+      "PHP"
+    ],
+    "themes": [
+      "Enterprise Systems",
+      "Cloud",
+      "Delivery"
+    ],
+    "company": "PolyAsia",
+    "period": "2017 - 2018",
+    "featured": false,
+    "links": {}
+  },
+  {
+    "id": "my-3d-model",
+    "slug": "my-3d-model",
+    "title": "My 3D Model",
+    "image": "/projects/library/my-3d-model.gif",
+    "summary": "An animated 3D model rendered with Three.js and React.",
+    "description": "Built a personal interactive model experience to explore motion, rendering, and lightweight portfolio storytelling.",
+    "impact": "Improved personal branding and demonstrated real-time 3D frontend capability.",
+    "technologies": [
+      "React",
+      "Three.js",
+      "JavaScript",
+      "CSS"
+    ],
+    "themes": [
+      "Personal Projects",
+      "3D",
+      "Frontend"
+    ],
+    "company": "Personal",
+    "period": "2022",
+    "featured": true,
+    "links": {
+      "demo": "https://yessur3808.github.io/my-3d-model/"
+    }
+  },
+  {
+    "id": "crypto-com-defi-desktop-wallet",
+    "slug": "crypto-com-defi-desktop-wallet",
+    "title": "Crypto.com DeFi Desktop Wallet",
+    "image": "/projects/library/crypto-com-defi-desktop-wallet.webp",
+    "summary": "A non-custodial desktop wallet offering core DeFi workflows in one application.",
+    "description": "Contributed to wallet UX and desktop functionality for DeFi users, with a focus on usability and reliability across key flows.",
+    "impact": "Supported delivery of a production wallet experience for crypto users.",
+    "technologies": [
+      "Electron",
+      "React",
+      "Node.js",
+      "TypeScript",
+      "JavaScript",
+      "LESS",
+      "CSS"
+    ],
+    "themes": [
+      "Wallet UX",
+      "Desktop Apps",
+      "Blockchain"
+    ],
+    "company": "Crypto.com",
+    "period": "2022",
+    "featured": false,
+    "links": {
+      "repo": "https://github.com/crypto-com/chain-desktop-wallet"
+    }
+  },
+  {
+    "id": "embed-generator",
+    "slug": "embed-generator",
+    "title": "Embed Generator",
+    "image": "/projects/library/embed-generator.png",
+    "summary": "Internal tool for quickly producing embed and widget boilerplates for newsroom use.",
+    "description": "Built a utility to speed up embed creation workflows for designers and developers, reducing manual setup time.",
+    "impact": "Increased publishing speed for repeat infographic embed formats.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery",
+      "Node.js"
+    ],
+    "themes": [
+      "Internal Tools",
+      "Automation",
+      "Editorial Platforms"
+    ],
+    "company": "South China Morning Post",
+    "period": "2019",
+    "featured": false,
+    "links": {}
+  },
+  {
+    "id": "chart-generator",
+    "slug": "chart-generator",
+    "title": "Chart Generator",
+    "image": "/projects/library/chart-generator.png",
+    "summary": "Internal chart builder for creating reusable embeddable data visualizations.",
+    "description": "Developed a chart generation interface to streamline creation of consistent visual assets for fast newsroom delivery.",
+    "impact": "Reduced repetitive setup work and improved consistency across chart embeds.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery",
+      "Node.js"
+    ],
+    "themes": [
+      "Data Visualization",
+      "Internal Tools",
+      "Automation"
+    ],
+    "company": "South China Morning Post",
+    "period": "2021",
+    "featured": false,
+    "links": {}
+  },
+  {
+    "id": "team-portal",
+    "slug": "team-portal",
+    "title": "Team Portal",
+    "image": "/projects/library/team-portal.png",
+    "summary": "A central portal aggregating team resources and recent infographic analytics.",
+    "description": "Built a shared internal portal to centralize tooling, documentation, and performance snapshots used by the infographics team.",
+    "impact": "Improved internal discoverability and reduced context switching.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery",
+      "Node.js"
+    ],
+    "themes": [
+      "Internal Platforms",
+      "Analytics",
+      "Productivity"
+    ],
+    "company": "South China Morning Post",
+    "period": "2020",
+    "featured": false,
+    "links": {}
+  },
+  {
+    "id": "google-sheet-to-json-tool",
+    "slug": "google-sheet-to-json-tool",
+    "title": "Google Sheet to JSON Tool",
+    "image": "/projects/library/google-sheet-to-json-tool.png",
+    "summary": "Utility to convert Google Sheets into JSON for production usage.",
+    "description": "Created an internal conversion tool to simplify editorial data workflows and make sheet-based content easier to deploy.",
+    "impact": "Reduced friction between content updates and production-ready structured data.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery",
+      "Node.js"
+    ],
+    "themes": [
+      "Data Pipelines",
+      "Automation",
+      "Internal Tools"
+    ],
+    "company": "South China Morning Post",
+    "period": "2020",
+    "featured": false,
+    "links": {}
+  },
+  {
+    "id": "infographics-handbook",
+    "slug": "infographics-handbook",
+    "title": "Infographics Handbook",
+    "image": "/projects/library/infographics-handbook.png",
+    "summary": "A practical handbook combining coding and design standards for infographic delivery.",
+    "description": "Published and maintained shared guidance to align design and engineering workflows across recurring infographic production.",
+    "impact": "Improved team consistency and onboarding speed.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery"
+    ],
+    "themes": [
+      "Documentation",
+      "Team Enablement",
+      "Design Systems"
+    ],
+    "company": "South China Morning Post",
+    "period": "2020",
+    "featured": false,
+    "links": {}
+  },
+  {
+    "id": "graphics-library",
+    "slug": "graphics-library",
+    "title": "Graphics Library",
+    "image": "/projects/library/graphics-library.png",
+    "summary": "A searchable library for reporters and editors to discover reusable widgets and embeds.",
+    "description": "Built and iterated on a shared discovery interface that made it easier for newsroom stakeholders to reuse existing graphics components.",
+    "impact": "Increased reuse of existing assets and reduced duplicate production.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery",
+      "Node.js"
+    ],
+    "themes": [
+      "Content Platforms",
+      "Discovery",
+      "Internal Tools"
+    ],
+    "company": "South China Morning Post",
+    "period": "2020",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/"
+    }
+  },
+  {
+    "id": "hong-kong-vaccinated-population",
+    "slug": "hong-kong-vaccinated-population",
+    "title": "Proportion of the Hong Kong Population Currently Vaccinated",
+    "image": "/projects/library/hong-kong-vaccinated-population.jpg",
+    "summary": "Data visualization tracking people who received the Covid-19 vaccine in Hong Kong.",
+    "description": "Built and maintained a public-facing graphic that tracked vaccination progress using data-driven updates for readers.",
+    "impact": "Improved audience understanding of vaccination progress through clear visual storytelling.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery",
+      "Node.js"
+    ],
+    "themes": [
+      "Data Journalism",
+      "Public Health",
+      "Interactive Graphics"
+    ],
+    "company": "South China Morning Post",
+    "period": "2021",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/hong-kong/vaccinated_population/"
+    }
+  },
+  {
+    "id": "hong-kong-daily-vaccinations",
+    "slug": "hong-kong-daily-vaccinations",
+    "title": "Daily Vaccinations in Hong Kong",
+    "image": "/projects/library/hong-kong-daily-vaccinations.jpg",
+    "summary": "Interactive chart showing daily Covid-19 vaccination doses in Hong Kong.",
+    "description": "Delivered a daily vaccination tracker with automated data refreshes and clear trend visualization.",
+    "impact": "Helped readers track day-to-day vaccination momentum during a critical period.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery",
+      "Node.js"
+    ],
+    "themes": [
+      "Data Journalism",
+      "Health Data",
+      "Interactive Charts"
+    ],
+    "company": "South China Morning Post",
+    "period": "2021",
+    "featured": true,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/hong-kong/dailyvaccines/"
+    }
+  },
+  {
+    "id": "china-us-alaska-summit-2021",
+    "slug": "china-us-alaska-summit-2021",
+    "title": "China-US Alaska Summit 2021",
+    "image": "/projects/library/china-us-alaska-summit-2021.jpg",
+    "summary": "Interactive explainer introducing key delegates and parties at the summit.",
+    "description": "Built an embeddable explainer to help readers identify participating officials and context around the Alaska summit meeting.",
+    "impact": "Improved comprehension of complex diplomatic coverage in a compact interactive format.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery",
+      "Node.js"
+    ],
+    "themes": [
+      "Explainers",
+      "Interactive Graphics",
+      "International Affairs"
+    ],
+    "company": "South China Morning Post",
+    "period": "2021",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/china/alaskasummit/"
+    }
+  },
+  {
+    "id": "recent-mainland-property-manager-ipos",
+    "slug": "recent-mainland-property-manager-ipos",
+    "title": "Recent Mainland Property Manager IPOs in Hong Kong",
+    "image": "/projects/library/recent-mainland-property-manager-ipos.jpg",
+    "summary": "Automated timeline visualizing recent mainland property manager IPO activity.",
+    "description": "Shipped a timeline embed powered by an updatable JSON feed to keep IPO milestones current with minimal manual effort.",
+    "impact": "Reduced maintenance overhead while keeping a frequently changing business timeline accurate.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery",
+      "Node.js"
+    ],
+    "themes": [
+      "Automation",
+      "Business Data",
+      "Timelines"
+    ],
+    "company": "South China Morning Post",
+    "period": "2020",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/vert_timeline/?id=jlllist"
+    }
+  },
+  {
+    "id": "hong-kong-third-wave",
+    "slug": "hong-kong-third-wave",
+    "title": "Hong Kong's Third Wave",
+    "image": "/projects/library/hong-kong-third-wave.gif",
+    "summary": "Animated graphic illustrating daily Covid-19 case progression in Hong Kong.",
+    "description": "Produced an animated, data-driven visual to communicate temporal spread patterns during Hong Kong's third wave.",
+    "impact": "Provided high-clarity situational awareness during a rapidly changing public health cycle.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery",
+      "Node.js"
+    ],
+    "themes": [
+      "Animation",
+      "Public Health",
+      "Data Storytelling"
+    ],
+    "company": "South China Morning Post",
+    "period": "2020",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/graphicsEmbeds/embed/?id=200710Aomg4kgOEq1i"
+    }
+  },
+  {
+    "id": "hong-kong-bus-trips",
+    "slug": "hong-kong-bus-trips",
+    "title": "Hong Kong Bus Trips",
+    "image": "/projects/library/hong-kong-bus-trips.jpg",
+    "summary": "Simple interactive embed visualizing Hong Kong bus routes.",
+    "description": "Built a route exploration graphic to make local transit information easier to browse and understand.",
+    "impact": "Improved accessibility of route information through quick interactive lookup.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery"
+    ],
+    "themes": [
+      "Mobility",
+      "Interactive Maps",
+      "Public Information"
+    ],
+    "company": "South China Morning Post",
+    "period": "2020",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/hong-kong/busroutes/"
+    }
+  },
+  {
+    "id": "us-elections-2020-electoral-college-results",
+    "slug": "us-elections-2020-electoral-college-results",
+    "title": "US Elections 2020: Electoral College Results",
+    "image": "/projects/library/us-elections-2020-electoral-college-results.jpg",
+    "summary": "Election tracker covering Electoral College outcomes during the 2020 U.S. election cycle.",
+    "description": "Delivered an embeddable election results tracker with clear visual hierarchy for high-traffic breaking coverage.",
+    "impact": "Supported rapid audience understanding of election developments during peak traffic.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery"
+    ],
+    "themes": [
+      "Elections",
+      "Live Data",
+      "News Graphics"
+    ],
+    "company": "South China Morning Post",
+    "period": "2020",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/us/elections20/"
+    }
+  },
+  {
+    "id": "hexsafe",
+    "slug": "hexsafe",
+    "title": "Hexsafe",
+    "image": "/projects/library/hexsafe.webp",
+    "summary": "The Hexsafe enterprise custodial wallet platform.",
+    "description": "Worked on product-facing wallet experiences and supporting full-stack systems for enterprise custody workflows.",
+    "impact": "Helped deliver robust institutional wallet capabilities under strict reliability and security requirements.",
+    "technologies": [
+      "React",
+      "TypeScript",
+      "CSS",
+      "MUI",
+      "Vite",
+      "Node.js",
+      "Go",
+      "Java",
+      "Keycloak",
+      "PostgreSQL"
+    ],
+    "themes": [
+      "Custody",
+      "Enterprise Wallets",
+      "Fintech Infrastructure"
+    ],
+    "company": "Hex Trust",
+    "period": "2023",
+    "featured": true,
+    "links": {
+      "demo": "https://hextrust.com/products/hex-safe"
+    }
+  },
+  {
+    "id": "gryfyn-wallet",
+    "slug": "gryfyn-wallet",
+    "title": "Gryfyn Wallet",
+    "image": "/projects/library/gryfyn-wallet.png",
+    "summary": "Custodial crypto wallet experience for users and ecosystem integrations.",
+    "description": "Contributed to wallet interface and product-level implementation supporting custody and Web3-ready account workflows.",
+    "impact": "Improved usability and product consistency across wallet flows.",
+    "technologies": [
+      "React",
+      "TypeScript",
+      "CSS",
+      "MUI",
+      "Node.js",
+      "Go",
+      "Java",
+      "Keycloak",
+      "PostgreSQL"
+    ],
+    "themes": [
+      "Wallet UX",
+      "Crypto",
+      "Product Engineering"
+    ],
+    "company": "Hex Trust",
+    "period": "2022",
+    "featured": true,
+    "links": {
+      "demo": "https://wallet.gryfyn.io/"
+    }
+  },
+  {
+    "id": "gryfyn-io",
+    "slug": "gryfyn-io",
+    "title": "Gryfyn.io",
+    "image": "/projects/library/gryfyn-io.webp",
+    "summary": "Marketing and product site for Gryfyn wallet and Web3 integrations.",
+    "description": "Developed frontend experience and site-level components to communicate product capabilities and integrations.",
+    "impact": "Strengthened product discoverability and launch communication for wallet audiences.",
+    "technologies": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "JavaScript",
+      "CSS",
+      "Tailwind CSS"
+    ],
+    "themes": [
+      "Web3",
+      "Product Marketing",
+      "Frontend"
+    ],
+    "company": "Hex Trust",
+    "period": "2022",
+    "featured": true,
+    "links": {
+      "demo": "https://www.gryfyn.io/"
+    }
+  },
+  {
+    "id": "guess-the-number-terminal-game",
+    "slug": "guess-the-number-terminal-game",
+    "title": "Guess The Number Terminal Game",
+    "image": "/projects/library/guess-the-number-terminal-game.png",
+    "summary": "Terminal-based number guessing game built while learning Rust.",
+    "description": "Implemented a classic CLI game to practice core Rust syntax, control flow, and input handling.",
+    "impact": "Established stronger fundamentals in systems-level programming.",
+    "technologies": [
+      "Rust"
+    ],
+    "themes": [
+      "CLI Apps",
+      "Learning Projects",
+      "Systems Programming"
+    ],
+    "company": "Personal",
+    "period": "2022",
+    "featured": false,
+    "links": {
+      "repo": "https://github.com/yessur3808/guess-the-number"
+    }
+  },
+  {
+    "id": "bitcoin-playground-web-app",
+    "slug": "bitcoin-playground-web-app",
+    "title": "Bitcoin Playground Web App",
+    "image": "/projects/library/bitcoin-playground-web-app.jpg",
+    "summary": "Experimental web app exploring multiple Bitcoin-related utilities.",
+    "description": "Built a lightweight frontend sandbox to test and demonstrate Bitcoin-focused utility functions.",
+    "impact": "Created a practical environment for rapid experimentation and iteration.",
+    "technologies": [
+      "React",
+      "Gatsby"
+    ],
+    "themes": [
+      "Crypto",
+      "Frontend Experiments",
+      "Personal Projects"
+    ],
+    "company": "Personal",
+    "period": "2022",
+    "featured": false,
+    "links": {
+      "demo": "https://yessur3808.github.io/bitcoin-playground/"
+    }
+  },
+  {
+    "id": "java-2048-game",
+    "slug": "java-2048-game",
+    "title": "Java Implementation of 2048 Game",
+    "image": "/projects/library/java-2048-game.png",
+    "summary": "An early object-oriented Java implementation of the 2048 puzzle game.",
+    "description": "Developed a playable 2048 project while learning OOP principles and core Java architecture patterns.",
+    "impact": "Strengthened software design fundamentals early in development journey.",
+    "technologies": [
+      "Java"
+    ],
+    "themes": [
+      "Game Development",
+      "OOP",
+      "Personal Projects"
+    ],
+    "company": "Personal",
+    "period": "2016",
+    "featured": false,
+    "links": {
+      "repo": "https://github.com/yessur3808/2048_game_Java"
+    }
+  },
+  {
+    "id": "beat-touch-ios-app",
+    "slug": "beat-touch-ios-app",
+    "title": "Beat Touch iOS App",
+    "image": "/projects/library/beat-touch-ios-app.png",
+    "summary": "A Unity-based medical game app concept for elderly users with paralysis.",
+    "description": "Co-developed a prototype therapeutic game application paired with a custom physical interaction device.",
+    "impact": "Explored assistive-tech gameplay ideas for rehabilitation-oriented interaction.",
+    "technologies": [
+      "C#",
+      "JavaScript",
+      "Unity"
+    ],
+    "themes": [
+      "Mobile Apps",
+      "Health Tech",
+      "Game Prototypes"
+    ],
+    "company": "Personal",
+    "period": "2016",
+    "featured": false,
+    "links": {
+      "repo": "https://github.com/yessur3808/Medical-game-app"
+    }
+  },
+  {
+    "id": "sonic-reader",
+    "slug": "sonic-reader",
+    "title": "SonicReader",
+    "image": "/projects/library/sonic-reader.png",
+    "summary": "Speed-reading trainer app using RSVP display patterns.",
+    "description": "Built an Android app concept focused on improving reading pace using rapid serial visual presentation techniques.",
+    "impact": "Demonstrated early product thinking around focused learning utilities.",
+    "technologies": [
+      "Java"
+    ],
+    "themes": [
+      "Android",
+      "Learning Tools",
+      "Personal Projects"
+    ],
+    "company": "Personal",
+    "period": "2016",
+    "featured": false,
+    "links": {
+      "repo": "https://github.com/yessur3808/SonicReader"
+    }
+  },
+  {
+    "id": "cumulative-coronavirus-cases",
+    "slug": "cumulative-coronavirus-cases",
+    "title": "Cumulative Coronavirus Cases",
+    "image": "/projects/library/cumulative-coronavirus-cases.jpg",
+    "summary": "Interactive comparison of top countries by cumulative Covid-19 cases.",
+    "description": "Built an embeddable comparative tracker that visualized cross-country Covid trends during the early pandemic period.",
+    "impact": "Enabled faster public understanding of relative outbreak magnitude across regions.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery",
+      "Node.js",
+      "D3.js"
+    ],
+    "themes": [
+      "Public Health",
+      "Comparative Data",
+      "News Graphics"
+    ],
+    "company": "South China Morning Post",
+    "period": "2020",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/world/covidcompare2/"
+    }
+  },
+  {
+    "id": "covid-19-decimates-global-sport",
+    "slug": "covid-19-decimates-global-sport",
+    "title": "Covid-19 Decimates Global Sport",
+    "image": "/projects/library/covid-19-decimates-global-sport.jpg",
+    "summary": "Visualization of sporting events cancelled or delayed during the pandemic.",
+    "description": "Shipped a timeline-style embed to track disruptions to global sporting calendars as events changed rapidly.",
+    "impact": "Provided readers with a clear, central source for evolving sports disruption coverage.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery",
+      "Node.js"
+    ],
+    "themes": [
+      "Sports",
+      "Pandemic Coverage",
+      "Interactive Timelines"
+    ],
+    "company": "South China Morning Post",
+    "period": "2020",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/sport/covidevents/"
+    }
+  },
+  {
+    "id": "dollar-to-yuan-conversion-rate",
+    "slug": "dollar-to-yuan-conversion-rate",
+    "title": "Dollar to Yuan Conversion Rate Over Time",
+    "image": "/projects/library/dollar-to-yuan-conversion-rate.jpg",
+    "summary": "Data visualization tracking how the Chinese yuan trades against the U.S. dollar.",
+    "description": "Implemented an interactive currency chart to communicate long-term FX movements with readable trend context.",
+    "impact": "Improved accessibility of exchange-rate trend analysis for business readers.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery",
+      "Node.js",
+      "D3.js"
+    ],
+    "themes": [
+      "Finance",
+      "Time Series",
+      "Data Visualization"
+    ],
+    "company": "South China Morning Post",
+    "period": "2020",
+    "featured": true,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/china/yuanchart/"
+    }
+  },
+  {
+    "id": "cases-of-the-wuhan-virus",
+    "slug": "cases-of-the-wuhan-virus",
+    "title": "Cases of the Wuhan Virus",
+    "image": "/projects/library/cases-of-the-wuhan-virus.jpg",
+    "summary": "Early outbreak tracker for Covid-19 case developments.",
+    "description": "Built an early-stage coronavirus data embed to visualize case progression as story context evolved rapidly.",
+    "impact": "Provided timely visual context during the initial outbreak phase.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery",
+      "Node.js"
+    ],
+    "themes": [
+      "Health Data",
+      "Breaking News",
+      "Interactive Graphics"
+    ],
+    "company": "South China Morning Post",
+    "period": "2020",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/china/wuhanvirus/"
+    }
+  },
+  {
+    "id": "coronavirus-comparison",
+    "slug": "coronavirus-comparison",
+    "title": "Coronavirus Comparison",
+    "image": "/projects/library/coronavirus-comparison.jpg",
+    "summary": "Comparative Covid-19 data visualization across regions.",
+    "description": "Created an interactive comparison module to contextualize how different geographies were affected over time.",
+    "impact": "Helped readers interpret multi-region pandemic trends with less cognitive load.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery",
+      "Node.js"
+    ],
+    "themes": [
+      "Comparative Analysis",
+      "Public Health",
+      "Data Journalism"
+    ],
+    "company": "South China Morning Post",
+    "period": "2020",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/china/viruscompare/"
+    }
+  },
+  {
+    "id": "district-council-votes",
+    "slug": "district-council-votes",
+    "title": "District Council Votes",
+    "image": "/projects/library/district-council-votes.jpg",
+    "summary": "Interactive election widget tracking district council vote outcomes.",
+    "description": "Built a high-traffic election embed to present district-level results with clear and fast readability.",
+    "impact": "Improved election-night clarity for readers following district-level shifts.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery"
+    ],
+    "themes": [
+      "Elections",
+      "Civic Data",
+      "Live Coverage"
+    ],
+    "company": "South China Morning Post",
+    "period": "2019",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/hong-kong/district-votes/"
+    }
+  },
+  {
+    "id": "covid-19-vaccine-doses-administered-globally",
+    "slug": "covid-19-vaccine-doses-administered-globally",
+    "title": "Covid-19 Vaccine Doses Administered Globally",
+    "image": "/projects/library/covid-19-vaccine-doses-administered-globally.jpg",
+    "summary": "Compare Covid-19 vaccine doses administered by country using a searchable chart.",
+    "description": "Built an interactive global vaccine tracker that let readers compare country-level progress using search and filter interactions.",
+    "impact": "Helped contextualize global vaccine rollout pace with a readable comparative view.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery",
+      "Node.js"
+    ],
+    "themes": [
+      "Public Health",
+      "Global Data",
+      "Searchable Charts"
+    ],
+    "company": "South China Morning Post",
+    "period": "2021",
+    "featured": true,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/world/vaccinechart/"
+    }
+  },
+  {
+    "id": "demographic-breakdown-of-the-npc-in-china",
+    "slug": "demographic-breakdown-of-the-npc-in-china",
+    "title": "Demographic Breakdown of the Nation's People's Congress in China",
+    "image": "/projects/library/demographic-breakdown-of-the-npc-in-china.jpg",
+    "summary": "Visual breakdown of National People's Congress deputies across China's provinces.",
+    "description": "Created a demographic visualization to help readers understand representation patterns across regions in the NPC.",
+    "impact": "Improved readability of political demographic data in a compact interactive graphic.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery",
+      "Node.js"
+    ],
+    "themes": [
+      "Politics",
+      "Data Visualization",
+      "Interactive Graphics"
+    ],
+    "company": "South China Morning Post",
+    "period": "2021",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/china/npc-demo2021/"
+    }
+  },
+  {
+    "id": "hong-kong-rugby-premiership-league-standings",
+    "slug": "hong-kong-rugby-premiership-league-standings",
+    "title": "Hong Kong Rugby Premiership League Standings",
+    "image": "/projects/library/hong-kong-rugby-premiership-league-standings.jpg",
+    "summary": "Live tracker for Hong Kong Rugby Premiership standings.",
+    "description": "Built a lightweight standings widget to help users follow league position changes at a glance.",
+    "impact": "Delivered fast access to live sports standings with minimal friction.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery",
+      "Node.js"
+    ],
+    "themes": [
+      "Sports",
+      "Live Data",
+      "Rankings"
+    ],
+    "company": "South China Morning Post",
+    "period": "2020",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/sport/hk-rugby-prem2020/"
+    }
+  },
+  {
+    "id": "hong-kong-rugby-premiership-league-schedule",
+    "slug": "hong-kong-rugby-premiership-league-schedule",
+    "title": "Hong Kong Rugby Premiership League Schedule",
+    "image": "/projects/library/hong-kong-rugby-premiership-league-schedule.jpg",
+    "summary": "League schedule tracker for Hong Kong Rugby Premiership fixtures.",
+    "description": "Developed a schedule view to make fixture browsing easier for readers following the league.",
+    "impact": "Reduced friction when checking upcoming rugby fixtures.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery",
+      "Node.js"
+    ],
+    "themes": [
+      "Sports",
+      "Schedules",
+      "Interactive Widgets"
+    ],
+    "company": "South China Morning Post",
+    "period": "2020",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/sport/hk-rugby-prem2020/fixtures/"
+    }
+  },
+  {
+    "id": "hong-kongs-new-travel-restrictions",
+    "slug": "hong-kongs-new-travel-restrictions",
+    "title": "Hong Kong's New Travel Restrictions",
+    "image": "/projects/noimg.png",
+    "summary": "Travel-restriction explainer for Hong Kong during the pandemic.",
+    "description": "Built a simple explainer widget to summarize changing travel rules and entry restrictions.",
+    "impact": "Helped readers interpret fast-changing travel policy updates.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery"
+    ],
+    "themes": [
+      "Public Health",
+      "Travel",
+      "Explainers"
+    ],
+    "company": "South China Morning Post",
+    "period": "2020",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/hong-kong/travelcovid/"
+    }
+  },
+  {
+    "id": "optimism-about-hong-kongs-future",
+    "slug": "optimism-about-hong-kongs-future",
+    "title": "Optimism About Hong Kong's Future",
+    "image": "/projects/library/optimism-about-hong-kongs-future.jpg",
+    "summary": "Election-poll graphic showing optimism about Hong Kong's future.",
+    "description": "Created a poll visualization to communicate public sentiment around optimism and future outlook.",
+    "impact": "Made public opinion data easy to scan during election coverage.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery"
+    ],
+    "themes": [
+      "Polling",
+      "Politics",
+      "Data Storytelling"
+    ],
+    "company": "South China Morning Post",
+    "period": "2019",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/hong-kong/electionpoll/?graphic=1"
+    }
+  },
+  {
+    "id": "support-for-protest-acts",
+    "slug": "support-for-protest-acts",
+    "title": "Support for Protest Acts",
+    "image": "/projects/library/support-for-protest-acts.jpg",
+    "summary": "Poll visualization showing support for protest acts in Hong Kong.",
+    "description": "Built a companion poll graphic to present public support data with clear visual hierarchy.",
+    "impact": "Improved readability of opinion polling during a volatile period.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery"
+    ],
+    "themes": [
+      "Polling",
+      "Public Opinion",
+      "Politics"
+    ],
+    "company": "South China Morning Post",
+    "period": "2019",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/hong-kong/electionpoll/?graphic=2"
+    }
+  },
+  {
+    "id": "protests-impact-on-the-city",
+    "slug": "protests-impact-on-the-city",
+    "title": "Protests' Impact on the City",
+    "image": "/projects/library/protests-impact-on-the-city.jpg",
+    "summary": "Polling visualization about how protests affected the city.",
+    "description": "Produced a poll graphic that summarized how residents felt the protests were affecting the city.",
+    "impact": "Enabled quick comparison of voter sentiment across polling categories.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery"
+    ],
+    "themes": [
+      "Polling",
+      "Social Impact",
+      "Politics"
+    ],
+    "company": "South China Morning Post",
+    "period": "2019",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/hong-kong/electionpoll/?graphic=3"
+    }
+  },
+  {
+    "id": "support-for-the-five-demands",
+    "slug": "support-for-the-five-demands",
+    "title": "Support for the Five Demands",
+    "image": "/projects/library/support-for-the-five-demands.jpg",
+    "summary": "Poll visualization covering support for the five protest demands.",
+    "description": "Created a focused poll chart to summarize support levels for the five demands campaign.",
+    "impact": "Made a complex opinion result easy to compare at a glance.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery"
+    ],
+    "themes": [
+      "Polling",
+      "Civic Data",
+      "Politics"
+    ],
+    "company": "South China Morning Post",
+    "period": "2019",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/hong-kong/electionpoll/?graphic=4"
+    }
+  },
+  {
+    "id": "trust-in-hong-kong-police",
+    "slug": "trust-in-hong-kong-police",
+    "title": "Trust in Hong Kong Police",
+    "image": "/projects/library/trust-in-hong-kong-police.jpg",
+    "summary": "Poll visualization tracking trust in the Hong Kong police.",
+    "description": "Built an interactive visualization to present trust metrics during the election poll series.",
+    "impact": "Added clarity to sentiment data in a politically sensitive context.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery"
+    ],
+    "themes": [
+      "Polling",
+      "Public Opinion",
+      "Civic Data"
+    ],
+    "company": "South China Morning Post",
+    "period": "2019",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/hong-kong/electionpoll/?graphic=5"
+    }
+  },
+  {
+    "id": "expected-outcomes-of-protests",
+    "slug": "expected-outcomes-of-protests",
+    "title": "Expected Outcomes of Protests",
+    "image": "/projects/library/expected-outcomes-of-protests.jpg",
+    "summary": "Polling graphic showing expected protest outcomes.",
+    "description": "Created a concise chart to show how residents expected the protests to unfold or resolve.",
+    "impact": "Helped surface public expectations in a compact format.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery"
+    ],
+    "themes": [
+      "Polling",
+      "Politics",
+      "Expectation Tracking"
+    ],
+    "company": "South China Morning Post",
+    "period": "2019",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/hong-kong/electionpoll/?graphic=6"
+    }
+  },
+  {
+    "id": "support-for-those-calling-for-democracy",
+    "slug": "support-for-those-calling-for-democracy",
+    "title": "Support for Those Calling for Democracy",
+    "image": "/projects/library/support-for-those-calling-for-democracy.jpg",
+    "summary": "Polling graphic covering support for pro-democracy demands.",
+    "description": "Visualized support levels for calls for democracy using a small, readable chart treatment.",
+    "impact": "Improved comprehension of a nuanced poll response set.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery"
+    ],
+    "themes": [
+      "Polling",
+      "Politics",
+      "Civic Engagement"
+    ],
+    "company": "South China Morning Post",
+    "period": "2019",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/hong-kong/electionpoll/?graphic=7"
+    }
+  },
+  {
+    "id": "seats-won-in-district-council",
+    "slug": "seats-won-in-district-council",
+    "title": "Seats Won in District Council",
+    "image": "/projects/library/seats-won-in-district-council.jpg",
+    "summary": "Election result graphic showing seats won in district council races.",
+    "description": "Built a result visualization to summarize district council seat distribution after the vote.",
+    "impact": "Helped readers understand election outcomes with minimal scanning effort.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery"
+    ],
+    "themes": [
+      "Elections",
+      "Results",
+      "Data Visualization"
+    ],
+    "company": "South China Morning Post",
+    "period": "2019",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/hong-kong/elector-seats/"
+    }
+  },
+  {
+    "id": "white-island-volcano-eruption",
+    "slug": "white-island-volcano-eruption",
+    "title": "White Island Volcano Eruption",
+    "image": "/projects/library/white-island-volcano-eruption.jpg",
+    "summary": "Visualization covering the White Island volcano eruption.",
+    "description": "Created a timely visual explainer for a major natural event to help readers quickly understand the incident.",
+    "impact": "Supported rapid news comprehension during breaking coverage.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery"
+    ],
+    "themes": [
+      "Breaking News",
+      "Natural Events",
+      "Explainers"
+    ],
+    "company": "South China Morning Post",
+    "period": "2019",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/volcano/nzvolcano/"
+    }
+  },
+  {
+    "id": "singles-day-2019-live-gmv",
+    "slug": "singles-day-2019-live-gmv",
+    "title": "Singles Day 2019 | Live GMV",
+    "image": "/projects/library/singles-day-2019-live-gmv.jpg",
+    "summary": "Live GMV tracker for Alibaba's Singles Day 2019.",
+    "description": "Built a real-time business dashboard to surface live gross merchandise volume during Singles Day coverage.",
+    "impact": "Enabled immediate insight into one of the year's largest e-commerce events.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery",
+      "Node.js"
+    ],
+    "themes": [
+      "E-commerce",
+      "Live Data",
+      "Business Graphics"
+    ],
+    "company": "South China Morning Post",
+    "period": "2019",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/business/singles-day-2019/"
+    }
+  },
+  {
+    "id": "what-happened-before-and-after-the-fall-of-hkust-student-chow-tsz-lok",
+    "slug": "what-happened-before-and-after-the-fall-of-hkust-student-chow-tsz-lok",
+    "title": "What Happened Before and After the Fall of HKUST Student Chow Tsz-lok",
+    "image": "/projects/library/what-happened-before-and-after-the-fall-of-hkust-student-chow-tsz-lok.jpg",
+    "summary": "Timeline explainer around the HKUST student Chow Tsz-lok incident.",
+    "description": "Built a timeline graphic to organize events around a sensitive and fast-moving news story.",
+    "impact": "Improved clarity of incident chronology for readers.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery"
+    ],
+    "themes": [
+      "Timelines",
+      "Breaking News",
+      "Explainers"
+    ],
+    "company": "South China Morning Post",
+    "period": "2019",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/hong-kong/hkustStudent/"
+    }
+  },
+  {
+    "id": "race-calendar",
+    "slug": "race-calendar",
+    "title": "Race Calendar",
+    "image": "/projects/library/race-calendar.jpg",
+    "summary": "Hong Kong trail running and race calendar tracker.",
+    "description": "Delivered a calendar-style widget for users to browse local race listings and schedules.",
+    "impact": "Made event discovery more efficient for sports audiences.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery",
+      "Node.js"
+    ],
+    "themes": [
+      "Sports",
+      "Calendars",
+      "Interactive Lists"
+    ],
+    "company": "South China Morning Post",
+    "period": "2019",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/sport/raceCalender/"
+    }
+  },
+  {
+    "id": "hong-kong-currency-peg-o-meter",
+    "slug": "hong-kong-currency-peg-o-meter",
+    "title": "Hong Kong Currency Peg-o-meter",
+    "image": "/projects/library/hong-kong-currency-peg-o-meter.jpg",
+    "summary": "Interactive peg-o-meter tracking Hong Kong currency conditions.",
+    "description": "Built a financial indicator widget to communicate a key market relationship in a simple visual form.",
+    "impact": "Enabled faster reading of currency peg conditions.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery",
+      "Node.js"
+    ],
+    "themes": [
+      "Finance",
+      "Indicators",
+      "Data Visualization"
+    ],
+    "company": "South China Morning Post",
+    "period": "2019",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/business/peg/"
+    }
+  },
+  {
+    "id": "us-china-trade-war-timeline",
+    "slug": "us-china-trade-war-timeline",
+    "title": "US-China Trade War Timeline",
+    "image": "/projects/library/us-china-trade-war-timeline.jpg",
+    "summary": "Timeline covering major US-China trade war milestones.",
+    "description": "Created a timeline embed to keep readers oriented through a long-running geopolitical story.",
+    "impact": "Reduced cognitive load when following the trade war's evolving sequence of events.",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery"
+    ],
+    "themes": [
+      "Timelines",
+      "Geopolitics",
+      "News Graphics"
+    ],
+    "company": "South China Morning Post",
+    "period": "2019",
+    "featured": false,
+    "links": {
+      "demo": "https://multimedia.scmp.com/widgets/vert_timeline/?id=tradewarannv"
+    }
+  }
+]

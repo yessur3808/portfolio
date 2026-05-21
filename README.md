@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Yaser Portfolio
 
-## Getting Started
+This is a Next.js App Router portfolio site with:
 
-First, run the development server:
+- Home page storytelling sections (hero, experience timeline, featured projects, skills, contact)
+- Full portfolio listing at `/portfolio`
+- Project detail pages at `/portfolio/[slug]`
+- Data-driven projects loaded from local JSON to support regular manual updates
+
+## Local Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Quality Checks
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run lint
+npm run build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project Data Refresh (Manual Google Sheet Workflow)
 
-## Learn More
+The portfolio project list is sourced from [src/data/projects.json](src/data/projects.json) and typed in [src/data/projects.ts](src/data/projects.ts).
 
-To learn more about Next.js, take a look at the following resources:
+### Refresh Steps
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Open the Google Sheet and export the project tab as CSV.
+2. Update [src/data/projects.json](src/data/projects.json) with the latest rows.
+3. Keep each item consistent with this schema:
+	- `id` (string, unique)
+	- `slug` (string, unique, URL-safe)
+	- `title` (string)
+	- `summary` (string)
+	- `description` (string)
+	- `impact` (string)
+	- `technologies` (string[])
+	- `themes` (string[])
+	- `company` (string, optional)
+	- `period` (string, optional)
+	- `featured` (boolean)
+	- `links` (`demo`, `repo`, `article` optional)
+4. Run lint/build checks.
+5. Review `/` and `/portfolio` visually.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Notes
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Duplicate slugs will fail build validation.
+- Missing optional fields are safely handled with fallbacks.
