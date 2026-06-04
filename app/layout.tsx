@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://yaseribrahim3808.com"),
   title: "Yaser Ibrahim | Senior Full Stack Software Engineer",
+  icons: {
+    icon: "/logo.svg",
+  },
   description:
     "Senior Full Stack Software Engineer based in Hong Kong building secure, scalable systems across fintech, digital assets, internal platforms, and high-traffic web experiences.",
   keywords: [

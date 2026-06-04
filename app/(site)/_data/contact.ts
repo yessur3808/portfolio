@@ -8,7 +8,7 @@ export const contactLinks: ContactLink[] = [
   },
   {
     label: "GitHub",
-    href: "https://github.com/yaser",
+    href: "https://github.com/yessur3808",
     icon: "link",
   },
   {

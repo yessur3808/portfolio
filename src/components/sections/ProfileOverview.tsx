@@ -1,4 +1,5 @@
 import { heroData } from "@/app/(site)/_data/site";
+import MissionStatusHUD from "@/src/components/sections/MissionStatusHUD";
 import { Button } from "@/src/components/ui/Button";
 import { Section } from "@/src/components/ui/Section";
 import { MissionOrb } from "@/src/components/visual/MissionOrb";
@@ -33,14 +34,6 @@ const floatingSignals = [
     className: "right-2 top-10 hidden min-[390px]:inline-flex sm:right-8",
   },
   {
-    label: "FINTECH",
-    className: "left-4 bottom-14 hidden min-[440px]:inline-flex sm:left-10",
-  },
-  {
-    label: "DIGITAL ASSETS",
-    className: "right-2 bottom-10 hidden min-[470px]:inline-flex sm:right-6",
-  },
-  {
     label: "FULL STACK",
     className: "left-1/2 top-2 inline-flex -translate-x-1/2",
   },
@@ -48,10 +41,7 @@ const floatingSignals = [
 
 export default function ProfileOverview() {
   return (
-    <Section
-      id="about"
-      className="mission-section pt-[124px] sm:pt-[138px] lg:pt-[150px]"
-    >
+    <Section id="about" className="mission-section !pt-[140px]">
       <div className="grid items-start gap-7 sm:gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
         <div className="space-y-6">
           <header className="space-y-4">
@@ -60,8 +50,8 @@ export default function ProfileOverview() {
               Yaser Ibrahim
             </h1>
             <p className="max-w-2xl text-base leading-7 text-[color:var(--text-main)]/92 sm:text-lg">
-              Senior Full Stack Engineer building secure, scalable platforms for
-              fintech, digital assets, and internal systems.
+              Senior Full Stack Software Engineer building secure, scalable
+              platforms for fintech, digital assets, and internal systems.
             </p>
             <p className="max-w-2xl text-sm leading-7 text-[color:var(--text-muted)] sm:text-base">
               I design interface architecture and backend workflows that make
@@ -133,6 +123,8 @@ export default function ProfileOverview() {
             className="relative z-10 mx-auto mt-8 sm:mt-12"
             initials="YI"
           />
+
+          <MissionStatusHUD className="relative z-20 mx-auto mt-8 w-full max-w-[26rem]" />
 
           {floatingSignals.map((chip) => (
             <span

@@ -20,6 +20,38 @@ npm run lint
 npm run build
 ```
 
+## Deployment (GitHub Pages)
+
+This project is configured as a static Next.js export and deployed with GitHub Actions.
+
+- Automatic deploy: push to `main`
+- Manual fallback: run the `Deploy Next.js static site to GitHub Pages` workflow from the Actions tab
+- Published artifact: `out/`
+
+### Custom Domain
+
+The custom domain is set through `public/CNAME`:
+
+- `yaseribrahim3808.com`
+
+### Cloudflare DNS (Apex + www)
+
+For GitHub Pages, configure these DNS records:
+
+1. `A` record for apex `@` -> `185.199.108.153`
+2. `A` record for apex `@` -> `185.199.109.153`
+3. `A` record for apex `@` -> `185.199.110.153`
+4. `A` record for apex `@` -> `185.199.111.153`
+5. `CNAME` record for `www` -> `curlycoffee852.github.io`
+
+Then in repository Settings -> Pages:
+
+1. Source: `GitHub Actions`
+2. Custom domain: `yaseribrahim3808.com`
+3. Enable `Enforce HTTPS` after certificate issuance
+
+If you ever switch away from a custom domain to `https://<username>.github.io/<repo>/`, you must add a `basePath` in `next.config.ts`.
+
 ## Project Data Refresh (Manual Google Sheet Workflow)
 
 The portfolio project list is sourced from [src/data/projects.json](src/data/projects.json) and typed in [src/data/projects.ts](src/data/projects.ts).

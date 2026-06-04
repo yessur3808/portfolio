@@ -37,18 +37,6 @@ export default function Contact() {
               experiences, I am happy to connect and contribute.
             </p>
 
-            <div className="mission-panel relative max-w-xl overflow-hidden rounded-2xl border border-[color:var(--border-soft)] bg-[rgba(2,6,23,0.76)] px-4 py-3">
-              <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,rgba(34,211,238,0),rgba(34,211,238,0.52),rgba(34,211,238,0))]" />
-              <p className="mission-label mb-2 text-[10px] text-[color:var(--text-muted)]">
-                SIGNAL SNAPSHOT
-              </p>
-              <div className="space-y-1.5 font-mono text-xs leading-5 text-[color:var(--accent-cyan)]/88">
-                <p>&gt; channel.status = &quot;available&quot;</p>
-                <p>&gt; focus = &quot;senior full stack engineering&quot;</p>
-                <p>&gt; region = &quot;Hong Kong&quot;</p>
-              </div>
-            </div>
-
             <div className="grid gap-2.5 sm:grid-cols-2">
               <Button
                 href="mailto:yaser3808@gmail.com"
@@ -68,21 +56,13 @@ export default function Contact() {
                 LinkedIn Channel
               </Button>
               <Button
-                href="https://github.com/yaser"
+                href="https://github.com/yessur3808"
                 variant="secondary"
                 external
                 className="w-full justify-start border-[color:var(--border-soft)] bg-[rgba(15,23,42,0.72)] text-[color:var(--text-main)] hover:border-[color:var(--border-cyan)] hover:text-[color:var(--accent-cyan)]"
               >
                 <Github className="mr-2 h-4 w-4" aria-hidden="true" />
                 GitHub Channel
-              </Button>
-              <Button
-                href="/resume.pdf"
-                variant="ghost"
-                className="w-full justify-start border-[color:var(--border-soft)] bg-[rgba(15,23,42,0.62)] text-[color:var(--text-main)] hover:border-[color:var(--border-cyan)] hover:text-[color:var(--accent-cyan)]"
-              >
-                <FileText className="mr-2 h-4 w-4" aria-hidden="true" />
-                Resume Channel
               </Button>
             </div>
           </div>

@@ -12,6 +12,13 @@ const Experience = dynamic(
   },
 );
 
+const SignalMetrics = dynamic(
+  () => import("@/src/components/sections/SignalMetrics"),
+  {
+    loading: () => <SectionSkeleton className="min-h-[420px]" />,
+  },
+);
+
 const CaseStudies = dynamic(
   () => import("@/src/components/sections/CaseStudies"),
   {
@@ -43,6 +50,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  icons: {
+    icon: "/logo.svg",
+  },
 };
 
 export default function HomePage() {
@@ -55,12 +65,21 @@ export default function HomePage() {
       <Suspense fallback={<SectionSkeleton className="min-h-[560px]" />}>
         <CaseStudies />
       </Suspense>
-      <Suspense fallback={<SectionSkeleton className="min-h-[500px]" />}>
-        <TechStack />
-      </Suspense>
-      <Suspense fallback={<SectionSkeleton className="min-h-[420px]" />}>
-        <Contact />
-      </Suspense>
+      <div className="mt-8 sm:mt-10">
+        <Suspense fallback={<SectionSkeleton className="min-h-[500px]" />}>
+          <TechStack />
+        </Suspense>
+      </div>
+      <div className="mt-8 sm:mt-10">
+        <Suspense fallback={<SectionSkeleton className="min-h-[420px]" />}>
+          <SignalMetrics />
+        </Suspense>
+      </div>
+      <div className="mt-8 sm:mt-10">
+        <Suspense fallback={<SectionSkeleton className="min-h-[420px]" />}>
+          <Contact />
+        </Suspense>
+      </div>
     </>
   );
 }

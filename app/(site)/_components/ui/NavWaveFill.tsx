@@ -28,8 +28,8 @@ export function NavWaveFill({
     if (prefersReducedMotion) {
       const width = 120;
       const height = 36;
-      const fillLevel = height * (1 - progress);
-      const staticPath = `M0,${height} L0,${fillLevel} L${width},${fillLevel} L${width},${height} Z`;
+      const fillX = width * progress;
+      const staticPath = `M0,0 L${fillX},0 L${fillX},${height} L0,${height} Z`;
       if (ref.current) ref.current.setAttribute("d", staticPath);
       return;
     }
@@ -41,21 +41,21 @@ export function NavWaveFill({
       phase += 0.045;
       const width = 120;
       const height = 36;
-      const amplitude = 6;
+      const amplitude = 5;
       const freq = 2.1;
-      const fillLevel = height * (1 - progress);
-      let d = `M0,${height} `;
-      d += `L0,${fillLevel}`;
-      for (let x = 0; x <= width; x += 2) {
-        const y =
-          fillLevel +
-          Math.sin((x / width) * Math.PI * freq + phase) *
+      const fillX = width * progress;
+      let d = "M0,0 ";
+      d += `L${fillX},0`;
+      for (let y = 0; y <= height; y += 2) {
+        const x =
+          fillX +
+          Math.sin((y / height) * Math.PI * freq + phase) *
             amplitude *
             0.7 *
             Math.max(progress, 0.12);
         d += ` L${x},${y}`;
       }
-      d += ` L${width},${height} Z`;
+      d += ` L0,${height} Z`;
       if (ref.current) ref.current.setAttribute("d", d);
       requestAnimationFrame(animate);
     };

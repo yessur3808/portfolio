@@ -112,13 +112,7 @@ const TimelineCard = memo(function TimelineCard({
 export default function Experience() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [pinHeight, setPinHeight] = useState(() => {
-    if (typeof window === "undefined") {
-      return 1200;
-    }
-
-    return window.innerHeight + 240;
-  });
+  const [pinHeight, setPinHeight] = useState(1200);
   const [translateStart, setTranslateStart] = useState(0);
   const [translateDistance, setTranslateDistance] = useState(0);
   const [trackWidth, setTrackWidth] = useState(0);

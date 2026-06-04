@@ -1,5 +1,18 @@
 @import "tailwindcss";
 
+/* ── AiOrb CSS variable type registrations ────────────────────────────────── */
+@property --ai-orb-aura {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(34, 211, 238, 0.32);
+}
+
+@property --ai-orb-intensity {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
 :root {
   --quantum-blue: #0e2a47;
   --pulse-violet: #8a6cff;
@@ -32,6 +45,75 @@
   --accent-amber: #f59e0b;
   --text-main: #f8fafc;
   --text-muted: #94a3b8;
+
+  /* ── AiOrb section color system ──────────────────────────────────────────── */
+  --ai-orb-primary: #67e8f9;
+  --ai-orb-secondary: #38bdf8;
+  --ai-orb-accent: #22d3ee;
+  --ai-orb-shadow: #1e1b4b;
+  --ai-orb-aura: rgba(34, 211, 238, 0.32);
+  --ai-orb-intensity: 1;
+}
+
+/* ── Per-section AiOrb themes ─────────────────────────────────────────────── */
+/* Profile – blue/violet, softer and personal */
+html[data-section="about"] {
+  --ai-orb-primary: #a78bfa;
+  --ai-orb-secondary: #818cf8;
+  --ai-orb-accent: #c4b5fd;
+  --ai-orb-shadow: #1e1b4b;
+  --ai-orb-aura: rgba(139, 92, 246, 0.28);
+  --ai-orb-intensity: 0.9;
+}
+
+/* Growth – emerald/cyan, optimistic */
+html[data-section="experience"] {
+  --ai-orb-primary: #6ee7b7;
+  --ai-orb-secondary: #34d399;
+  --ai-orb-accent: #a7f3d0;
+  --ai-orb-shadow: #052e16;
+  --ai-orb-aura: rgba(52, 211, 153, 0.28);
+  --ai-orb-intensity: 1;
+}
+
+/* Analytics – sharp cyan, more energetic */
+html[data-section="work"] {
+  --ai-orb-primary: #22d3ee;
+  --ai-orb-secondary: #06b6d4;
+  --ai-orb-accent: #67e8f9;
+  --ai-orb-shadow: #083344;
+  --ai-orb-aura: rgba(34, 211, 238, 0.42);
+  --ai-orb-intensity: 1.15;
+}
+
+/* Dashboard – cyan/blue, calm (same as default; explicit for clarity) */
+html[data-section="stack"] {
+  --ai-orb-primary: #67e8f9;
+  --ai-orb-secondary: #38bdf8;
+  --ai-orb-accent: #22d3ee;
+  --ai-orb-shadow: #1e1b4b;
+  --ai-orb-aura: rgba(56, 189, 248, 0.26);
+  --ai-orb-intensity: 0.95;
+}
+
+/* Alerts – amber/cyan, restrained attention */
+html[data-section="metrics"] {
+  --ai-orb-primary: #fcd34d;
+  --ai-orb-secondary: #f59e0b;
+  --ai-orb-accent: #67e8f9;
+  --ai-orb-shadow: #1c1001;
+  --ai-orb-aura: rgba(245, 158, 11, 0.26);
+  --ai-orb-intensity: 1.05;
+}
+
+/* Matching – violet/cyan, discovery feeling */
+html[data-section="contact"] {
+  --ai-orb-primary: #c4b5fd;
+  --ai-orb-secondary: #67e8f9;
+  --ai-orb-accent: #a78bfa;
+  --ai-orb-shadow: #2e1065;
+  --ai-orb-aura: rgba(167, 139, 250, 0.26);
+  --ai-orb-intensity: 0.95;
 }
 
 @theme inline {
@@ -73,11 +155,8 @@ body::before {
   inset: 0;
   pointer-events: none;
   z-index: -1;
-  background:
-    radial-gradient(ellipse at 50% 48%, rgba(15, 23, 42, 0.52) 0%, transparent 56%),
-    linear-gradient(rgba(148, 163, 184, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148, 163, 184, 0.055) 1px, transparent 1px);
-  background-size: auto, 56px 56px, 56px 56px;
+  background: radial-gradient(ellipse at 50% 48%, rgba(15, 23, 42, 0.52) 0%, transparent 56%);
+  background-size: auto;
   opacity: 0.34;
 }
 
@@ -101,6 +180,155 @@ body::after {
 @keyframes twinkle {
   0%, 100% { opacity: 0; }
   50% { opacity: 0; }
+}
+
+@keyframes orb-shimmer {
+  0%,
+  100% {
+    opacity: 0.26;
+    transform: translate3d(-1%, -0.5%, 0) rotate(-1deg);
+  }
+
+  50% {
+    opacity: 0.38;
+    transform: translate3d(1%, 0.5%, 0) rotate(2deg);
+  }
+}
+
+@keyframes ai-orb-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.018);
+  }
+}
+
+@keyframes ai-orb-veil-drift {
+  0%,
+  100% {
+    transform: translate3d(-0.7%, 0.7%, 0) scale(0.998);
+    opacity: 0.24;
+  }
+
+  50% {
+    transform: translate3d(0.8%, -0.5%, 0) scale(1.002);
+    opacity: 0.34;
+  }
+}
+
+@keyframes ai-orb-orbit {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.ai-orb {
+  transform: translateZ(0);
+}
+
+.ai-orb-aura {
+  background:
+    radial-gradient(circle at 50% 58%, var(--ai-orb-aura) 0%, transparent 70%),
+    radial-gradient(circle at 20% 62%, color-mix(in srgb, var(--ai-orb-aura) 60%, transparent) 0%, transparent 46%);
+  opacity: 0.7;
+  filter: blur(2px);
+  animation: ai-orb-breathe 6.8s ease-in-out infinite;
+  transition: --ai-orb-aura 300ms ease, opacity 300ms ease;
+}
+
+
+
+@media (hover: hover) and (pointer: fine) {
+  .ai-orb:hover .ai-orb-aura,
+  .ai-orb:focus-visible .ai-orb-aura {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-orb-aura {
+    animation: none !important;
+  }
+}
+
+/* ── AiOrb click ripple ─────────────────────────────────────── */
+@keyframes ai-orb-ripple {
+  0%   { transform: scale(1);   opacity: 0.72; }
+  80%  { transform: scale(1.8); opacity: 0.08; }
+  100% { transform: scale(2.0); opacity: 0; }
+}
+
+.ai-orb-ripple {
+  border: 1.5px solid var(--ai-orb-primary, #67e8f9);
+  opacity: 0;
+}
+
+.ai-orb-ripple--active {
+  animation: ai-orb-ripple 600ms cubic-bezier(0.2, 0.8, 0.4, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-orb-ripple--active {
+    animation: none;
+  }
+}
+
+/* ── AiOrb assistant panel ────────────────────────────────────── */
+
+/* Desktop: drop-down from slightly above */
+@keyframes ai-panel-enter {
+  from { opacity: 0; transform: translateY(6px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0)   scale(1); }
+}
+
+/* Mobile: slide up from below */
+@keyframes ai-panel-enter-mobile {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ai-backdrop-enter {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.ai-panel-enter {
+  animation: ai-panel-enter 220ms cubic-bezier(0.2, 0.8, 0.4, 1) both;
+}
+
+@media (max-width: 767px) {
+  .ai-panel-enter {
+    animation: ai-panel-enter-mobile 250ms cubic-bezier(0.2, 0.8, 0.4, 1) both;
+  }
+}
+
+.ai-backdrop-enter {
+  animation: ai-backdrop-enter 200ms ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-panel-enter,
+  .ai-backdrop-enter {
+    animation: none;
+  }
+}
+
+.orb-shimmer {
+  will-change: transform, opacity;
+  animation: orb-shimmer 12s ease-in-out infinite;
+}
+
+.orb-veil {
+  will-change: transform, opacity;
+  animation: orb-shimmer 16s ease-in-out infinite reverse;
 }
 
 ::selection {
@@ -350,7 +578,7 @@ body::after {
 .mission-section {
   position: relative;
   overflow: hidden;
-  padding-block: clamp(3.5rem, 7vw, 6.5rem);
+  padding-block: 0;
 }
 
 .mission-reveal {
@@ -443,10 +671,8 @@ body::after {
   opacity: 0.22;
   background-image:
     radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.14) 0%, transparent 40%),
-    radial-gradient(circle at 80% 65%, rgba(139, 92, 246, 0.1) 0%, transparent 42%),
-    linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
-  background-size: auto, auto, 34px 34px, 34px 34px;
+    radial-gradient(circle at 80% 65%, rgba(139, 92, 246, 0.1) 0%, transparent 42%);
+  background-size: auto, auto;
 }
 
 .mission-scanline {
@@ -476,6 +702,33 @@ body::after {
 .mission-scanline:hover::after,
 .mission-scanline:focus-within::after {
   animation-play-state: running;
+}
+
+.mission-scan-card {
+  position: relative;
+}
+
+.mission-scan-card::after {
+  content: "";
+  position: absolute;
+  left: 0.75rem;
+  right: 0.75rem;
+  top: -2px;
+  height: 1px;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(34, 211, 238, 0) 0%,
+    rgba(34, 211, 238, 0.82) 50%,
+    rgba(139, 92, 246, 0) 100%
+  );
+}
+
+.mission-scan-card:hover::after,
+.mission-scan-card:focus-within::after {
+  opacity: 0.9;
+  animation: mission-card-scanline 1.15s ease-out;
 }
 
 @keyframes pulse-expand {
@@ -558,6 +811,20 @@ body::after {
   }
   100% {
     left: 102%;
+    opacity: 0;
+  }
+}
+
+@keyframes mission-card-scanline {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(calc(100% + 26rem));
     opacity: 0;
   }
 }
@@ -682,6 +949,13 @@ body::after {
   .mission-scanline::after {
     animation: none;
     opacity: 0;
+  }
+
+  .mission-scan-card::after,
+  .mission-scan-card:hover::after,
+  .mission-scan-card:focus-within::after {
+    animation: none !important;
+    opacity: 0 !important;
   }
 
   .mission-reveal {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -12,13 +12,44 @@ type NavBarProps = {
   className?: string;
 };
 
+function sanitizeSectionHash(
+  rawHash: string,
+  allowedSectionIds: ReadonlySet<string>,
+) {
+  const trimmed = rawHash.startsWith("#") ? rawHash.slice(1) : rawHash;
+  if (!trimmed) {
+    return null;
+  }
+
+  let decoded = trimmed;
+  try {
+    decoded = decodeURIComponent(trimmed);
+  } catch {
+    return null;
+  }
+
+  const normalized = decoded.trim().toLowerCase();
+  if (!/^[a-z0-9-]+$/.test(normalized)) {
+    return null;
+  }
+
+  return allowedSectionIds.has(normalized) ? normalized : null;
+}
+
+function sanitizeNavHref(
+  href: string,
+  allowedSectionHrefs: ReadonlySet<string>,
+) {
+  if (href === "/portfolio") {
+    return href;
+  }
+
+  return allowedSectionHrefs.has(href) ? href : "/";
+}
+
 export function NavBar({ className }: NavBarProps) {
   const pathname = usePathname();
   const [activeHref, setActiveHref] = useState<string>(() => {
-    if (typeof window !== "undefined" && window.location.hash) {
-      return `/${window.location.hash}`;
-    }
-
     return "/#about";
   });
   const [sectionProgress, setSectionProgress] = useState<
@@ -33,6 +64,57 @@ export function NavBar({ className }: NavBarProps) {
       navItems.map((item) => item.href).filter((href) => href.startsWith("/#")),
     [],
   );
+  const allowedSectionIds = useMemo(
+    () => new Set(sectionHrefs.map((href) => href.replace("/#", ""))),
+    [sectionHrefs],
+  );
+  const allowedSectionHrefs = useMemo(
+    () => new Set(sectionHrefs),
+    [sectionHrefs],
+  );
+
+  const applySafeHash = useCallback(
+    (candidateHash?: string | null) => {
+      if (pathname !== "/") {
+        return null;
+      }
+
+      const rawHash = candidateHash ?? window.location.hash;
+      const safeId = sanitizeSectionHash(rawHash, allowedSectionIds);
+      const safeHash = safeId ? `#${safeId}` : "";
+      const nextUrl = `${window.location.pathname}${window.location.search}${safeHash}`;
+      const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+
+      if (nextUrl !== currentUrl) {
+        window.history.replaceState(null, "", nextUrl);
+      }
+
+      if (safeId) {
+        const nextHref = `/#${safeId}`;
+        setActiveHref((prev) => (prev === nextHref ? prev : nextHref));
+      }
+
+      return safeId;
+    },
+    [allowedSectionIds, pathname],
+  );
+
+  useEffect(() => {
+    if (pathname !== "/") {
+      return;
+    }
+
+    const cleanupHash = () => {
+      applySafeHash();
+    };
+
+    cleanupHash();
+    window.addEventListener("hashchange", cleanupHash);
+
+    return () => {
+      window.removeEventListener("hashchange", cleanupHash);
+    };
+  }, [applySafeHash, pathname]);
 
   useEffect(() => {
     if (pathname !== "/") {
@@ -89,9 +171,7 @@ export function NavBar({ className }: NavBarProps) {
       });
 
       if (containing) {
-        setActiveHref((prev) =>
-          prev === containing.href ? prev : containing.href,
-        );
+        applySafeHash(`#${containing.id}`);
         return;
       }
 
@@ -103,7 +183,7 @@ export function NavBar({ className }: NavBarProps) {
         .sort((a, b) => a.distance - b.distance)[0];
 
       if (nearest) {
-        setActiveHref((prev) => (prev === nearest.href ? prev : nearest.href));
+        applySafeHash(nearest.href.slice(1));
       }
     };
 
@@ -121,7 +201,7 @@ export function NavBar({ className }: NavBarProps) {
       window.removeEventListener("scroll", scheduleUpdate);
       window.removeEventListener("resize", scheduleUpdate);
     };
-  }, [pathname, sectionHrefs]);
+  }, [applySafeHash, pathname, sectionHrefs]);
 
   return (
     <nav
@@ -137,21 +217,23 @@ export function NavBar({ className }: NavBarProps) {
         aria-label="Yaser mission node"
         className="group relative inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[color:var(--border-cyan)] bg-[rgba(15,23,42,0.82)] text-[10px] font-semibold tracking-[0.08em] text-[color:var(--accent-cyan)] shadow-[0_0_16px_rgba(34,211,238,0.24)] transition-[border-color,box-shadow,background-color,color] duration-200 hover:bg-[rgba(34,211,238,0.1)] hover:text-[color:var(--text-main)] hover:shadow-[0_0_18px_rgba(34,211,238,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-cyan)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg-deep)] sm:h-10 sm:w-10"
       >
-        <span className="relative z-10">YI</span>
-        <span
+        {/* <span className="relative z-10">YI</span> */}
+        <img src="/logo.svg" alt="Yaser Ibrahim" className="h-12 w-12" />
+        {/* <span
           aria-hidden="true"
           className="mission-status-dot mission-anim-pulse absolute -right-0.5 -top-0.5 h-2.5 w-2.5 bg-[color:var(--accent-green)] shadow-[0_0_10px_rgba(52,211,153,0.65)]"
-        />
+        /> */}
       </Link>
 
       {navItems.map((item) => {
-        const isSectionItem = item.href.startsWith("/#");
-        const isPortfolio = item.href === "/portfolio";
-        const progress = isSectionItem ? (sectionProgress[item.href] ?? 0) : 0;
+        const safeHref = sanitizeNavHref(item.href, allowedSectionHrefs);
+        const isSectionItem = safeHref.startsWith("/#");
+        const isPortfolio = safeHref === "/portfolio";
+        const progress = isSectionItem ? (sectionProgress[safeHref] ?? 0) : 0;
         const isActive =
           pathname === "/"
-            ? activeHref === item.href
-            : item.href === routeActiveHref;
+            ? activeHref === safeHref
+            : safeHref === routeActiveHref;
         // For /portfolio, always show full fill when active
         const visibleProgress = isActive
           ? isSectionItem
@@ -164,8 +246,8 @@ export function NavBar({ className }: NavBarProps) {
         return (
           <Link
             key={item.href}
-            href={item.href}
-            onClick={() => setActiveHref(item.href)}
+            href={safeHref}
+            onClick={() => setActiveHref(safeHref)}
             className={cn(
               "group relative min-h-11 shrink-0 overflow-hidden rounded-full border border-transparent px-3 py-2 text-[11px] font-semibold tracking-[0.06em] text-[color:var(--text-main)]/90 transition-[color,background-color,border-color,box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-cyan)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg-deep)] sm:min-h-10 sm:px-3.5 md:px-[1.05rem] md:text-xs",
               isActive

@@ -6,68 +6,6 @@ import { Button } from "@/src/components/ui/Button";
 import { PortfolioCard } from "@/src/components/ui/PortfolioCard";
 import { Section } from "@/src/components/ui/Section";
 
-function MissionBuildDiagram({
-  seed,
-  className,
-}: {
-  seed: number;
-  className?: string;
-}) {
-  const offset = (seed % 5) * 2;
-
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 360 220"
-      role="presentation"
-      aria-hidden="true"
-      preserveAspectRatio="xMidYMid slice"
-    >
-      <g opacity="0.2" stroke="rgba(148,163,184,0.2)" strokeWidth="0.7">
-        <path d="M0 36 H360" />
-        <path d="M0 78 H360" />
-        <path d="M0 120 H360" />
-        <path d="M0 162 H360" />
-        <path d="M54 0 V220" />
-        <path d="M126 0 V220" />
-        <path d="M198 0 V220" />
-        <path d="M270 0 V220" />
-      </g>
-
-      <g
-        fill="none"
-        stroke="rgba(34,211,238,0.76)"
-        strokeWidth="1.2"
-        strokeLinecap="round"
-      >
-        <path
-          d={`M20 ${146 - offset} L92 ${118 + offset} L164 ${128 - offset} L234 ${96 + offset} L316 ${112 - offset}`}
-        />
-        <path
-          d={`M28 ${172 + offset} L106 ${152 - offset} L184 ${162 + offset} L258 ${136 - offset} L334 ${144 + offset}`}
-          opacity="0.62"
-        />
-      </g>
-
-      <g fill="rgba(34,211,238,0.9)">
-        <circle cx="92" cy={118 + offset} r="2.8" />
-        <circle cx="164" cy={128 - offset} r="2.8" />
-        <circle cx="234" cy={96 + offset} r="2.8" />
-        <circle cx="316" cy={112 - offset} r="2.8" />
-        <circle cx="106" cy={152 - offset} r="2.8" />
-        <circle cx="258" cy={136 - offset} r="2.4" />
-      </g>
-
-      <g fill="none" stroke="rgba(34,211,238,0.58)" strokeWidth="1.1">
-        <rect x="40" y={40 + offset} width="44" height="26" rx="4" />
-        <rect x="272" y={36 - offset} width="52" height="30" rx="4" />
-        <circle cx="182" cy="72" r="18" />
-        <path d="M170 72 H194" />
-      </g>
-    </svg>
-  );
-}
-
 export default function CaseStudies() {
   const featuredProjects = getFeaturedProjects(6);
 
@@ -93,7 +31,7 @@ export default function CaseStudies() {
         {featuredProjects.map((project, index) => (
           <PortfolioCard
             key={project.id}
-            className="mission-panel mission-scanline group relative flex h-full min-h-[27.5rem] flex-col overflow-hidden border border-[color:var(--border-soft)] p-0 transition-all duration-300 motion-reduce:transition-none md:min-h-[29rem] hover:-translate-y-1 motion-reduce:hover:translate-y-0 hover:border-[color:var(--border-cyan)] hover:shadow-[0_0_0_1px_rgba(34,211,238,0.22),0_28px_62px_rgba(2,6,23,0.64)]"
+            className="mission-panel mission-scan-card group relative flex h-full min-h-[27.5rem] flex-col overflow-hidden border border-[color:var(--border-soft)] p-0 transition-all duration-300 motion-reduce:transition-none md:min-h-[29rem] hover:-translate-y-1 focus-within:-translate-y-1 motion-reduce:hover:translate-y-0 motion-reduce:focus-within:translate-y-0 hover:border-[color:var(--border-cyan)] focus-within:border-[color:var(--border-cyan)] hover:shadow-[0_0_0_1px_rgba(34,211,238,0.22),0_28px_62px_rgba(2,6,23,0.64)] focus-within:shadow-[0_0_0_1px_rgba(34,211,238,0.22),0_28px_62px_rgba(2,6,23,0.64)]"
           >
             <article className="flex h-full flex-col">
               <div className="relative h-52 w-full overflow-hidden bg-slate-950/50 sm:h-56">
@@ -104,11 +42,14 @@ export default function CaseStudies() {
                   className="object-cover transition-transform duration-500 motion-reduce:transition-none group-hover:scale-[1.05] motion-reduce:group-hover:scale-100"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px"
                 />
-                <MissionBuildDiagram
-                  seed={index}
-                  className="pointer-events-none absolute inset-0 opacity-90"
-                />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent transition-opacity duration-300 group-hover:from-slate-950/80" />
+                <span className="pointer-events-none absolute right-2.5 top-2.5 inline-flex items-center gap-1.5 rounded-md border border-[rgba(34,211,238,0.28)] bg-[rgba(2,6,23,0.72)] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.13em] text-[color:var(--accent-cyan)] opacity-0 backdrop-blur-sm transition-opacity duration-200 motion-reduce:transition-none group-hover:opacity-100 group-focus-within:opacity-100">
+                  <span
+                    aria-hidden="true"
+                    className="h-1.5 w-1.5 rounded-full bg-[color:var(--accent-cyan)] shadow-[0_0_8px_rgba(34,211,238,0.85)]"
+                  />
+                  <span>SYSTEM SCAN ACTIVE</span>
+                </span>
                 <div className="absolute bottom-2 left-2 right-2 flex flex-wrap gap-1.5">
                   {project.technologies.slice(0, 2).map((tech) => (
                     <span
