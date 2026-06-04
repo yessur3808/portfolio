@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-
+import { OrbChat } from "@/src/components/orb/OrbChat";
 import { cn } from "@/src/lib/utils";
 
 type AiOrbProps = {
@@ -114,15 +114,6 @@ const DEFAULT_PALETTE: OrbPalette = {
   bright: [164, 241, 251],
   intensity: 1,
 };
-
-const SUGGESTED_QUESTIONS = [
-  "What projects has Yaser built?",
-  "What are his strongest technical skills?",
-  "Summarize his experience.",
-  "How can I contact him?",
-  "What are some of his key achievements?",
-  "What are some of his hobbies and interests?",
-] as const;
 
 export default function AiOrb({ className }: AiOrbProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -486,56 +477,35 @@ export default function AiOrb({ className }: AiOrbProps) {
           className,
         )}
       >
-        {/* AI assistant panel — temporarily hidden */}
-        {false && isOpen && (
+        {/* AI assistant panel */}
+        {isOpen && (
           <section
             id="ai-profile-assistant-panel"
             aria-labelledby="ai-assistant-heading"
             className={cn(
-              "ai-panel-enter",
-              // Mobile: full-width fixed bottom sheet
-              "fixed left-3 right-3 bottom-[calc(12px+env(safe-area-inset-bottom))]",
-              "max-h-[75vh] overflow-x-hidden overflow-y-auto overscroll-contain",
-              // Desktop: static card stacked above the orb in the flex column
-              "md:static md:bottom-auto md:left-auto md:right-auto md:z-auto",
-              "md:w-80 md:max-h-none md:overflow-hidden",
+              "ai-panel-enter chat-panel relative flex flex-col",
+              // Centered responsive panel sizing
+              "fixed left-1/2 -translate-x-1/2 bottom-[calc(12px+env(safe-area-inset-bottom))]",
+              "w-[calc(100vw-28px)] md:w-[min(82vw,680px)] lg:w-[min(78vw,820px)]",
+              "h-[min(74vh,31rem)] max-h-[74vh] overflow-x-hidden overscroll-contain",
               // Shared visual
-              "rounded-2xl border border-cyan-400/[0.18] bg-[rgba(2,8,30,0.92)]",
-              "shadow-[0_0_0_1px_rgba(103,232,249,0.07),0_24px_56px_rgba(0,0,0,0.7)] backdrop-blur-xl",
+              "rounded-[28px]",
             )}
           >
-            {/* Mobile drag handle */}
-            <div
-              aria-hidden="true"
-              className="mx-auto mb-0.5 mt-3 h-1 w-10 rounded-full bg-white/[0.15] md:hidden"
-            />
-
-            {/* Top accent line */}
-            <div
-              aria-hidden="true"
-              className="h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent"
-            />
-
             {/* Header */}
-            <div className="flex items-start gap-3 px-5 pb-3 pt-4">
-              <div className="min-w-0 flex-1">
-                <h3
-                  id="ai-assistant-heading"
-                  className="text-xs font-bold uppercase tracking-[0.15em] text-cyan-400 md:text-[10px]"
-                >
-                  AI Profile Assistant
-                </h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-slate-400 md:text-[11px]">
-                  Soon you&apos;ll be able to ask me about my resume, projects,
-                  experience, skills, and how I can help your team.
-                </p>
-              </div>
+            <div className="relative z-10 flex items-center justify-between gap-3 px-5 py-3.5">
+              <h3
+                id="ai-assistant-heading"
+                className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-200/92"
+              >
+                AI Assistant
+              </h3>
               {/* Close button — 44 × 44 px tap target on mobile */}
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
                 aria-label="Close AI profile assistant"
-                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-slate-500 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 md:h-auto md:w-auto md:p-1"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/[0.02] text-slate-400 transition-colors hover:border-cyan-400/25 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 md:h-auto md:w-auto md:p-1"
               >
                 <svg
                   width="12"
@@ -554,55 +524,8 @@ export default function AiOrb({ className }: AiOrbProps) {
               </button>
             </div>
 
-            <div aria-hidden="true" className="mx-5 h-px bg-white/[0.06]" />
-
-            {/* Suggested questions */}
-            <div className="px-5 py-3">
-              <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-600 md:text-[9px]">
-                Try asking
-              </p>
-              <ul role="list" className="space-y-2 md:space-y-1.5">
-                {SUGGESTED_QUESTIONS.map((q) => (
-                  <li
-                    key={q}
-                    className="rounded-lg border border-slate-700/50 px-3 py-3 text-sm leading-snug text-slate-400 md:py-2 md:text-[11px]"
-                  >
-                    {q}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div aria-hidden="true" className="mx-5 h-px bg-white/[0.06]" />
-
-            {/* Actions — min-h-[44px] tap targets on mobile */}
-            <nav
-              aria-label="Profile shortcuts"
-              className="flex flex-wrap gap-2 px-5 py-4 md:py-3"
-            >
-              <a
-                href="#work"
-                onClick={() => setIsOpen(false)}
-                className="flex min-h-[44px] items-center rounded-full border border-white/10 bg-white/[0.04] px-4 text-sm font-medium text-cyan-300 transition-colors hover:border-cyan-400/40 hover:bg-cyan-400/[0.08] hover:text-cyan-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 md:min-h-0 md:px-3 md:py-1.5 md:text-[11px]"
-              >
-                View Work
-              </a>
-              <a
-                href="/resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex min-h-[44px] items-center rounded-full border border-white/10 bg-white/[0.04] px-4 text-sm font-medium text-cyan-300 transition-colors hover:border-cyan-400/40 hover:bg-cyan-400/[0.08] hover:text-cyan-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 md:min-h-0 md:px-3 md:py-1.5 md:text-[11px]"
-              >
-                View Resume
-              </a>
-              <a
-                href="#contact"
-                onClick={() => setIsOpen(false)}
-                className="flex min-h-[44px] items-center rounded-full border border-white/10 bg-white/[0.04] px-4 text-sm font-medium text-cyan-300 transition-colors hover:border-cyan-400/40 hover:bg-cyan-400/[0.08] hover:text-cyan-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 md:min-h-0 md:px-3 md:py-1.5 md:text-[11px]"
-              >
-                Contact Me
-              </a>
-            </nav>
+            {/* Chat interface */}
+            <OrbChat />
           </section>
         )}
 

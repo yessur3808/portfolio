@@ -1,4 +1,4 @@
-import { ArrowRight, Download } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 import { heroData } from "@/app/(site)/_data/site";
 import { ButtonLink } from "@/app/(site)/_components/ui/ButtonLink";
@@ -22,10 +22,6 @@ export function HeroSection() {
             <ButtonLink href={heroData.primaryCta.href}>
               {heroData.primaryCta.label}
               <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
-            </ButtonLink>
-            <ButtonLink href={heroData.secondaryCta.href} variant="secondary">
-              <Download className="mr-2 h-4 w-4" aria-hidden="true" />
-              {heroData.secondaryCta.label}
             </ButtonLink>
           </div>
         </div>

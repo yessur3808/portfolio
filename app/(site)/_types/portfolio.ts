@@ -12,10 +12,6 @@ export type HeroData = {
     label: string;
     href: string;
   };
-  secondaryCta: {
-    label: string;
-    href: string;
-  };
 };
 
 export type AboutData = {
@@ -59,5 +55,4 @@ export type SiteConfig = {
   url: string;
   description: string;
   location: string;
-  resumeHref: string;
 };

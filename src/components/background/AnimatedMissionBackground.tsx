@@ -30,10 +30,20 @@ type AnimatedMissionBackgroundProps = {
 };
 
 const DEEP_BG = "#020617";
-const CYAN = "#22d3ee";
-const BLUE = "#38bdf8";
-const VIOLET = "#8b5cf6";
-const STREAK_COLORS = [CYAN, BLUE, VIOLET] as const;
+const CYAN = "#00fff7";
+const BLUE = "#00b4ff";
+const VIOLET = "#c084fc";
+const PURPLE = "#a855f7";
+const AZURE = "#38bdf8";
+const ELECTRIC_BLUE = "#818cf8";
+const STREAK_COLORS = [
+  CYAN,
+  BLUE,
+  VIOLET,
+  PURPLE,
+  AZURE,
+  ELECTRIC_BLUE,
+] as const;
 const MAX_ACTIVE_CONNECTIONS = 9;
 const SPAWN_INTERVAL_MIN_MS = 520;
 const SPAWN_INTERVAL_MAX_MS = 1250;
@@ -87,7 +97,7 @@ function createNodes(width: number, height: number) {
 }
 
 function createStars(width: number, height: number) {
-  const count = clamp(Math.floor((width * height) / 21000), 36, 90);
+  const count = clamp(Math.floor((width * height) / 21000), 80, 160);
   const stars: Star[] = [];
 
   for (let i = 0; i < count; i += 1) {
@@ -121,8 +131,8 @@ function drawBase(
     height * 0.18,
     Math.max(width, height) * 0.64,
   );
-  cyanGlow.addColorStop(0, "rgba(34, 211, 238, 0.14)");
-  cyanGlow.addColorStop(0.45, "rgba(56, 189, 248, 0.08)");
+  cyanGlow.addColorStop(0, "rgba(103, 232, 249, 0.24)");
+  cyanGlow.addColorStop(0.45, "rgba(56, 189, 248, 0.16)");
   cyanGlow.addColorStop(1, "rgba(56, 189, 248, 0)");
 
   const violetGlow = ctx.createRadialGradient(
@@ -133,8 +143,8 @@ function drawBase(
     height * 0.3,
     Math.max(width, height) * 0.58,
   );
-  violetGlow.addColorStop(0, "rgba(139, 92, 246, 0.13)");
-  violetGlow.addColorStop(0.5, "rgba(139, 92, 246, 0.06)");
+  violetGlow.addColorStop(0, "rgba(167, 139, 250, 0.22)");
+  violetGlow.addColorStop(0.5, "rgba(167, 139, 250, 0.12)");
   violetGlow.addColorStop(1, "rgba(139, 92, 246, 0)");
 
   const blueGlow = ctx.createRadialGradient(
@@ -145,7 +155,7 @@ function drawBase(
     height * 0.84,
     Math.max(width, height) * 0.48,
   );
-  blueGlow.addColorStop(0, "rgba(56, 189, 248, 0.09)");
+  blueGlow.addColorStop(0, "rgba(56, 189, 248, 0.16)");
   blueGlow.addColorStop(1, "rgba(56, 189, 248, 0)");
 
   ctx.fillStyle = cyanGlow;
@@ -160,7 +170,7 @@ function drawBase(
   for (const star of stars) {
     ctx.beginPath();
     ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(248, 250, 252, ${star.a})`;
+    ctx.fillStyle = `rgba(255, 255, 255, ${Math.min(star.a * 1.35, 0.8)})`;
     ctx.fill();
   }
 
@@ -186,19 +196,25 @@ function drawNodes(
     const key = `${Math.round(node.x)}:${Math.round(node.y)}`;
     const boosted = hotNodes.has(key);
 
+    ctx.save();
+    if (boosted) {
+      ctx.shadowBlur = 18;
+      ctx.shadowColor = "rgba(0, 255, 247, 0.9)";
+    }
     ctx.beginPath();
     ctx.fillStyle = boosted
-      ? "rgba(56, 189, 248, 0.3)"
-      : "rgba(148, 163, 184, 0.14)";
-    ctx.arc(node.x, node.y, boosted ? 1.45 : 1.05, 0, Math.PI * 2);
+      ? "rgba(0, 255, 247, 0.85)"
+      : "rgba(148, 163, 184, 0.3)";
+    ctx.arc(node.x, node.y, boosted ? 2.2 : 1.3, 0, Math.PI * 2);
     ctx.fill();
 
     ctx.beginPath();
     ctx.fillStyle = boosted
-      ? "rgba(34, 211, 238, 0.34)"
-      : "rgba(34, 211, 238, 0.18)";
-    ctx.arc(node.x, node.y, boosted ? 0.95 : 0.75, 0, Math.PI * 2);
+      ? "rgba(0, 255, 247, 1.0)"
+      : "rgba(103, 232, 249, 0.4)";
+    ctx.arc(node.x, node.y, boosted ? 1.3 : 0.9, 0, Math.PI * 2);
     ctx.fill();
+    ctx.restore();
   }
 }
 
@@ -346,7 +362,7 @@ export function AnimatedMissionBackground({
         from,
         to,
         color,
-        width: rand(0.95, 1.6),
+        width: rand(1.8, 3.0),
         progress: 0,
         speed: rand(0.24, 0.42),
       });
@@ -379,8 +395,8 @@ export function AnimatedMissionBackground({
           continue;
         }
 
-        const alpha = Math.sin(nextProgress * Math.PI) * 0.4;
-        const lineAlpha = clamp(alpha, 0.1, 0.32);
+        const alpha = Math.sin(nextProgress * Math.PI) * 0.92;
+        const lineAlpha = clamp(alpha, 0.45, 0.88);
 
         ctx.save();
         ctx.beginPath();
@@ -388,8 +404,16 @@ export function AnimatedMissionBackground({
         ctx.lineTo(connection.to.x, connection.to.y);
         ctx.lineWidth = connection.width;
         ctx.strokeStyle = hexToRgba(connection.color, lineAlpha);
-        ctx.shadowBlur = 12;
-        ctx.shadowColor = hexToRgba(connection.color, lineAlpha * 0.72);
+        ctx.shadowBlur = 48;
+        ctx.shadowColor = hexToRgba(connection.color, lineAlpha * 1.4);
+        ctx.stroke();
+        // second pass for stronger glow core
+        ctx.lineWidth = connection.width * 0.45;
+        ctx.strokeStyle = hexToRgba(
+          connection.color,
+          Math.min(lineAlpha + 0.25, 1.0),
+        );
+        ctx.shadowBlur = 20;
         ctx.stroke();
 
         const pulseX =
@@ -400,13 +424,20 @@ export function AnimatedMissionBackground({
           (connection.to.y - connection.from.y) * nextProgress;
 
         ctx.beginPath();
-        ctx.arc(pulseX, pulseY, 2.2, 0, Math.PI * 2);
+        ctx.arc(pulseX, pulseY, 4.0, 0, Math.PI * 2);
         ctx.fillStyle = hexToRgba(
           connection.color,
-          clamp(alpha + 0.12, 0.14, 0.48),
+          clamp(alpha + 0.3, 0.55, 1.0),
         );
-        ctx.shadowBlur = 18;
-        ctx.shadowColor = hexToRgba(connection.color, 0.45);
+        ctx.shadowBlur = 56;
+        ctx.shadowColor = hexToRgba(connection.color, 1.0);
+        ctx.fill();
+        // bright white core on pulse dot
+        ctx.beginPath();
+        ctx.arc(pulseX, pulseY, 1.6, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255, 255, 255, 0.92)";
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = hexToRgba(connection.color, 1.0);
         ctx.fill();
         ctx.restore();
 

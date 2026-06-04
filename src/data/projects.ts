@@ -80,3 +80,15 @@ export const getFeaturedProjects = (limit = 6): ProjectRecord[] => {
 
 export const getProjectBySlug = (slug: string): ProjectRecord | undefined =>
   projects.find((project) => project.slug === slug);
+
+export const getPreferredProjectLink = (
+  project: Pick<ProjectRecord, "links">,
+): string | undefined => {
+  const candidates = [
+    project.links.demo,
+    project.links.repo,
+    project.links.article,
+  ];
+
+  return candidates.find((link) => Boolean(link && link.trim()));
+};

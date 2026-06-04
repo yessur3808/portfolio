@@ -314,6 +314,106 @@ body::after {
   animation: ai-backdrop-enter 200ms ease both;
 }
 
+@keyframes ai-neon-orbit {
+  from {
+    transform: rotate(0turn);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@property --chat-border-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes chatBorderOrbit {
+  to {
+    --chat-border-angle: 360deg;
+  }
+}
+
+.chat-panel {
+  position: relative;
+  overflow: hidden;
+  border: none;
+  isolation: isolate;
+  background: linear-gradient(135deg, rgba(42, 69, 83, 0.619), rgba(0, 22, 59, 0.82));
+  backdrop-filter: blur(28px) saturate(135%);
+  -webkit-backdrop-filter: blur(28px) saturate(135%);
+  box-shadow:
+    0 24px 80px rgba(3, 10, 28, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.chat-panel::before,
+.chat-panel::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: 0;
+}
+
+.chat-panel::before {
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(transparent, transparent) padding-box,
+    conic-gradient(
+      from var(--chat-border-angle, 0deg),
+      rgba(34, 211, 238, 0) 0deg,
+      rgba(34, 211, 238, 0) 56deg,
+      rgba(84, 211, 255, 0.92) 76deg,
+      rgba(84, 211, 255, 0) 106deg,
+      rgba(168, 85, 247, 0) 236deg,
+      rgba(155, 92, 255, 0.9) 256deg,
+      rgba(155, 92, 255, 0) 286deg,
+      rgba(34, 211, 238, 0) 360deg
+    ) border-box;
+  background-clip: padding-box, border-box;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.72;
+  filter:
+    drop-shadow(0 0 6px rgba(84, 211, 255, 0.2))
+    drop-shadow(0 0 8px rgba(155, 92, 255, 0.16));
+  animation: chatBorderOrbit 8s linear infinite;
+}
+
+.chat-panel::after {
+  inset: 1.5px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chat-panel::before {
+    animation: none;
+  }
+}
+
+.chat-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 767px) {
+  .chat-panel {
+    backdrop-filter: blur(24px) saturate(128%);
+    -webkit-backdrop-filter: blur(24px) saturate(128%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ai-panel-enter,
   .ai-backdrop-enter {

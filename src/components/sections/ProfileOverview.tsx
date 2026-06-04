@@ -84,13 +84,6 @@ export default function ProfileOverview() {
             >
               {heroData.primaryCta.label}
             </Button>
-            <Button
-              href={heroData.secondaryCta.href}
-              variant="secondary"
-              className="w-full border-[color:var(--border-soft)] bg-[rgba(15,23,42,0.66)] text-[color:var(--text-main)] hover:border-[color:var(--border-cyan)] hover:text-[color:var(--accent-cyan)] sm:w-auto"
-            >
-              {heroData.secondaryCta.label}
-            </Button>
           </div>
 
           <div className="mission-panel mission-grid-bg space-y-4 rounded-3xl p-5 sm:p-6">

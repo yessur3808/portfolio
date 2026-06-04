@@ -17,14 +17,14 @@ export function ResumeSection() {
               Download a PDF summary of experience, projects, and skills.
             </p>
           </div>
-          <ButtonLink
+          {/* <ButtonLink
             href={siteConfig.resumeHref}
             className="w-fit"
             variant="primary"
           >
             <Download className="mr-2 h-4 w-4" aria-hidden="true" />
             Download Resume
-          </ButtonLink>
+          </ButtonLink> */}
         </div>
       </Container>
     </section>

@@ -61,9 +61,9 @@ export default function Hero() {
             <Button href="#experience" variant="secondary">
               View Experience
             </Button>
-            <Button href="/resume.pdf" variant="secondary" external>
+            {/* <Button href="/resume.pdf" variant="secondary" external>
               Download Resume
-            </Button>
+            </Button> */}
             <Button href="#contact" variant="ghost">
               Contact
             </Button>

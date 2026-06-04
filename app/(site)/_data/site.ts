@@ -10,7 +10,6 @@ export const siteConfig: SiteConfig = {
   description:
     "Portfolio of Yaser: product-minded software engineer building fast, reliable web experiences.",
   location: "Remote",
-  resumeHref: "/resume.pdf",
 };
 
 export const navItems: NavItem[] = [
@@ -32,9 +31,5 @@ export const heroData: HeroData = {
   primaryCta: {
     label: "View Work",
     href: "/#work",
-  },
-  secondaryCta: {
-    label: "Download Resume",
-    href: "/resume.pdf",
   },
 };

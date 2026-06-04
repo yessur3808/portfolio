@@ -14,11 +14,11 @@ const links = [
     href: "https://github.com/yessur3808",
     external: true,
   },
-  {
-    label: "Resume",
-    href: "/resume.pdf",
-    external: true,
-  },
+  // {
+  //   label: "Resume",
+  //   href: "/resume.pdf",
+  //   external: true,
+  // },
 ];
 
 export default function Footer() {
