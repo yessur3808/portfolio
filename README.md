@@ -1,82 +1,51 @@
-# Yaser Portfolio
+# Yaser's Portfolio
 
-This is a Next.js App Router portfolio site with:
+This repository powers my personal website, built as an online resume and portfolio. It is designed to present who I am, the work I have done, and how I think about product, engineering, and creative execution.
 
-- Home page storytelling sections (hero, experience timeline, featured projects, skills, contact)
-- Full portfolio listing at `/portfolio`
-- Project detail pages at `/portfolio/[slug]`
-- Data-driven projects loaded from local JSON to support regular manual updates
+More than a project gallery, the site is meant to reflect my professional story. It brings together my technical skills, hands-on experience, and design sensibility in a format that feels personal rather than purely corporate.
 
-## Local Development
+## Purpose
 
-```bash
-npm run dev
-```
+The website is built to:
 
-## Quality Checks
+- introduce me through a more thoughtful and visual experience than a traditional resume
+- showcase selected projects and case studies in a way that highlights both impact and process
+- communicate my background, technical range, and creative approach in one place
 
-```bash
-npm run lint
-npm run build
-```
+## Technologies Used
 
-## Deployment (GitHub Pages)
+This project is built with a focused modern frontend stack:
 
-This project is configured as a static Next.js export and deployed with GitHub Actions.
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Framer Motion
 
-- Automatic deploy: push to `main`
-- Manual fallback: run the `Deploy Next.js static site to GitHub Pages` workflow from the Actions tab
-- Published artifact: `out/`
+These tools support a fast, responsive, and interactive experience while keeping the site maintainable as it grows.
 
-### Custom Domain
+## Design Flow
 
-The custom domain is set through `public/CNAME`:
+The design flow of the site is centered around storytelling and progression.
 
-- `yaseribrahim3808.com`
+1. Landing and introduction
+   The first impression is meant to feel distinctive and intentional, giving a quick sense of personality, role, and direction.
+2. Experience and credibility
+   The next sections establish professional background, technical depth, and the kind of work I have been involved in.
+3. Project exploration
+   Featured work and portfolio entries give visitors a clearer view of execution, problem-solving, and outcomes.
+4. Skills and tools
+   Supporting sections highlight the technologies and capabilities behind the work.
+5. Contact and next step
+   The final part of the experience makes it easy to continue the conversation, whether for collaboration, hiring, or networking.
 
-### Cloudflare DNS (Apex + www)
+## Overall Direction
 
-For GitHub Pages, configure these DNS records:
+The visual and content direction aims to balance:
 
-1. `A` record for apex `@` -> `185.199.108.153`
-2. `A` record for apex `@` -> `185.199.109.153`
-3. `A` record for apex `@` -> `185.199.110.153`
-4. `A` record for apex `@` -> `185.199.111.153`
-5. `CNAME` record for `www` -> `curlycoffee852.github.io`
+- professionalism
+- creativity
+- clarity
+- personal identity
 
-Then in repository Settings -> Pages:
-
-1. Source: `GitHub Actions`
-2. Custom domain: `yaseribrahim3808.com`
-3. Enable `Enforce HTTPS` after certificate issuance
-
-If you ever switch away from a custom domain to `https://<username>.github.io/<repo>/`, you must add a `basePath` in `next.config.ts`.
-
-## Project Data Refresh (Manual Google Sheet Workflow)
-
-The portfolio project list is sourced from [src/data/projects.json](src/data/projects.json) and typed in [src/data/projects.ts](src/data/projects.ts).
-
-### Refresh Steps
-
-1. Open the Google Sheet and export the project tab as CSV.
-2. Update [src/data/projects.json](src/data/projects.json) with the latest rows.
-3. Keep each item consistent with this schema:
-	- `id` (string, unique)
-	- `slug` (string, unique, URL-safe)
-	- `title` (string)
-	- `summary` (string)
-	- `description` (string)
-	- `impact` (string)
-	- `technologies` (string[])
-	- `themes` (string[])
-	- `company` (string, optional)
-	- `period` (string, optional)
-	- `featured` (boolean)
-	- `links` (`demo`, `repo`, `article` optional)
-4. Run lint/build checks.
-5. Review `/` and `/portfolio` visually.
-
-### Notes
-
-- Duplicate slugs will fail build validation.
-- Missing optional fields are safely handled with fallbacks.
+The result is a portfolio that functions both as a resume and as a more expressive digital presence.
