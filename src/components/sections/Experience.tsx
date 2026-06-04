@@ -34,14 +34,14 @@ const TimelineCard = memo(function TimelineCard({
 
   return (
     <li
-      className={`relative ${isDesktopTrack ? "w-[min(31rem,calc(100vw-7rem))] flex-none md:h-[calc(100vh-13rem)]" : ""}`}
+      className={`relative ${isDesktopTrack ? "w-[min(31rem,calc(100vw-3rem))] flex-none h-[calc(100vh-11rem)] md:w-[min(31rem,calc(100vw-7rem))] md:h-[calc(100vh-13rem)]" : ""}`}
     >
       <Card
-        className={`mission-panel glass-liquid group relative h-full overflow-hidden border-0 p-4 transition-all duration-300 sm:p-6 ${isCurrent ? "shadow-[0_30px_70px_rgb(2_6_23/0.72)]" : ""}`}
+        className={`mission-panel glass-liquid group relative h-full overflow-hidden border-0 p-[0.875rem] transition-all duration-300 sm:p-6 ${isCurrent ? "shadow-[0_30px_70px_rgb(2_6_23/0.72)]" : ""}`}
       >
         <div className="pointer-events-none absolute right-0 top-0 h-32 w-32 rounded-full bg-blue-400/10 blur-3xl transition-opacity duration-300 group-hover:opacity-100" />
-        <article className="relative flex h-full min-h-0 flex-col space-y-4">
-          <header className="space-y-2 pb-3 pt-3">
+        <article className="relative flex h-full min-h-0 flex-col space-y-3.5 sm:space-y-4">
+          <header className="space-y-1.5 pb-2.5 pt-2.5 sm:space-y-2 sm:pb-3 sm:pt-3">
             <div className="space-y-1.5">
               <span className="block text-[16px] font-semibold uppercase tracking-[0.16em] text-blue-200/90">
                 {item.role}
@@ -51,7 +51,7 @@ const TimelineCard = memo(function TimelineCard({
                 {item.company}
               </p>
 
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] text-slate-300">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-slate-300 sm:text-[13px]">
                 <span className="inline-flex items-center gap-1.5">
                   <Globe2
                     className="h-3.5 w-3.5 text-blue-300/85"
@@ -70,7 +70,7 @@ const TimelineCard = memo(function TimelineCard({
             </div>
           </header>
 
-          <div className="flex flex-1 flex-col gap-3 pr-1">
+          <div className="flex flex-1 flex-col gap-2.5 pr-1 sm:gap-3">
             <section
               aria-label={`${item.company} highlights`}
               id={`${itemId}-details`}
@@ -79,11 +79,11 @@ const TimelineCard = memo(function TimelineCard({
               <h4 className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">
                 Key Points
               </h4>
-              <ul className="space-y-1.5 text-[15px] leading-5 text-slate-300">
+              <ul className="space-y-1.5 text-sm leading-[1.35rem] text-slate-300 sm:text-[15px] sm:leading-5">
                 {item.highlights.map((highlight) => (
                   <li
                     key={highlight}
-                    className="flex items-start gap-2 before:mt-1.5 before:h-1.25 before:w-1.25 before:shrink-0 before:rounded-full before:bg-blue-300/75 before:content-['']"
+                    className="flex items-start gap-1.5 before:mt-1.5 before:h-1.25 before:w-1.25 before:shrink-0 before:rounded-full before:bg-blue-300/75 before:content-[''] sm:gap-2"
                   >
                     <span>{highlight}</span>
                   </li>
@@ -148,7 +148,7 @@ export default function Experience() {
 
   useEffect(() => {
     const updateTargetProgress = () => {
-      if (window.innerWidth < 768 || metricsRef.current.scrollDistance <= 0) {
+      if (metricsRef.current.scrollDistance <= 0) {
         targetProgressRef.current = 0;
         return;
       }
@@ -206,19 +206,6 @@ export default function Experience() {
         return;
       }
 
-      if (window.innerWidth < 768) {
-        metricsRef.current = { scrollDistance: 0, sectionStart: 0 };
-        setPinHeight(window.innerHeight + 240);
-        setTranslateStart(0);
-        setTranslateDistance(0);
-        setTrackWidth(0);
-        setNodePoints([]);
-        targetProgressRef.current = 0;
-        currentProgressRef.current = 0;
-        setScrollProgress(0);
-        return;
-      }
-
       const trackItems = Array.from(track.children) as HTMLElement[];
       const firstItem = trackItems[0];
       const lastItem = trackItems[trackItems.length - 1];
@@ -240,7 +227,7 @@ export default function Experience() {
       const scrollDistance = timelineTranslateDistance * SCROLL_SLOWDOWN;
       const sectionTop =
         window.scrollY + pinSection.getBoundingClientRect().top;
-      const stickyTop = 112;
+      const stickyTop = window.innerWidth < 640 ? 82 : 112;
 
       metricsRef.current = {
         scrollDistance,
@@ -306,14 +293,14 @@ export default function Experience() {
     >
       <div
         ref={pinSectionRef}
-        className="relative left-1/2 hidden w-screen -translate-x-1/2 md:block"
+        className="relative left-1/2 w-screen -translate-x-1/2"
         style={{ height: pinHeight }}
       >
         <div
           ref={stickyRef}
-          className="sticky top-20 max-h-[calc(100vh-5rem)] overflow-hidden rounded-none bg-slate-950/12 px-0 py-5 lg:top-24 lg:max-h-[calc(100vh-6rem)] lg:py-6"
+          className="sticky top-16 max-h-[calc(100vh-4rem)] overflow-hidden rounded-none bg-slate-950/12 px-0 py-4 sm:top-20 sm:max-h-[calc(100vh-5rem)] sm:py-5 lg:top-24 lg:max-h-[calc(100vh-6rem)] lg:py-6"
         >
-          <p className="pointer-events-none absolute right-8 top-2 z-10 text-[11px] tracking-[0.08em] text-slate-400/90">
+          <p className="pointer-events-none absolute right-4 top-2 z-10 text-[10px] tracking-[0.08em] text-slate-400/90 sm:right-8 sm:text-[11px]">
             Scroll to move through the timeline
           </p>
           <div className="relative overflow-hidden pt-16">
@@ -394,15 +381,6 @@ export default function Experience() {
             </ol>
           </div>
         </div>
-      </div>
-
-      <div className="space-y-4 md:hidden">
-        <ol
-          className="space-y-4"
-          aria-label="Professional experience timeline mobile view"
-        >
-          {experienceItems.map((item, index) => getTimelineCard(item, index))}
-        </ol>
       </div>
     </Section>
   );
