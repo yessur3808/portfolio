@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { trackEvent } from "@/src/lib/analytics";
 
 /**
  * Watches scroll position and writes the id of the currently-visible section
@@ -17,11 +18,12 @@ const SECTION_IDS = [
 ] as const;
 
 export default function SectionObserver() {
+  const prevSectionRef = useRef<string>("");
+
   useEffect(() => {
     let frameId = 0;
 
     const detect = () => {
-      // Probe point: 38% from the top of the viewport
       const threshold = window.scrollY + window.innerHeight * 0.38;
       let active = "";
 
@@ -34,6 +36,14 @@ export default function SectionObserver() {
 
       if (active && document.documentElement.dataset.section !== active) {
         document.documentElement.dataset.section = active;
+
+        if (active !== prevSectionRef.current) {
+          prevSectionRef.current = active;
+          trackEvent("section_view", {
+            section_name: active,
+            scroll_position: Math.round(window.scrollY),
+          });
+        }
       }
     };
 
@@ -45,7 +55,6 @@ export default function SectionObserver() {
       });
     };
 
-    // Set the initial section immediately on mount
     detect();
     window.addEventListener("scroll", onScroll, { passive: true });
 

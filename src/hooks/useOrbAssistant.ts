@@ -6,6 +6,7 @@ import type {
   AssistantResponse,
   OrbState,
 } from "@/src/lib/orb/types";
+import { trackEvent } from "@/src/lib/analytics";
 
 type UseOrbAssistantOptions = {
   preload?: boolean;
@@ -61,6 +62,12 @@ export function useOrbAssistant(
       if (!trimmed || orbState === "thinking" || orbState === "answering")
         return;
 
+      // Track query submission
+      trackEvent("orb_query_submitted", {
+        query_length: trimmed.length,
+        has_context: messages.length > 0,
+      });
+
       setMessages((prev) => [...prev, makeMessage("user", trimmed)]);
       setOrbState("thinking");
 
@@ -73,19 +80,32 @@ export function useOrbAssistant(
           ...prev,
           makeMessage("assistant", response.answer),
         ]);
-      } catch {
+
+        // Track successful response
+        trackEvent("orb_search_result", {
+          result_count: response.matchedChunks?.length || 0,
+          search_type:
+            response.matchedChunks?.length > 0 ? "semantic" : "keyword",
+          confidence: Math.round(response.confidence * 100),
+        });
+      } catch (error) {
         setOrbState("error");
         setMessages((prev) => [
           ...prev,
           makeMessage("assistant", "Something went wrong. Please try again."),
         ]);
+
+        // Track error
+        trackEvent("orb_assistant_error", {
+          error_type: error instanceof Error ? error.name : "unknown",
+        });
       } finally {
         setOrbState((prev) =>
           prev === "answering" || prev === "error" ? "idle" : prev,
         );
       }
     },
-    [loadEngine, orbState],
+    [loadEngine, orbState, messages.length],
   );
 
   const reset = useCallback(() => {

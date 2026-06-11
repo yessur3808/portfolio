@@ -5,6 +5,7 @@ import { NavBar } from "@/app/(site)/_components/ui/NavBar";
 import AnimatedMissionBackground from "@/src/components/background/AnimatedMissionBackground";
 import SectionObserver from "@/src/components/background/SectionObserver";
 import Footer from "@/src/components/layout/Footer";
+import { ScrollDepthTracker } from "@/src/components/ScrollDepthTracker";
 
 type SiteLayoutProps = {
   children: ReactNode;
@@ -15,6 +16,7 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
     <div className="relative isolate flex min-h-screen flex-col bg-transparent text-slate-100">
       <AnimatedMissionBackground />
       <SectionObserver />
+      <ScrollDepthTracker />
       <AiOrb />
       <NavBar />
       <main className="content-veil relative z-10 flex-1 pb-24 md:pb-0">

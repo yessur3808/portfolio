@@ -1,7 +1,10 @@
-import { FileText, Link2, Mail, MapPin } from "lucide-react";
+"use client";
+
+import { Link2, Mail, MapPin } from "lucide-react";
 
 import { Button } from "@/src/components/ui/Button";
 import { Section } from "@/src/components/ui/Section";
+import { trackEvent } from "@/src/lib/analytics";
 
 const facts = [
   "Currently based in Hong Kong",
@@ -9,7 +12,6 @@ const facts = [
   "American Citizen",
 ];
 
-// lucide-react in this workspace version does not export brand icons for LinkedIn/GitHub.
 const Linkedin = Link2;
 const Github = Link2;
 
@@ -40,6 +42,11 @@ export default function Contact() {
             <div className="grid gap-2.5 sm:grid-cols-2">
               <Button
                 href="mailto:yaser3808@gmail.com"
+                onClick={() => {
+                  trackEvent("contact_click", {
+                    contact_type: "email",
+                  });
+                }}
                 variant="primary"
                 className="mission-scanline w-full justify-start border-[color:var(--border-cyan)] bg-[rgba(34,211,238,0.14)] text-[color:var(--accent-cyan)] shadow-[0_0_18px_rgba(34,211,238,0.16)] hover:bg-[rgba(34,211,238,0.2)]"
               >
@@ -48,6 +55,11 @@ export default function Contact() {
               </Button>
               <Button
                 href="https://linkedin.com/in/yaseribrahim510"
+                onClick={() => {
+                  trackEvent("contact_click", {
+                    contact_type: "linkedin",
+                  });
+                }}
                 variant="secondary"
                 external
                 className="w-full justify-start border-[color:var(--border-soft)] bg-[rgba(15,23,42,0.72)] text-[color:var(--text-main)] hover:border-[color:var(--border-cyan)] hover:text-[color:var(--accent-cyan)]"
@@ -57,6 +69,11 @@ export default function Contact() {
               </Button>
               <Button
                 href="https://github.com/yessur3808"
+                onClick={() => {
+                  trackEvent("contact_click", {
+                    contact_type: "github",
+                  });
+                }}
                 variant="secondary"
                 external
                 className="w-full justify-start border-[color:var(--border-soft)] bg-[rgba(15,23,42,0.72)] text-[color:var(--text-main)] hover:border-[color:var(--border-cyan)] hover:text-[color:var(--accent-cyan)]"

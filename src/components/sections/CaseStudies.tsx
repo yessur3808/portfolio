@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { ExternalLink } from "lucide-react";
@@ -9,6 +11,7 @@ import {
 import { Button } from "@/src/components/ui/Button";
 import { PortfolioCard } from "@/src/components/ui/PortfolioCard";
 import { Section } from "@/src/components/ui/Section";
+import { trackEvent } from "@/src/lib/analytics";
 
 export default function CaseStudies() {
   const featuredProjects = getFeaturedProjects(6);
@@ -43,6 +46,13 @@ export default function CaseStudies() {
               {preferredLink ? (
                 <Link
                   href={preferredLink}
+                  onClick={() => {
+                    trackEvent("portfolio_click", {
+                      project_slug: project.slug,
+                      project_category: project.themes[0] || "uncategorized",
+                      link_type: "external",
+                    });
+                  }}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${project.links.demo ? "Open live project for" : project.links.repo ? "Open source code for" : "Open article for"} ${project.title}`}
@@ -145,6 +155,11 @@ export default function CaseStudies() {
                   <div className="pointer-events-auto mt-auto flex gap-2 pt-2">
                     <Link
                       href={`/portfolio/${project.slug}`}
+                      onClick={() => {
+                        trackEvent("portfolio_view", {
+                          project_slug: project.slug,
+                        });
+                      }}
                       aria-label={`View details for ${project.title}`}
                       className="mission-chip mission-scanline flex-1 justify-center rounded-md border-[color:var(--border-cyan)] bg-[rgba(34,211,238,0.1)] px-2.5 py-2 text-center text-xs font-semibold text-[color:var(--accent-cyan)] transition-all duration-200 motion-reduce:transition-none hover:bg-[rgba(34,211,238,0.16)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-cyan)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg-deep)]"
                     >
@@ -153,6 +168,18 @@ export default function CaseStudies() {
                     {preferredLink && (
                       <Link
                         href={preferredLink}
+                        onClick={() => {
+                          trackEvent("portfolio_click", {
+                            project_slug: project.slug,
+                            project_category:
+                              project.themes[0] || "uncategorized",
+                            link_type: project.links.demo
+                              ? "demo"
+                              : project.links.repo
+                                ? "code"
+                                : "article",
+                          });
+                        }}
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`${project.links.demo ? "Open live project for" : project.links.repo ? "Open source code for" : "Open article for"} ${project.title}`}
