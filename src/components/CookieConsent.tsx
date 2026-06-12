@@ -1,75 +1,141 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useSyncExternalStore } from "react";
 import { consentManager, initializeGA } from "@/src/lib/analytics";
 
+function useHasConsentBeenAsked() {
+  return useSyncExternalStore(
+    () => () => {},
+    () => consentManager.hasConsentBeenAsked(),
+    () => true,
+  );
+}
+
 export function CookieConsent() {
-  const [showBanner] = useState(() => {
-    const hasBeenAsked = consentManager.hasConsentBeenAsked();
+  const hasBeenAsked = useHasConsentBeenAsked();
+  const [dismissed, setDismissed] = useState(false);
 
-    if (hasBeenAsked) {
-      const consent = consentManager.getConsent();
-      if (consent === true) {
-        initializeGA();
-      }
-
-      return false;
+  useEffect(() => {
+    if (consentManager.getConsent() === true) {
+      initializeGA();
     }
-
-    return true;
-  });
+  }, []);
 
   const handleAccept = () => {
     consentManager.setConsent(true);
-    window.location.reload();
+    initializeGA();
+    setDismissed(true);
   };
 
   const handleReject = () => {
     consentManager.setConsent(false);
-    const banner = document.querySelector("[data-cookie-banner]");
-    if (banner) {
-      banner.remove();
-    }
+    setDismissed(true);
   };
 
-  if (!showBanner) {
+  if (hasBeenAsked || dismissed) {
     return null;
   }
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-50 bg-slate-900 border-t border-slate-700 shadow-lg"
       data-cookie-banner
+      style={{
+        position: "fixed",
+        bottom: 0,
+        left: 0,
+        right: 0,
+        zIndex: 9999,
+        backgroundColor: "#1e293b",
+        borderTop: "1px solid #475569",
+        boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
+        padding: "1rem",
+        pointerEvents: "auto",
+      }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div className="flex-1">
-            <p className="text-sm text-slate-300 leading-relaxed">
-              We use Google Analytics to understand how you use our site and
-              improve your experience. We don't collect any personal
-              information.{" "}
-              <a
-                href="/privacy"
-                className="text-blue-400 hover:text-blue-300 underline transition-colors"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Learn more
-              </a>
-            </p>
-          </div>
-          <div className="flex gap-3 whitespace-nowrap">
+      <div style={{ maxWidth: "80rem", margin: "0 auto" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "1rem",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <p style={{ color: "#cbd5e1", fontSize: "0.875rem", margin: 0 }}>
+            We use Google Analytics to understand how you use our site and
+            improve your experience. We don't collect any personal information.{" "}
+            <a
+              href="/privacy"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "#60a5fa", textDecoration: "underline" }}
+            >
+              Learn more
+            </a>
+          </p>
+          <div
+            style={{
+              display: "flex",
+              gap: "0.75rem",
+              pointerEvents: "auto",
+              flexDirection: "row",
+              flexWrap: "nowrap",
+            }}
+          >
             <button
               onClick={handleReject}
-              className="px-4 py-2 text-sm font-medium text-slate-300 hover:text-slate-100 border border-slate-600 hover:border-slate-400 rounded transition-colors"
-              aria-label="Reject analytics"
+              type="button"
+              style={{
+                padding: "0.75rem 1.5rem",
+                fontSize: "0.875rem",
+                fontWeight: 500,
+                color: "#cbd5e1",
+                border: "1px solid #64748b",
+                borderRadius: "0.375rem",
+                backgroundColor: "transparent",
+                cursor: "pointer",
+                pointerEvents: "auto",
+                transition: "all 0.2s",
+                userSelect: "none",
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                WebkitUserSelect: "none" as any,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = "#f1f5f9";
+                e.currentTarget.style.borderColor = "#94a3b8";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = "#cbd5e1";
+                e.currentTarget.style.borderColor = "#64748b";
+              }}
             >
               Reject
             </button>
             <button
               onClick={handleAccept}
-              className="px-4 py-2 text-sm font-medium text-slate-200 bg-blue-500 hover:bg-blue-600 rounded transition-colors font-semibold"
-              aria-label="Accept analytics"
+              type="button"
+              style={{
+                padding: "0.75rem 1.5rem",
+                fontSize: "0.875rem",
+                fontWeight: 600,
+                color: "#e2e8f0",
+                backgroundColor: "#3b82f6",
+                border: "none",
+                borderRadius: "0.375rem",
+                cursor: "pointer",
+                pointerEvents: "auto",
+                transition: "all 0.2s",
+                userSelect: "none",
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                WebkitUserSelect: "none" as any,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "#2563eb";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "#3b82f6";
+              }}
             >
               Accept
             </button>
