@@ -45,9 +45,11 @@ export type TechCategory = {
 };
 
 export type ContactLink = {
+  id: "email" | "github" | "linkedin" | "portfolio";
   label: string;
   href: string;
-  icon: "mail" | "link";
+  icon: "mail" | "github" | "linkedin" | "portfolio";
+  external?: boolean;
 };
 
 export type SiteConfig = {

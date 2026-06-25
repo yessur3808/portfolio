@@ -1,7 +1,8 @@
-import { heroData } from "@/app/(site)/_data/site";
+import { heroData, socialLinks } from "@/app/(site)/_data/site";
 import MissionStatusHUD from "@/src/components/sections/MissionStatusHUD";
 import { Button } from "@/src/components/ui/Button";
 import { Section } from "@/src/components/ui/Section";
+import { TrackedSocialLink } from "@/src/components/ui/TrackedSocialLink";
 import { MissionOrb } from "@/src/components/visual/MissionOrb";
 
 const currentFocus = [
@@ -38,6 +39,10 @@ const floatingSignals = [
     className: "left-1/2 top-2 inline-flex -translate-x-1/2",
   },
 ];
+
+const profileSocialLinks = socialLinks.filter(
+  (link) => link.id !== "portfolio",
+);
 
 export default function ProfileOverview() {
   return (
@@ -77,10 +82,26 @@ export default function ProfileOverview() {
           </ul>
 
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+            <nav aria-label="Profile social links">
+              <ul className="flex flex-wrap gap-2.5">
+                {profileSocialLinks.map((link) => (
+                  <li key={link.id}>
+                    <TrackedSocialLink
+                      link={link}
+                      location="about"
+                      showLabel={false}
+                      iconVariant="brand"
+                      iconClassName="h-5 w-5"
+                      className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-[color:var(--border-soft)]/85 bg-[linear-gradient(145deg,rgba(15,23,42,0.9),rgba(15,23,42,0.72))] shadow-[inset_0_1px_0_rgba(148,163,184,0.12),0_6px_16px_rgba(2,6,23,0.35)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[color:var(--border-cyan)] hover:shadow-[0_10px_22px_rgba(2,6,23,0.42),0_0_18px_rgba(34,211,238,0.18)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-cyan)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg-deep)]"
+                    />
+                  </li>
+                ))}
+              </ul>
+            </nav>
             <Button
               href={heroData.primaryCta.href}
               variant="primary"
-              className="w-full border-[color:var(--border-cyan)] bg-[linear-gradient(120deg,rgba(34,211,238,0.9),rgba(56,189,248,0.82),rgba(139,92,246,0.78))] text-[#031224] shadow-[0_14px_30px_rgba(2,6,23,0.55),0_0_24px_rgba(34,211,238,0.2)] hover:shadow-[0_16px_34px_rgba(2,6,23,0.62),0_0_30px_rgba(139,92,246,0.24)] sm:w-auto"
+              className="w-full rounded-xl border-[color:var(--border-cyan)]/90 bg-[linear-gradient(140deg,rgba(56,189,248,0.96),rgba(34,211,238,0.9),rgba(139,92,246,0.8))] text-[#F8FDFF] shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_14px_30px_rgba(2,6,23,0.52),0_0_24px_rgba(34,211,238,0.2)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[color:var(--border-cyan)] hover:shadow-[0_10px_22px_rgba(2,6,23,0.42),0_0_18px_rgba(34,211,238,0.18)] sm:w-auto"
             >
               {heroData.primaryCta.label}
             </Button>

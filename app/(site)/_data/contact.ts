@@ -1,19 +1,7 @@
 import type { ContactLink } from "@/app/(site)/_types/portfolio";
 
-export const contactLinks: ContactLink[] = [
-  {
-    label: "Email",
-    href: "mailto:yaser@example.com",
-    icon: "mail",
-  },
-  {
-    label: "GitHub",
-    href: "https://github.com/yessur3808",
-    icon: "link",
-  },
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/yaser",
-    icon: "link",
-  },
-];
+import { socialLinks } from "@/app/(site)/_data/site";
+
+export const contactLinks: ContactLink[] = socialLinks.filter(
+  (link) => link.id !== "portfolio",
+);

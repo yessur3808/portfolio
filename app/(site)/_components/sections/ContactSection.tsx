@@ -10,6 +10,9 @@ import { SectionHeading } from "@/app/(site)/_components/ui/SectionHeading";
 const iconByName = {
   mail: Mail,
   link: Link2,
+  github: Link2,
+  linkedin: Link2,
+  portfolio: Link2,
 };
 
 export function ContactSection() {

@@ -1,9 +1,12 @@
 "use client";
 
-import { Link2, Mail, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
+
+import { socialLinks } from "@/app/(site)/_data/site";
 
 import { Button } from "@/src/components/ui/Button";
 import { Section } from "@/src/components/ui/Section";
+import { SocialIcon } from "@/src/components/ui/SocialIcon";
 import { trackEvent } from "@/src/lib/analytics";
 
 const facts = [
@@ -12,8 +15,7 @@ const facts = [
   "American Citizen",
 ];
 
-const Linkedin = Link2;
-const Github = Link2;
+const contactLinks = socialLinks.filter((link) => link.id !== "portfolio");
 
 export default function Contact() {
   return (
@@ -40,47 +42,44 @@ export default function Contact() {
             </p>
 
             <div className="grid gap-2.5 sm:grid-cols-2">
-              <Button
-                href="mailto:yaser3808@gmail.com"
-                onClick={() => {
-                  trackEvent("contact_click", {
-                    contact_type: "email",
-                  });
-                }}
-                variant="primary"
-                className="mission-scanline w-full justify-start border-[color:var(--border-cyan)] bg-[rgba(34,211,238,0.14)] text-[color:var(--accent-cyan)] shadow-[0_0_18px_rgba(34,211,238,0.16)] hover:bg-[rgba(34,211,238,0.2)]"
-              >
-                <Mail className="mr-2 h-4 w-4" aria-hidden="true" />
-                Email Channel
-              </Button>
-              <Button
-                href="https://linkedin.com/in/yaseribrahim510"
-                onClick={() => {
-                  trackEvent("contact_click", {
-                    contact_type: "linkedin",
-                  });
-                }}
-                variant="secondary"
-                external
-                className="w-full justify-start border-[color:var(--border-soft)] bg-[rgba(15,23,42,0.72)] text-[color:var(--text-main)] hover:border-[color:var(--border-cyan)] hover:text-[color:var(--accent-cyan)]"
-              >
-                <Linkedin className="mr-2 h-4 w-4" aria-hidden="true" />
-                LinkedIn Channel
-              </Button>
-              <Button
-                href="https://github.com/yessur3808"
-                onClick={() => {
-                  trackEvent("contact_click", {
-                    contact_type: "github",
-                  });
-                }}
-                variant="secondary"
-                external
-                className="w-full justify-start border-[color:var(--border-soft)] bg-[rgba(15,23,42,0.72)] text-[color:var(--text-main)] hover:border-[color:var(--border-cyan)] hover:text-[color:var(--accent-cyan)]"
-              >
-                <Github className="mr-2 h-4 w-4" aria-hidden="true" />
-                GitHub Channel
-              </Button>
+              {contactLinks.map((link) => (
+                <Button
+                  key={link.id}
+                  href={link.href}
+                  onClick={() => {
+                    trackEvent("social_click", {
+                      social_id: link.id,
+                      social_label: link.label,
+                      location: "contact",
+                      href: link.href,
+                    });
+
+                    if (
+                      link.id === "email" ||
+                      link.id === "linkedin" ||
+                      link.id === "github"
+                    ) {
+                      trackEvent("contact_click", {
+                        contact_type: link.id,
+                      });
+                    }
+                  }}
+                  variant={link.id === "email" ? "primary" : "secondary"}
+                  external={link.external}
+                  className={
+                    link.id === "email"
+                      ? "w-full justify-start rounded-xl border-[color:var(--border-cyan)]/90 bg-[linear-gradient(140deg,rgba(56,189,248,0.9),rgba(34,211,238,0.84),rgba(139,92,246,0.7))] text-[#F8FDFF] shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_10px_24px_rgba(2,6,23,0.46),0_0_16px_rgba(34,211,238,0.16)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[color:var(--border-cyan)] hover:shadow-[0_10px_22px_rgba(2,6,23,0.42),0_0_18px_rgba(34,211,238,0.18)]"
+                      : "w-full justify-start rounded-xl border border-[color:var(--border-soft)]/85 bg-[linear-gradient(145deg,rgba(15,23,42,0.9),rgba(15,23,42,0.72))] text-[color:var(--text-main)] shadow-[inset_0_1px_0_rgba(148,163,184,0.12),0_6px_16px_rgba(2,6,23,0.35)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[color:var(--border-cyan)] hover:text-[color:var(--accent-cyan)] hover:shadow-[0_10px_22px_rgba(2,6,23,0.42),0_0_18px_rgba(34,211,238,0.18)]"
+                  }
+                >
+                  <SocialIcon
+                    icon={link.icon}
+                    variant="brand"
+                    className="mr-2 h-[18px] w-[18px]"
+                  />
+                  {link.label} Channel
+                </Button>
+              ))}
             </div>
           </div>
 

@@ -1,4 +1,5 @@
 import type {
+  ContactLink,
   HeroData,
   NavItem,
   SiteConfig,
@@ -33,3 +34,34 @@ export const heroData: HeroData = {
     href: "/#work",
   },
 };
+
+export const socialLinks: ContactLink[] = [
+  {
+    id: "email",
+    label: "Email",
+    href: "mailto:yaser3808@gmail.com",
+    icon: "mail",
+    external: false,
+  },
+  {
+    id: "linkedin",
+    label: "LinkedIn",
+    href: "https://linkedin.com/in/yaseribrahim510",
+    icon: "linkedin",
+    external: true,
+  },
+  {
+    id: "github",
+    label: "GitHub",
+    href: "https://github.com/yessur3808",
+    icon: "github",
+    external: true,
+  },
+  {
+    id: "portfolio",
+    label: "Portfolio",
+    href: "/portfolio",
+    icon: "portfolio",
+    external: false,
+  },
+];
