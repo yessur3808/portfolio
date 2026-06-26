@@ -141,7 +141,21 @@ export async function embedText(text: string): Promise<number[]> {
  */
 export async function embedTexts(texts: string[]): Promise<number[][]> {
   assertBrowser();
-  return Promise.all(texts.map((t) => embedText(t)));
+  const BATCH_SIZE = 4;
+  const out: number[][] = [];
+
+  for (let i = 0; i < texts.length; i += BATCH_SIZE) {
+    const batch = texts.slice(i, i + BATCH_SIZE);
+    const vectors = await Promise.all(batch.map((t) => embedText(t)));
+    out.push(...vectors);
+
+    // Yield to the browser so opening the orb/chat does not lock the main thread.
+    await new Promise<void>((resolve) => {
+      setTimeout(resolve, 0);
+    });
+  }
+
+  return out;
 }
 
 // ─── Legacy export alias (used by semanticSearch.client.ts) ──────────────────

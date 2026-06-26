@@ -23,7 +23,9 @@ function assertBrowser(): void {
 }
 
 function buildChunkEmbeddingInput(chunk: KnowledgeChunk): string {
-  return `${chunk.title}\n${chunk.content}\nTags: ${chunk.tags.join(", ")}`;
+  // Keep semantic vectors focused on natural language content. Tags are still
+  // used in keyword scoring and can become very large after multilingual alias expansion.
+  return `${chunk.title}\n${chunk.content}`;
 }
 
 function rankKeywordOnly(
@@ -93,6 +95,14 @@ export async function semanticSearch(
   }
 
   try {
+    // Do not block the first response on embedding all portfolio chunks.
+    // Start the index build in the background and return a fast keyword-based
+    // result immediately; once the cache is warm, semantic ranking will kick in.
+    if (cachedChunkEmbeddings.size === 0) {
+      void buildSemanticIndex();
+      return rankKeywordOnly(chunks, query, limit, minScore);
+    }
+
     await buildSemanticIndex();
     const queryEmbedding = await embedText(query);
 

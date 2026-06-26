@@ -19,9 +19,9 @@ export function OrbAssistant({ className }: OrbAssistantProps) {
     const trimmed = text.trim();
     if (!trimmed) return;
     setInput("");
-    await send(trimmed);
-    if (lastResponse?.actions) {
-      executeActions(lastResponse.actions);
+    const response = await send(trimmed);
+    if (response?.actions) {
+      executeActions(response.actions);
     }
   };
 
@@ -40,7 +40,7 @@ export function OrbAssistant({ className }: OrbAssistantProps) {
 
       <div role="log" aria-label="Assistant conversation">
         {messages.map((msg) => (
-          <div key={msg.id} data-role={msg.role}>
+          <div key={msg.id} data-role={msg.role} dir="auto">
             {msg.content}
           </div>
         ))}
@@ -61,11 +61,12 @@ export function OrbAssistant({ className }: OrbAssistantProps) {
       <div>
         <input
           ref={inputRef}
+          dir="auto"
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Ask me anything…"
+          placeholder="Ask Yaser's AI Assistant…"
           aria-label="Ask the assistant"
           disabled={orbState === "thinking"}
         />

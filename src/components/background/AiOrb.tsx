@@ -43,6 +43,8 @@ type OrbPalette = {
   intensity: number;
 };
 
+type OrbMode = "idle" | "listening" | "thinking" | "answering" | "error";
+
 function parseCssColor(raw: string): RGB {
   const v = raw.trim();
   if (v.startsWith("#")) {
@@ -129,12 +131,19 @@ export default function AiOrb({ className }: AiOrbProps) {
   const anomalyPhaseRef = useRef<number>(0); // scatter direction offset
   const anomalyScaleRef = useRef<number>(1); // displacement magnitude
   const anomalyDurRef = useRef<number>(900); // envelope duration (ms)
+  const orbModeRef = useRef<OrbMode>("idle");
+  const [orbMode, setOrbMode] = useState<OrbMode>("idle");
+  const orbTopicRef = useRef<string>("");
+  const orbConfidenceRef = useRef<number>(0);
+  const orbTurnCountRef = useRef<number>(0);
 
   const [isOpen, setIsOpen] = useState(false);
   const rippleRef = useRef<HTMLSpanElement>(null);
 
   const handleClick = () => {
     setIsOpen((prev) => !prev);
+    orbModeRef.current = !isOpen ? "listening" : "idle";
+    setOrbMode(!isOpen ? "listening" : "idle");
     anomalyStartRef.current = performance.now();
     anomalyPhaseRef.current = Math.random() * TAU; // random rotation each time
     anomalyScaleRef.current = 0.6 + Math.random() * 0.8; // 0.6 – 1.4× magnitude
@@ -201,6 +210,37 @@ export default function AiOrb({ className }: AiOrbProps) {
       attributeFilter: ["data-section"],
     });
 
+    const onOrbStateChange = (event: Event) => {
+      const customEvent = event as CustomEvent<{
+        state: OrbMode;
+        confidence: number;
+        topic: string;
+        turnCount: number;
+      }>;
+
+      orbModeRef.current = customEvent.detail.state;
+      setOrbMode(customEvent.detail.state);
+      orbConfidenceRef.current = customEvent.detail.confidence;
+      orbTopicRef.current = customEvent.detail.topic;
+      orbTurnCountRef.current = customEvent.detail.turnCount;
+      anomalyStartRef.current = performance.now();
+      anomalyPhaseRef.current = Math.random() * TAU;
+      anomalyScaleRef.current =
+        customEvent.detail.state === "error"
+          ? 1.25
+          : customEvent.detail.state === "thinking"
+            ? 1.05
+            : 0.7 + Math.min(customEvent.detail.confidence, 1) * 0.55;
+      anomalyDurRef.current =
+        customEvent.detail.state === "error"
+          ? 1350
+          : customEvent.detail.state === "answering"
+            ? 950
+            : 850;
+    };
+
+    window.addEventListener("orb-state-change", onOrbStateChange);
+
     const draw = (now: number) => {
       ctx.clearRect(0, 0, size, size);
 
@@ -213,6 +253,17 @@ export default function AiOrb({ className }: AiOrbProps) {
       const vertDrift = reducedMotion ? 0 : Math.sin((now * TAU) / 12000); // 12 s
       const edgePulse = reducedMotion ? 0 : Math.sin((now * TAU) / 4800); //  4.8 s  (-1..1)
       const edgePulseP = (edgePulse + 1) * 0.5; // 0..1 for glow
+      const mode = orbModeRef.current;
+      const modePulse =
+        mode === "thinking"
+          ? 0.24 + Math.sin(now / 160) * 0.08
+          : mode === "answering"
+            ? 0.16 + Math.sin(now / 240) * 0.06
+            : mode === "error"
+              ? 0.3 + Math.sin(now / 90) * 0.12
+              : mode === "listening"
+                ? 0.12 + Math.sin(now / 260) * 0.05
+                : 0.08;
 
       // ── Live palette (lerp toward target over 300 ms) ───────────────
       const transT = reducedMotion
@@ -220,6 +271,17 @@ export default function AiOrb({ className }: AiOrbProps) {
         : Math.min(1, (now - transStartRef.current) / 300);
       const pal = lerpPalette(palFromRef.current, palTargetRef.current, transT);
       palCurrentRef.current = pal;
+
+      const stateBoost =
+        mode === "thinking"
+          ? 1.14
+          : mode === "answering"
+            ? 1.08
+            : mode === "error"
+              ? 0.98
+              : mode === "listening"
+                ? 1.06
+                : 1;
 
       // Very slow global sphere parallax
       const globDriftX = reducedMotion ? 0 : Math.sin(now / 28000) * 1.5;
@@ -345,7 +407,8 @@ export default function AiOrb({ className }: AiOrbProps) {
               topDim -
               backDim +
               (edgeness > 0.5 ? edgePulse * 0.1 * edgeness : 0)) *
-              pal.intensity,
+              pal.intensity *
+              stateBoost,
           ),
         );
 
@@ -376,6 +439,17 @@ export default function AiOrb({ className }: AiOrbProps) {
             drawSize =
               pSize * (1 + anomalyStrength * ((rand - 0.82) / 0.18) * 2.5);
           }
+        }
+
+        if (mode === "thinking") {
+          drawSize *= 1 + modePulse * 0.22 * edgeness;
+          drawColor = lerpRGB(drawColor, pal.bright, modePulse * 0.35);
+        } else if (mode === "answering") {
+          drawColor = lerpRGB(drawColor, pal.primary, modePulse * 0.2);
+        } else if (mode === "error") {
+          drawColor = lerpRGB(drawColor, [248, 113, 113], modePulse * 0.35);
+        } else if (mode === "listening") {
+          drawColor = lerpRGB(drawColor, pal.accent, modePulse * 0.18);
         }
 
         return {
@@ -437,6 +511,34 @@ export default function AiOrb({ className }: AiOrbProps) {
       ctx.arc(cx, cy, radius * 1.05, 0, Math.PI * 2);
       ctx.fill();
 
+      if (mode !== "idle") {
+        const halo = ctx.createRadialGradient(
+          cx,
+          cy,
+          radius * 0.22,
+          cx,
+          cy,
+          radius * (0.98 + modePulse * 0.06),
+        );
+        const haloColor =
+          mode === "error"
+            ? [248, 113, 113]
+            : mode === "answering"
+              ? pal.primary
+              : mode === "thinking"
+                ? pal.accent
+                : pal.secondary;
+        halo.addColorStop(
+          0,
+          `rgba(${haloColor[0]}, ${haloColor[1]}, ${haloColor[2]}, ${0.14 + modePulse * 0.14})`,
+        );
+        halo.addColorStop(1, "rgba(2,6,23,0)");
+        ctx.fillStyle = halo;
+        ctx.beginPath();
+        ctx.arc(cx, cy, radius * 1.12, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
       ctx.restore(); // end global parallax
     };
 
@@ -451,6 +553,7 @@ export default function AiOrb({ className }: AiOrbProps) {
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
       media.removeEventListener("change", onMotionChange);
       mutObs.disconnect();
+      window.removeEventListener("orb-state-change", onOrbStateChange);
       ro.disconnect();
     };
   }, []);
@@ -477,7 +580,7 @@ export default function AiOrb({ className }: AiOrbProps) {
           className,
         )}
       >
-        {/* AI assistant panel */}
+        {/* Yaser's AI assistant panel */}
         {isOpen && (
           <section
             id="ai-profile-assistant-panel"
@@ -486,8 +589,10 @@ export default function AiOrb({ className }: AiOrbProps) {
               "ai-panel-enter chat-panel relative flex flex-col",
               // Centered responsive panel sizing
               "fixed left-1/2 -translate-x-1/2 bottom-[calc(12px+env(safe-area-inset-bottom))]",
-              "w-[calc(100vw-28px)] md:w-[min(82vw,680px)] lg:w-[min(78vw,820px)]",
-              "h-[min(74vh,31rem)] max-h-[74vh] overflow-x-hidden overscroll-contain",
+              "w-[calc(100vw-20px)] md:w-[min(92vw,860px)] lg:w-[min(90vw,1120px)] xl:w-[min(88vw,1240px)]",
+              "h-[min(80vh,36rem)] md:h-[min(68vh,32rem)] lg:h-[min(66vh,33rem)]",
+              "max-h-[calc(100dvh-8rem-env(safe-area-inset-bottom))] md:max-h-[calc(100dvh-11rem-env(safe-area-inset-bottom))] lg:max-h-[calc(100dvh-11.5rem-env(safe-area-inset-bottom))]",
+              "overflow-x-hidden overscroll-contain",
               // Shared visual
               "rounded-[28px]",
             )}
@@ -498,13 +603,13 @@ export default function AiOrb({ className }: AiOrbProps) {
                 id="ai-assistant-heading"
                 className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-200/92"
               >
-                AI Assistant
+                Yaser&apos;s AI Assistant
               </h3>
               {/* Close button — 44 × 44 px tap target on mobile */}
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
-                aria-label="Close AI profile assistant"
+                aria-label="Close Yaser's AI Assistant"
                 className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/[0.02] text-slate-400 transition-colors hover:border-cyan-400/25 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 md:h-auto md:w-auto md:p-1"
               >
                 <svg
@@ -532,7 +637,7 @@ export default function AiOrb({ className }: AiOrbProps) {
         {/* Orb trigger button */}
         <button
           type="button"
-          aria-label="Open AI profile assistant"
+          aria-label="Open Yaser's AI Assistant"
           aria-expanded={isOpen}
           aria-controls="ai-profile-assistant-panel"
           onClick={handleClick}
@@ -544,6 +649,23 @@ export default function AiOrb({ className }: AiOrbProps) {
             isOpen && "scale-[1.06]",
           )}
         >
+          <span
+            aria-hidden="true"
+            className={cn(
+              "pointer-events-none absolute -bottom-9 left-1/2 -translate-x-1/2 rounded-full border border-white/10 bg-[rgba(2,6,23,0.72)] px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-slate-300 shadow-[0_10px_24px_rgba(2,6,23,0.34)] transition-all duration-300",
+              isOpen ? "opacity-100" : "opacity-0 group-hover:opacity-100",
+            )}
+          >
+            {orbMode === "thinking"
+              ? "Thinking"
+              : orbMode === "answering"
+                ? "Responding"
+                : orbMode === "error"
+                  ? "Needs attention"
+                  : orbMode === "listening"
+                    ? "Listening"
+                    : "Ask Yaser"}
+          </span>
           <span
             aria-hidden="true"
             className="ai-orb-aura pointer-events-none absolute inset-[-20%] rounded-full"

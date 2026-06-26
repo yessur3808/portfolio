@@ -6,6 +6,9 @@ export type OrbState =
   | "navigating"
   | "error";
 
+export type AssistantLanguage = "en" | "ar" | "fr";
+export type AssistantLanguageMode = AssistantLanguage | "auto";
+
 export type KnowledgeChunkType =
   | "profile"
   | "experience"
@@ -38,6 +41,7 @@ export type AssistantMessage = {
   role: "user" | "assistant" | "system";
   content: string;
   createdAt: Date;
+  language?: AssistantLanguage;
 };
 
 export type SemanticSearchResult = {
@@ -47,6 +51,7 @@ export type SemanticSearchResult = {
 
 export type AssistantResponse = {
   answer: string;
+  language?: AssistantLanguage;
   confidence: number;
   matchedChunks: KnowledgeChunk[];
   actions: AssistantAction[];

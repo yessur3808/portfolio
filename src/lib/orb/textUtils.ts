@@ -1,4 +1,9 @@
 // Characters retained: alphanumerics, spaces, and useful tech symbols: # + . / _ - @
+import type { AssistantLanguage, AssistantLanguageMode } from "./types";
+
+// Flip this to false to re-enable Arabic/French behavior in one place.
+export const ENGLISH_ONLY_MODE = true;
+
 const STRIP_PUNCTUATION = /[^\w\s##+./\-@]/g;
 
 /** Lowercase, trim, collapse whitespace, remove unhelpful punctuation. */
@@ -161,4 +166,38 @@ export function buildSearchText(
 export function truncate(value: string, maxLength: number): string {
   if (value.length <= maxLength) return value;
   return `${value.slice(0, maxLength).trimEnd()}…`;
+}
+
+const ARABIC_SCRIPT = /[\u0600-\u06FF]/;
+const FRENCH_HINTS =
+  /[àâçéèêëîïôùûüÿœæ]|\b(bonjour|merci|projets|experience|compétence|competence|contact|cv|resume|travail|ingénieur|ingenieur)\b/i;
+
+export function detectAssistantLanguage(input: string): AssistantLanguage {
+  const text = input.trim();
+  if (!text) return "en";
+  if (ENGLISH_ONLY_MODE) return "en";
+  if (ARABIC_SCRIPT.test(text)) return "ar";
+  if (FRENCH_HINTS.test(text)) return "fr";
+  return "en";
+}
+
+export function parseLanguageCommand(
+  input: string,
+): AssistantLanguageMode | null {
+  const trimmed = input.trim().toLowerCase();
+  const match = ENGLISH_ONLY_MODE
+    ? trimmed.match(/^\/lang\s+(en|auto)$/)
+    : trimmed.match(/^\/lang\s+(en|ar|fr|auto)$/);
+  return (match?.[1] as AssistantLanguageMode | undefined) ?? null;
+}
+
+export function parseDisabledLanguageCommand(
+  input: string,
+): "ar" | "fr" | null {
+  if (!ENGLISH_ONLY_MODE) return null;
+  const match = input
+    .trim()
+    .toLowerCase()
+    .match(/^\/lang\s+(ar|fr)$/);
+  return (match?.[1] as "ar" | "fr" | undefined) ?? null;
 }
