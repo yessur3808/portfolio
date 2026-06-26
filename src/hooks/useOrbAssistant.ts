@@ -144,8 +144,8 @@ export function useOrbAssistant(
         return () => window.cancelIdleCallback(handle);
       }
 
-      const timer = window.setTimeout(scheduleWarmup, 250);
-      return () => window.clearTimeout(timer);
+      const timer = globalThis.setTimeout(scheduleWarmup, 250);
+      return () => globalThis.clearTimeout(timer);
     }
   }, [loadEngine, options.preload]);
 
@@ -167,7 +167,7 @@ export function useOrbAssistant(
           makeMessage("user", trimmed, "en"),
           makeMessage("assistant", answer, "en"),
         ]);
-        return {
+        const disabledLanguageResponse: AssistantResponse = {
           answer,
           language: "en",
           confidence: 1,
@@ -175,6 +175,7 @@ export function useOrbAssistant(
           actions: [{ type: "none" }],
           suggestions: [],
         };
+        return disabledLanguageResponse;
       }
 
       const nextLanguageMode = parseLanguageCommand(trimmed);
@@ -193,7 +194,7 @@ export function useOrbAssistant(
             ackLanguage,
           ),
         ]);
-        return {
+        const languageModeResponse: AssistantResponse = {
           answer: languageModeAck(nextLanguageMode, ackLanguage),
           language: ackLanguage,
           confidence: 1,
@@ -201,6 +202,7 @@ export function useOrbAssistant(
           actions: [{ type: "none" }],
           suggestions: [],
         };
+        return languageModeResponse;
       }
 
       const previousResponse = lastResponse;
@@ -292,7 +294,7 @@ export function useOrbAssistant(
         );
       }
     },
-    [languageMode, loadEngine, orbState, messages.length],
+    [languageMode, loadEngine, orbState, messages.length, lastResponse],
   );
 
   const reset = useCallback(() => {

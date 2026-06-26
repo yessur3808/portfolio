@@ -166,7 +166,6 @@ export default function SignalMetrics() {
     }
 
     if (reducedMotion) {
-      setProgress(1);
       return;
     }
 

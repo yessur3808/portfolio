@@ -140,7 +140,8 @@ export function CookieConsent() {
         <div className="cookie-inner">
           <p className="cookie-text">
             We use Google Analytics to understand how you use our site and
-            improve your experience. We don't collect any personal information.{" "}
+            improve your experience. We don&apos;t collect any personal
+            information.{" "}
             <a
               href="/privacy"
               target="_blank"

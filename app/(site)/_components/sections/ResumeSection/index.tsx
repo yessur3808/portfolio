@@ -1,7 +1,3 @@
-import { Download } from "lucide-react";
-
-import { siteConfig } from "@/app/(site)/_data/site";
-import { ButtonLink } from "@/app/(site)/_components/ui/ButtonLink";
 import { Container } from "@/app/(site)/_components/ui/Container";
 
 export function ResumeSection() {
@@ -17,14 +13,6 @@ export function ResumeSection() {
               Download a PDF summary of experience, projects, and skills.
             </p>
           </div>
-          {/* <ButtonLink
-            href={siteConfig.resumeHref}
-            className="w-fit"
-            variant="primary"
-          >
-            <Download className="mr-2 h-4 w-4" aria-hidden="true" />
-            Download Resume
-          </ButtonLink> */}
         </div>
       </Container>
     </section>

@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 
 import { navItems } from "@/app/(site)/_data/site";
 import { cn } from "@/app/(site)/_utils/cn";
-import { NavWaveFill } from "./NavWaveFill";
+import { NavWaveFill } from "../NavWaveFill";
 
 type NavBarProps = {
   className?: string;
