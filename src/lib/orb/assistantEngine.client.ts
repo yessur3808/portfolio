@@ -1,5 +1,4 @@
 "use client";
-
 // Browser-only. Do not import in Server Components or server utilities.
 
 import type { AssistantResponse } from "./types";
@@ -18,19 +17,21 @@ type AssistantContext = {
   languageMode?: AssistantLanguageMode;
 };
 
-function isBrowserRuntime(): boolean {
+const isBrowserRuntime = (): boolean => {
   return typeof window !== "undefined" && typeof document !== "undefined";
-}
+};
 
-function resolveLanguage(
+const resolveLanguage = (
   input: string,
   mode: AssistantLanguageMode = "auto",
-): AssistantLanguage {
+): AssistantLanguage => {
   if (mode === "auto") return detectAssistantLanguage(input);
   return mode;
-}
+};
 
-function createInputFallback(language: AssistantLanguage): AssistantResponse {
+const createInputFallback = (
+  language: AssistantLanguage,
+): AssistantResponse => {
   const l = t(language);
   return {
     answer: l.inputFallback,
@@ -44,11 +45,11 @@ function createInputFallback(language: AssistantLanguage): AssistantResponse {
       l.suggestions.contact,
     ],
   };
-}
+};
 
-function createEngineErrorFallback(
+const createEngineErrorFallback = (
   language: AssistantLanguage,
-): AssistantResponse {
+): AssistantResponse => {
   const l = t(language);
   return {
     answer: l.engineErrorFallback,
@@ -62,18 +63,18 @@ function createEngineErrorFallback(
       l.suggestions.contact,
     ],
   };
-}
+};
 
-function isFollowUpQuery(input: string): boolean {
+const isFollowUpQuery = (input: string): boolean => {
   return /\b(more|more about it|tell me more|what about that|expand on that|and then|next|continue|go deeper|elaborate)\b/i.test(
     input,
   );
-}
+};
 
-function resolveContextualQuery(
+const resolveContextualQuery = (
   input: string,
   context: AssistantContext,
-): string {
+): string => {
   const trimmed = input.trim();
   const lastChunk = context.lastResponse?.matchedChunks?.[0];
   const lastSection = lastChunk?.sectionId;
@@ -101,9 +102,9 @@ function resolveContextualQuery(
   }
 
   return `${trimmed} about ${contextLabel}`;
-}
+};
 
-export async function warmupAssistant(): Promise<void> {
+export const warmupAssistant = async (): Promise<void> => {
   if (!isBrowserRuntime()) return;
 
   try {
@@ -113,16 +114,16 @@ export async function warmupAssistant(): Promise<void> {
   } catch (error) {
     console.error("[orb-assistant] warmup failed", error);
   }
-}
+};
 
-export async function handleAssistantInput(
+export const handleAssistantInput = async (
   input: string,
   context: AssistantContext = {
     lastResponse: null,
     lastQuery: "",
     turnCount: 0,
   },
-): Promise<AssistantResponse> {
+): Promise<AssistantResponse> => {
   if (!isBrowserRuntime()) {
     return createEngineErrorFallback("en");
   }
@@ -148,7 +149,7 @@ export async function handleAssistantInput(
     console.error("[orb-assistant] handle input failed", error);
     return createEngineErrorFallback(language);
   }
-}
+};
 
 /** @deprecated Use handleAssistantInput() instead. */
 export const query = handleAssistantInput;

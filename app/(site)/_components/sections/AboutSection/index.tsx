@@ -2,7 +2,7 @@ import { aboutData } from "@/app/(site)/_data/about";
 import { Container } from "@/app/(site)/_components/ui/Container";
 import { SectionHeading } from "@/app/(site)/_components/ui/SectionHeading";
 
-export function AboutSection() {
+export const AboutSection = () => {
   return (
     <section id="about" className="py-14 sm:py-16">
       <Container>
@@ -17,4 +17,4 @@ export function AboutSection() {
       </Container>
     </section>
   );
-}
+};

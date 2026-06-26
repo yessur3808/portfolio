@@ -6,11 +6,13 @@ type SectionHeadingProps = {
   className?: string;
 };
 
-export function SectionHeading({
-  title,
-  description,
-  className,
-}: SectionHeadingProps) {
+export const SectionHeading = (
+  {
+    title,
+    description,
+    className,
+  }: SectionHeadingProps,
+) => {
   return (
     <div className={cn("mb-8 space-y-2", className)}>
       <h2 className="text-2xl font-semibold tracking-tight text-slate-100 sm:text-3xl">
@@ -21,4 +23,4 @@ export function SectionHeading({
       ) : null}
     </div>
   );
-}
+};

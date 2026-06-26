@@ -1,22 +1,21 @@
 "use client";
-
 // Browser-only. Do not import in Server Components or server utilities.
 
 import type { AssistantAction } from "./types";
 
-function isBrowserRuntime(): boolean {
+const isBrowserRuntime = (): boolean => {
   return typeof window !== "undefined" && typeof document !== "undefined";
-}
+};
 
-function scrollToSection(targetId: string): void {
+const scrollToSection = (targetId: string): void => {
   if (!isBrowserRuntime()) return;
   const el = document.getElementById(targetId);
   if (el) {
     el.scrollIntoView({ behavior: "smooth", block: "start" });
   }
-}
+};
 
-function highlightSection(targetId: string, durationMs = 1800): void {
+const highlightSection = (targetId: string, durationMs = 1800): void => {
   if (!isBrowserRuntime()) return;
   const el = document.getElementById(targetId);
   if (!el) return;
@@ -25,9 +24,9 @@ function highlightSection(targetId: string, durationMs = 1800): void {
   window.setTimeout(() => {
     el.classList.remove("orb-highlight");
   }, durationMs);
-}
+};
 
-function triggerDownload(href: string, filename?: string): void {
+const triggerDownload = (href: string, filename?: string): void => {
   if (!isBrowserRuntime()) return;
   const a = document.createElement("a");
   a.href = href;
@@ -37,20 +36,20 @@ function triggerDownload(href: string, filename?: string): void {
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
-}
+};
 
-function openLink(href: string, newTab = true): void {
+const openLink = (href: string, newTab = true): void => {
   if (!isBrowserRuntime()) return;
   if (newTab) {
     window.open(href, "_blank", "noopener,noreferrer");
   } else {
     window.location.assign(href);
   }
-}
+};
 
-export async function executeAssistantAction(
+export const executeAssistantAction = async (
   action: AssistantAction,
-): Promise<void> {
+): Promise<void> => {
   if (!isBrowserRuntime()) return;
 
   switch (action.type) {
@@ -69,15 +68,15 @@ export async function executeAssistantAction(
     case "none":
       break;
   }
-}
+};
 
-export async function executeAssistantActions(
+export const executeAssistantActions = async (
   actions: AssistantAction[],
-): Promise<void> {
+): Promise<void> => {
   for (const action of actions) {
     await executeAssistantAction(action);
   }
-}
+};
 
 // Add this globally (for example in app/globals.css) to visualize highlights.
 export const ORB_HIGHLIGHT_CSS = `.orb-highlight {

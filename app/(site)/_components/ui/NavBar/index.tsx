@@ -1,22 +1,178 @@
 "use client";
-
-import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { navItems } from "@/app/(site)/_data/site";
 import { cn } from "@/app/(site)/_utils/cn";
+import { SUPPORTED_LOCALES, type Locale } from "@/src/i18n/config";
+import { useI18n } from "@/src/i18n/locale-context";
+import { trackEvent } from "@/src/lib/analytics";
 import { NavWaveFill } from "../NavWaveFill";
 
 type NavBarProps = {
   className?: string;
 };
 
-function sanitizeSectionHash(
+type NavKey =
+  | "about"
+  | "experience"
+  | "work"
+  | "capabilities"
+  | "metrics"
+  | "contact"
+  | "portfolio";
+
+const NAV_ITEMS: Array<{ key: NavKey; href: string }> = [
+  { key: "about", href: "/#about" },
+  { key: "experience", href: "/#experience" },
+  { key: "work", href: "/#work" },
+  { key: "capabilities", href: "/#stack" },
+  { key: "metrics", href: "/#metrics" },
+  { key: "contact", href: "/#contact" },
+  { key: "portfolio", href: "/portfolio" },
+];
+
+const LOCALE_OPTION_LABELS: Record<Locale, string> = {
+  en: "EN",
+  fr: "FR",
+  ar: "AR ع",
+};
+
+type LocaleDropdownProps = {
+  value: Locale;
+  onChange: (nextLocale: Locale) => void;
+  ariaLabel: string;
+  className?: string;
+  panelClassName?: string;
+  trackingContext?: string;
+};
+
+const LocaleDropdown = ({
+  value,
+  onChange,
+  ariaLabel,
+  className,
+  panelClassName,
+  trackingContext,
+}: LocaleDropdownProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const listId = useId();
+
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+
+    const handleOutside = (event: MouseEvent) => {
+      if (!rootRef.current?.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener("mousedown", handleOutside);
+    window.addEventListener("keydown", handleEscape);
+
+    return () => {
+      window.removeEventListener("mousedown", handleOutside);
+      window.removeEventListener("keydown", handleEscape);
+    };
+  }, [isOpen]);
+
+  return (
+    <div ref={rootRef} className={cn("relative", className)}>
+      <button
+        type="button"
+        aria-label={ariaLabel}
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
+        aria-controls={listId}
+        onClick={() => {
+          setIsOpen((prev) => {
+            const nextOpen = !prev;
+            trackEvent("language_dropdown_toggle", {
+              button_id: "language_dropdown_trigger",
+              button_location: trackingContext ?? "unknown",
+              button_state: nextOpen ? "open" : "close",
+              locale_current: value,
+            });
+            return nextOpen;
+          });
+        }}
+        className={cn(
+          "inline-flex h-8 w-[50px] items-center justify-center rounded-full border border-[rgba(148,163,184,0.24)] bg-[rgba(10,18,32,0.82)] px-2 text-[10px] font-semibold uppercase tracking-[0.09em] text-[color:var(--text-main)] shadow-[inset_0_1px_0_rgba(148,163,184,0.08)] transition-all duration-200 hover:border-[rgba(34,211,238,0.36)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-cyan)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg-deep)]",
+          isOpen
+            ? "border-[rgba(34,211,238,0.5)] text-[color:var(--accent-cyan)]"
+            : "",
+        )}
+      >
+        <span>{LOCALE_OPTION_LABELS[value]}</span>
+      </button>
+
+      {isOpen ? (
+        <div
+          id={listId}
+          role="listbox"
+          aria-label={ariaLabel}
+          className={cn(
+            "absolute right-0 top-[calc(100%+0.35rem)] z-[1200] w-[7rem] overflow-hidden rounded-xl border border-[rgba(148,163,184,0.2)] bg-[rgba(2,6,23,0.96)] p-1 shadow-[0_18px_42px_rgba(2,6,23,0.62)] backdrop-blur-xl",
+            panelClassName,
+          )}
+        >
+          {SUPPORTED_LOCALES.map((option) => {
+            const isActive = option === value;
+
+            return (
+              <button
+                key={option}
+                type="button"
+                role="option"
+                aria-selected={isActive}
+                onClick={() => {
+                  trackEvent("language_selected", {
+                    button_id: `language_option_${option}`,
+                    button_location: trackingContext ?? "unknown",
+                    locale_previous: value,
+                    locale_selected: option,
+                  });
+                  onChange(option);
+                  setIsOpen(false);
+                }}
+                className={cn(
+                  "flex w-full items-center justify-center rounded-lg px-2 py-1.5 text-[10px] font-semibold uppercase tracking-[0.09em] transition-colors duration-150",
+                  isActive
+                    ? "bg-[rgba(34,211,238,0.16)] text-[color:var(--accent-cyan)]"
+                    : "text-[color:var(--text-main)] hover:bg-[rgba(34,211,238,0.1)] hover:text-[color:var(--accent-cyan)]",
+                )}
+              >
+                {LOCALE_OPTION_LABELS[option]}
+              </button>
+            );
+          })}
+        </div>
+      ) : null}
+    </div>
+  );
+};
+
+const sanitizeSectionHash = (
   rawHash: string,
   allowedSectionIds: ReadonlySet<string>,
-) {
+) => {
   const trimmed = rawHash.startsWith("#") ? rawHash.slice(1) : rawHash;
   if (!trimmed) {
     return null;
@@ -35,20 +191,21 @@ function sanitizeSectionHash(
   }
 
   return allowedSectionIds.has(normalized) ? normalized : null;
-}
+};
 
-function sanitizeNavHref(
+const sanitizeNavHref = (
   href: string,
   allowedSectionHrefs: ReadonlySet<string>,
-) {
+) => {
   if (href === "/portfolio") {
     return href;
   }
 
   return allowedSectionHrefs.has(href) ? href : "/";
-}
+};
 
-export function NavBar({ className }: NavBarProps) {
+export const NavBar = ({ className }: NavBarProps) => {
+  const { locale, setLocale, messages, isRTL } = useI18n();
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeHref, setActiveHref] = useState<string>(() => {
@@ -62,10 +219,17 @@ export function NavBar({ className }: NavBarProps) {
     ? "/portfolio"
     : null;
 
+  const navItems = useMemo(() => {
+    return NAV_ITEMS.map((item) => ({
+      href: item.href,
+      label: messages.navBar.items[item.key],
+    }));
+  }, [messages]);
+
   const sectionHrefs = useMemo(
     () =>
       navItems.map((item) => item.href).filter((href) => href.startsWith("/#")),
-    [],
+    [navItems],
   );
   const allowedSectionIds = useMemo(
     () => new Set(sectionHrefs.map((href) => href.replace("/#", ""))),
@@ -238,7 +402,7 @@ export function NavBar({ className }: NavBarProps) {
   }, [isMobileMenuOpen]);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 768px)");
+    const mediaQuery = window.matchMedia("(min-width: 821px)");
 
     const syncMenuState = (event?: MediaQueryListEvent) => {
       if ((event?.matches ?? mediaQuery.matches) && isMobileMenuOpen) {
@@ -275,40 +439,79 @@ export function NavBar({ className }: NavBarProps) {
         sanitizeNavHref(item.href, allowedSectionHrefs) === currentNavHref,
     ) ?? navItems[0];
 
-  const handleNavClick = (href: string) => {
+  const handleNavClick = (href: string, source: string, label?: string) => {
+    trackEvent("navigation_click", {
+      button_id: `nav_${href.replace(/[^a-z0-9]+/gi, "_").replace(/^_|_$/g, "")}`,
+      button_label: label ?? href,
+      button_location: source,
+      nav_target: href,
+    });
+
+    // Ensure section links still scroll when clicking the same hash repeatedly.
+    if (pathname === "/" && href.startsWith("/#")) {
+      const sectionId = href.slice(2);
+
+      if (sectionId === "about") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        const target = document.getElementById(sectionId);
+        target?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      const nextHash = `#${sectionId}`;
+      const nextUrl = `${window.location.pathname}${window.location.search}${nextHash}`;
+      const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+
+      if (nextUrl !== currentUrl) {
+        window.history.replaceState(null, "", nextUrl);
+      }
+    }
+
     setActiveHref(href);
     setIsMobileMenuOpen(false);
+  };
+
+  const handleLocaleClick = (nextLocale: Locale) => {
+    setLocale(nextLocale);
   };
 
   return (
     <>
       <button
         type="button"
-        aria-label="Close navigation menu"
+        aria-label={messages.navBar.mobile.closeOverlay}
         aria-hidden={!isMobileMenuOpen}
         tabIndex={isMobileMenuOpen ? 0 : -1}
         className={cn(
-          "fixed inset-0 z-[990] bg-[rgba(2,6,23,0.72)] transition-[opacity,backdrop-filter] duration-300 ease-out md:hidden",
+          "fixed inset-0 z-[990] bg-[rgba(2,6,23,0.72)] transition-[opacity,backdrop-filter] duration-300 ease-out min-[821px]:hidden",
           isMobileMenuOpen
             ? "pointer-events-auto opacity-100 backdrop-blur-sm"
             : "pointer-events-none opacity-0 backdrop-blur-none",
         )}
-        onClick={() => setIsMobileMenuOpen(false)}
+        onClick={() => {
+          trackEvent("navigation_click", {
+            button_id: "mobile_overlay_close",
+            button_label: "Close overlay",
+            button_location: "mobile_nav_overlay",
+            nav_target: "close_mobile_menu",
+          });
+          setIsMobileMenuOpen(false);
+        }}
       />
 
       <div
         className={cn(
-          "fixed left-4 right-4 top-3 z-[1000] md:hidden",
+          "fixed left-4 right-4 top-3 z-[1000] min-[821px]:hidden",
           className,
         )}
       >
         <nav
-          aria-label="Mobile navigation"
+          aria-label={messages.navBar.title}
           className={cn(
-            "relative overflow-hidden rounded-[2rem] border border-[rgba(148,163,184,0.18)] bg-[linear-gradient(180deg,rgba(8,15,28,0.92),rgba(4,10,22,0.96))] shadow-[0_30px_80px_rgba(2,6,23,0.58)] ring-1 ring-white/6 backdrop-blur-2xl transition-[border-color,box-shadow,transform] duration-300 ease-out",
+            "relative rounded-[2rem] border border-[rgba(148,163,184,0.18)] bg-[linear-gradient(180deg,rgba(8,15,28,0.92),rgba(4,10,22,0.96))] shadow-[0_30px_80px_rgba(2,6,23,0.58)] ring-1 ring-white/6 backdrop-blur-2xl transition-[border-color,box-shadow,transform] duration-300 ease-out",
             isMobileMenuOpen
-              ? "border-[rgba(34,211,238,0.22)] shadow-[0_36px_90px_rgba(2,6,23,0.62)]"
-              : "",
+              ? "overflow-hidden border-[rgba(34,211,238,0.22)] shadow-[0_36px_90px_rgba(2,6,23,0.62)]"
+              : "overflow-visible",
           )}
         >
           <div className="absolute inset-x-6 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(34,211,238,0.55),transparent)]" />
@@ -317,7 +520,9 @@ export function NavBar({ className }: NavBarProps) {
           <div className="relative flex items-center gap-3 px-3 py-3">
             <Link
               href="/#about"
-              onClick={() => handleNavClick("/#about")}
+              onClick={() =>
+                handleNavClick("/#about", "mobile_nav_logo", "Logo")
+              }
               aria-label="Yaser mission node"
               className="group relative inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-[1.1rem] border border-[rgba(34,211,238,0.32)] bg-[linear-gradient(180deg,rgba(15,23,42,0.92),rgba(10,18,32,0.88))] shadow-[0_0_22px_rgba(34,211,238,0.18)] transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-[rgba(34,211,238,0.44)] hover:shadow-[0_0_28px_rgba(34,211,238,0.24)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-cyan)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg-deep)]"
             >
@@ -332,7 +537,7 @@ export function NavBar({ className }: NavBarProps) {
 
             <div className="min-w-0 flex-1">
               <p className="text-[0.62rem] font-semibold uppercase tracking-[0.28em] text-[color:var(--accent-cyan)]/72">
-                Navigation
+                {messages.navBar.title}
               </p>
               <div className="mt-1 flex items-center gap-2">
                 <span className="inline-flex h-2 w-2 rounded-full bg-[color:var(--accent-cyan)] shadow-[0_0_12px_rgba(34,211,238,0.7)]" />
@@ -342,14 +547,23 @@ export function NavBar({ className }: NavBarProps) {
               </div>
             </div>
 
+            <LocaleDropdown
+              value={locale}
+              onChange={handleLocaleClick}
+              ariaLabel={messages.common.language}
+              className="shrink-0"
+              panelClassName="w-[7.2rem]"
+              trackingContext="mobile_nav_topbar"
+            />
+
             <button
               type="button"
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-navigation-menu"
               aria-label={
                 isMobileMenuOpen
-                  ? "Close navigation menu"
-                  : "Open navigation menu"
+                  ? messages.navBar.mobile.closeMenu
+                  : messages.navBar.mobile.openMenu
               }
               className={cn(
                 "group relative inline-flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-[1.15rem] border border-[rgba(34,211,238,0.24)] bg-[rgba(13,22,38,0.9)] text-[color:var(--accent-cyan)] shadow-[0_0_18px_rgba(34,211,238,0.12)] transition-[transform,border-color,box-shadow,background-color] duration-300 hover:-translate-y-0.5 hover:border-[rgba(34,211,238,0.4)] hover:bg-[rgba(17,29,48,0.96)] hover:shadow-[0_0_26px_rgba(34,211,238,0.16)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-cyan)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg-deep)]",
@@ -357,10 +571,27 @@ export function NavBar({ className }: NavBarProps) {
                   ? "border-[rgba(34,211,238,0.42)] bg-[rgba(17,29,48,0.96)] shadow-[0_0_30px_rgba(34,211,238,0.18)]"
                   : "",
               )}
-              onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+              onClick={() => {
+                setIsMobileMenuOpen((prev) => {
+                  const nextOpen = !prev;
+                  trackEvent("navigation_click", {
+                    button_id: "mobile_hamburger_toggle",
+                    button_label: nextOpen
+                      ? messages.navBar.mobile.openLabel
+                      : messages.navBar.mobile.closeLabel,
+                    button_location: "mobile_nav_topbar",
+                    nav_target: nextOpen
+                      ? "open_mobile_menu"
+                      : "close_mobile_menu",
+                  });
+                  return nextOpen;
+                });
+              }}
             >
               <span className="sr-only">
-                {isMobileMenuOpen ? "Close menu" : "Open menu"}
+                {isMobileMenuOpen
+                  ? messages.navBar.mobile.closeLabel
+                  : messages.navBar.mobile.openLabel}
               </span>
               <span className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.14),transparent_70%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               <span className="relative flex w-5 flex-col gap-1.5">
@@ -412,10 +643,10 @@ export function NavBar({ className }: NavBarProps) {
                   <div className="mb-2 flex items-center justify-between rounded-[1.35rem] border border-[rgba(148,163,184,0.12)] bg-[rgba(8,15,28,0.62)] px-4 py-3">
                     <div>
                       <p className="text-[0.62rem] font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-cyan)]/68">
-                        Current track
+                        {messages.navBar.mobile.currentTrack.title}
                       </p>
                       <p className="mt-1 text-sm font-medium text-[color:var(--text-main)]/88">
-                        Tap a section to jump directly through the portfolio.
+                        {messages.navBar.mobile.currentTrack.description}
                       </p>
                     </div>
                     <span className="inline-flex items-center rounded-full border border-[rgba(34,211,238,0.2)] bg-[rgba(34,211,238,0.08)] px-2.5 py-1 text-[0.64rem] font-semibold uppercase tracking-[0.2em] text-[color:var(--accent-cyan)]">
@@ -439,7 +670,13 @@ export function NavBar({ className }: NavBarProps) {
                       <Link
                         key={item.href}
                         href={safeHref}
-                        onClick={() => handleNavClick(safeHref)}
+                        onClick={() =>
+                          handleNavClick(
+                            safeHref,
+                            "mobile_nav_menu",
+                            item.label,
+                          )
+                        }
                         className={cn(
                           "group relative flex items-center gap-3 overflow-hidden rounded-[1.45rem] border px-4 py-3.5 transition-[transform,border-color,background-color,box-shadow,color] duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-cyan)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg-deep)]",
                           isActive
@@ -464,7 +701,9 @@ export function NavBar({ className }: NavBarProps) {
                                   : "translate-x-1 opacity-50 text-[color:var(--text-muted)]",
                               )}
                             >
-                              {isActive ? "Live" : "Open"}
+                              {isActive
+                                ? messages.common.actions.live
+                                : messages.common.actions.open}
                             </span>
                           </div>
                         </div>
@@ -488,16 +727,23 @@ export function NavBar({ className }: NavBarProps) {
       </div>
 
       <nav
-        aria-label="Primary navigation"
+        aria-label={messages.navBar.title}
         className={cn(
-          "fixed left-1/2 top-2 z-[1000] hidden w-auto max-w-max -translate-x-1/2 rounded-full border border-[color:var(--border-soft)] bg-[color:var(--bg-panel-strong)] px-3.5 py-2.5 shadow-[0_20px_48px_rgba(2,6,23,0.55)] backdrop-blur-xl md:block",
+          "fixed left-1/2 top-2 z-[1000] hidden w-auto max-w-max -translate-x-1/2 rounded-full border border-[color:var(--border-soft)] bg-[color:var(--bg-panel-strong)] px-3.5 py-2.5 shadow-[0_20px_48px_rgba(2,6,23,0.55)] backdrop-blur-xl min-[821px]:block",
           className,
         )}
       >
-        <div className="flex items-center justify-between gap-2 md:justify-start md:gap-2 md:px-0 md:py-0">
+        <div
+          className={cn(
+            "flex items-center justify-between gap-2 min-[821px]:justify-start min-[821px]:gap-2 min-[821px]:px-0 min-[821px]:py-0",
+            isRTL ? "flex-row-reverse" : "",
+          )}
+        >
           <Link
             href="/#about"
-            onClick={() => handleNavClick("/#about")}
+            onClick={() =>
+              handleNavClick("/#about", "desktop_nav_logo", "Logo")
+            }
             aria-label="Yaser mission node"
             className="group relative inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[color:var(--border-cyan)] bg-[rgba(15,23,42,0.82)] text-[10px] font-semibold tracking-[0.08em] text-[color:var(--accent-cyan)] shadow-[0_0_16px_rgba(34,211,238,0.24)] transition-[border-color,box-shadow,background-color,color] duration-200 hover:bg-[rgba(34,211,238,0.1)] hover:text-[color:var(--text-main)] hover:shadow-[0_0_18px_rgba(34,211,238,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-cyan)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg-deep)] sm:h-10 sm:w-10"
           >
@@ -510,7 +756,7 @@ export function NavBar({ className }: NavBarProps) {
             />
           </Link>
 
-          <div className="hidden items-center gap-1.5 md:flex md:gap-2">
+          <div className="hidden items-center gap-1.5 min-[821px]:flex min-[821px]:gap-2">
             {navItems.map((item) => {
               const safeHref = sanitizeNavHref(item.href, allowedSectionHrefs);
               const isSectionItem = safeHref.startsWith("/#");
@@ -534,9 +780,11 @@ export function NavBar({ className }: NavBarProps) {
                 <Link
                   key={item.href}
                   href={safeHref}
-                  onClick={() => handleNavClick(safeHref)}
+                  onClick={() =>
+                    handleNavClick(safeHref, "desktop_nav_menu", item.label)
+                  }
                   className={cn(
-                    "group relative min-h-10 shrink-0 overflow-hidden rounded-full border border-transparent px-3.5 py-2 text-xs font-semibold tracking-[0.06em] text-[color:var(--text-main)]/90 transition-[color,background-color,border-color,box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-cyan)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg-deep)] md:px-[1.05rem]",
+                    "group relative min-h-10 shrink-0 overflow-hidden rounded-full border border-transparent px-3.5 py-2 text-xs font-semibold tracking-[0.06em] text-[color:var(--text-main)]/90 transition-[color,background-color,border-color,box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-cyan)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg-deep)] min-[821px]:px-[1.05rem]",
                     isActive
                       ? "border-[color:var(--border-cyan)] bg-[rgba(34,211,238,0.14)] text-[color:var(--accent-cyan)] shadow-[0_0_18px_rgba(34,211,238,0.2)]"
                       : "hover:border-[rgba(34,211,238,0.24)] hover:bg-[rgba(34,211,238,0.08)] hover:text-[color:var(--accent-cyan)] hover:shadow-[0_0_14px_rgba(34,211,238,0.1)]",
@@ -560,8 +808,17 @@ export function NavBar({ className }: NavBarProps) {
               );
             })}
           </div>
+
+          <div className="hidden items-center min-[821px]:flex">
+            <LocaleDropdown
+              value={locale}
+              onChange={handleLocaleClick}
+              ariaLabel={messages.common.language}
+              trackingContext="desktop_navbar"
+            />
+          </div>
         </div>
       </nav>
     </>
   );
-}
+};

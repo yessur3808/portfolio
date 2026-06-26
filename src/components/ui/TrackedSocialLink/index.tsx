@@ -17,7 +17,7 @@ type TrackedSocialLinkProps = {
   ariaLabel?: string;
 };
 
-export function TrackedSocialLink({
+export const TrackedSocialLink = ({
   link,
   location,
   className,
@@ -25,7 +25,7 @@ export function TrackedSocialLink({
   iconClassName,
   showLabel = true,
   ariaLabel,
-}: TrackedSocialLinkProps) {
+}: TrackedSocialLinkProps) => {
   return (
     <a
       href={link.href}
@@ -37,6 +37,9 @@ export function TrackedSocialLink({
           social_id: link.id,
           social_label: link.label,
           location,
+          button_id: `social_${link.id}`,
+          button_label: link.label,
+          button_location: `${location}_social_links`,
           href: link.href,
         });
 
@@ -47,6 +50,9 @@ export function TrackedSocialLink({
         ) {
           trackEvent("contact_click", {
             contact_type: link.id,
+            button_id: `contact_${link.id}`,
+            button_label: link.label,
+            button_location: `${location}_social_links`,
           });
         }
       }}
@@ -60,4 +66,4 @@ export function TrackedSocialLink({
       {showLabel ? <span>{link.label}</span> : null}
     </a>
   );
-}
+};

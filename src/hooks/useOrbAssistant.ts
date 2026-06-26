@@ -1,5 +1,4 @@
 "use client";
-
 import { useCallback, useEffect, useRef, useState } from "react";
 import type {
   AssistantLanguage,
@@ -17,6 +16,7 @@ import { trackEvent } from "@/src/lib/analytics";
 
 type UseOrbAssistantOptions = {
   preload?: boolean;
+  languageMode?: AssistantLanguageMode;
 };
 
 type UseOrbAssistantReturn = {
@@ -42,22 +42,22 @@ type OrbStateEventDetail = {
   turnCount: number;
 };
 
-function makeId(): string {
+const makeId = (): string => {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-}
+};
 
-function makeMessage(
+const makeMessage = (
   role: AssistantMessage["role"],
   content: string,
   language?: AssistantLanguage,
-): AssistantMessage {
+): AssistantMessage => {
   return { id: makeId(), role, content, createdAt: new Date(), language };
-}
+};
 
-function languageModeAck(
+const languageModeAck = (
   mode: AssistantLanguageMode,
   language: AssistantLanguage,
-): string {
+): string => {
   if (mode === "auto") {
     return {
       en: "Language mode set to auto-detect (fallback: English).",
@@ -81,41 +81,42 @@ function languageModeAck(
           ? "La langue est définie sur le français."
           : "La langue est définie sur l'anglais.",
   }[language];
-}
+};
 
-function makeDefaultMemory(): AssistantSessionMemory {
+const makeDefaultMemory = (): AssistantSessionMemory => {
   return {
     lastQuery: "",
     lastSectionId: "",
     lastTopic: "",
     turnCount: 0,
   };
-}
+};
 
-function getResponseTopic(response: AssistantResponse | null): string {
+const getResponseTopic = (response: AssistantResponse | null): string => {
   if (!response || response.matchedChunks.length === 0) return "";
   return response.matchedChunks[0]?.title ?? "";
-}
+};
 
-function getResponseSection(response: AssistantResponse | null): string {
+const getResponseSection = (response: AssistantResponse | null): string => {
   if (!response || response.matchedChunks.length === 0) return "";
   return response.matchedChunks[0]?.sectionId ?? "";
-}
+};
 
-function publishOrbState(detail: OrbStateEventDetail): void {
+const publishOrbState = (detail: OrbStateEventDetail): void => {
   if (typeof window === "undefined") return;
   window.dispatchEvent(
     new CustomEvent<OrbStateEventDetail>("orb-state-change", { detail }),
   );
-}
+};
 
-export function useOrbAssistant(
+export const useOrbAssistant = (
   options: UseOrbAssistantOptions = {},
-): UseOrbAssistantReturn {
+): UseOrbAssistantReturn => {
   const [messages, setMessages] = useState<AssistantMessage[]>([]);
   const [orbState, setOrbState] = useState<OrbState>("idle");
-  const [languageMode, setLanguageMode] =
-    useState<AssistantLanguageMode>("auto");
+  const [languageMode, setLanguageMode] = useState<AssistantLanguageMode>(
+    options.languageMode ?? "auto",
+  );
   const [lastResponse, setLastResponse] = useState<AssistantResponse | null>(
     null,
   );
@@ -154,6 +155,8 @@ export function useOrbAssistant(
       const trimmed = text.trim();
       if (!trimmed || orbState === "thinking" || orbState === "answering")
         return null;
+
+      const activeLanguageMode = options.languageMode ?? languageMode;
 
       const disabledLanguage = parseDisabledLanguageCommand(trimmed);
       if (disabledLanguage) {
@@ -230,7 +233,7 @@ export function useOrbAssistant(
           lastResponse: previousResponse,
           lastQuery: memorySnapshot.lastQuery,
           turnCount: memorySnapshot.turnCount,
-          languageMode,
+          languageMode: activeLanguageMode,
         });
         setLastResponse(response);
         setOrbState("answering");
@@ -269,9 +272,9 @@ export function useOrbAssistant(
           makeMessage(
             "assistant",
             "Something went wrong. Please try again.",
-            languageMode === "auto"
+            activeLanguageMode === "auto"
               ? detectAssistantLanguage(trimmed)
-              : languageMode,
+              : activeLanguageMode,
           ),
         ]);
 
@@ -294,13 +297,20 @@ export function useOrbAssistant(
         );
       }
     },
-    [languageMode, loadEngine, orbState, messages.length, lastResponse],
+    [
+      languageMode,
+      loadEngine,
+      orbState,
+      messages.length,
+      lastResponse,
+      options.languageMode,
+    ],
   );
 
   const reset = useCallback(() => {
     setMessages([]);
     setOrbState("idle");
-    setLanguageMode("auto");
+    setLanguageMode(options.languageMode ?? "auto");
     setLastResponse(null);
     sessionMemoryRef.current = makeDefaultMemory();
 
@@ -310,7 +320,14 @@ export function useOrbAssistant(
       topic: "",
       turnCount: 0,
     });
-  }, []);
+  }, [options.languageMode]);
 
-  return { messages, orbState, lastResponse, languageMode, send, reset };
-}
+  return {
+    messages,
+    orbState,
+    lastResponse,
+    languageMode: options.languageMode ?? languageMode,
+    send,
+    reset,
+  };
+};

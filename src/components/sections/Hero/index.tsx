@@ -20,7 +20,7 @@ const currentFocus = [
   "Creative web experiences",
 ];
 
-export default function Hero() {
+const Hero = () => {
   return (
     <section
       id="home"
@@ -89,4 +89,6 @@ export default function Hero() {
       </div>
     </section>
   );
-}
+};
+
+export default Hero;

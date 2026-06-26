@@ -1,10 +1,10 @@
 "use client";
-
 import { useRef, useEffect, useMemo, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeSanitize, { defaultSchema } from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
+import { useI18n } from "@/src/i18n/locale-context";
 import { useOrbAssistant } from "@/src/hooks/useOrbAssistant";
 import { executeActions } from "@/src/lib/orb/actionExecutor.client";
 import { cn } from "@/src/lib/utils";
@@ -14,10 +14,10 @@ type AnimatedAssistantTextProps = {
   onDone?: () => void;
 };
 
-function AnimatedAssistantText({
+const AnimatedAssistantText = ({
   content,
   onDone,
-}: AnimatedAssistantTextProps) {
+}: AnimatedAssistantTextProps) => {
   const [visibleChars, setVisibleChars] = useState(0);
 
   useEffect(() => {
@@ -60,7 +60,7 @@ function AnimatedAssistantText({
       )}
     </>
   );
-}
+};
 
 const MARKDOWN_SANITIZE_SCHEMA = {
   ...defaultSchema,
@@ -76,7 +76,7 @@ const USER_MESSAGE_CLASSNAME =
 const ASSISTANT_MESSAGE_CLASSNAME =
   "border border-white/15 bg-[rgba(15,23,42,0.66)] text-white";
 
-function replaceUnderlineTokens(segment: string): string {
+const replaceUnderlineTokens = (segment: string): string => {
   let result = "";
   let i = 0;
 
@@ -105,9 +105,9 @@ function replaceUnderlineTokens(segment: string): string {
   }
 
   return result;
-}
+};
 
-function parseCustomMarkdownTokens(content: string): string {
+const parseCustomMarkdownTokens = (content: string): string => {
   const fencedCodeBlockPattern = /(```[\s\S]*?```)/g;
   const inlineCodePattern = /(`[^`\n]*`)/g;
 
@@ -130,9 +130,9 @@ function parseCustomMarkdownTokens(content: string): string {
         .join("");
     })
     .join("");
-}
+};
 
-function containsLikelyMarkdownSyntax(content: string): boolean {
+const containsLikelyMarkdownSyntax = (content: string): boolean => {
   return (
     /(^|\n)#{1,6}\s+/.test(content) ||
     /(^|\n)\s*[-*+]\s+/.test(content) ||
@@ -144,9 +144,9 @@ function containsLikelyMarkdownSyntax(content: string): boolean {
     /(^|\n)\|.*\|/.test(content) ||
     /(^|\n)>\s+/.test(content)
   );
-}
+};
 
-function AssistantMarkdown({ content }: { content: string }) {
+const AssistantMarkdown = ({ content }: { content: string }) => {
   const parsedContent = useMemo(
     () => parseCustomMarkdownTokens(content),
     [content],
@@ -186,11 +186,13 @@ function AssistantMarkdown({ content }: { content: string }) {
       </ReactMarkdown>
     </div>
   );
-}
+};
 
-export function OrbChat() {
+export const OrbChat = () => {
+  const { messages: i18n, locale } = useI18n();
   const { messages, orbState, lastResponse, send, reset } = useOrbAssistant({
     preload: true,
+    languageMode: locale,
   });
   const [input, setInput] = useState("");
   const [expandedSuggestionsForAnswer, setExpandedSuggestionsForAnswer] =
@@ -348,11 +350,10 @@ export function OrbChat() {
         {!hasMessages && (
           <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-7 text-center backdrop-blur-sm">
             <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/80">
-              Ask Yaser&apos;s AI Assistant
+              {i18n.orbAssistant.welcomeTitle}
             </p>
             <p className="text-xs leading-relaxed text-white/70">
-              About my projects, experience, skills, or how I can help your
-              team.
+              {i18n.orbAssistant.welcomeBody}
             </p>
           </div>
         )}
@@ -382,9 +383,15 @@ export function OrbChat() {
                 type="button"
                 onClick={() => void copyText(msg.id, msg.content)}
                 aria-label={
-                  copiedMessageId === msg.id ? "Message copied" : "Copy message"
+                  copiedMessageId === msg.id
+                    ? i18n.orbAssistant.copiedMessage
+                    : i18n.orbAssistant.copyMessage
                 }
-                title={copiedMessageId === msg.id ? "Copied" : "Copy"}
+                title={
+                  copiedMessageId === msg.id
+                    ? i18n.orbAssistant.copiedMessage
+                    : i18n.orbAssistant.copyMessage
+                }
                 className={cn(
                   "absolute right-2 top-2 z-10 inline-flex h-7 w-7 items-center justify-center rounded-md border border-white/20 bg-[rgba(2,6,23,0.78)] text-white/90 shadow-sm transition-all",
                   "pointer-events-none opacity-0 group-hover:pointer-events-auto group-hover:opacity-100 focus:pointer-events-auto focus:opacity-100",
@@ -501,7 +508,8 @@ export function OrbChat() {
               }}
               className="mb-1 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.02] px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em] text-white/75 transition-colors hover:border-white/20 hover:text-white"
             >
-              Try next ({Math.min(lastResponse.suggestions.length, 4)})
+              {i18n.orbAssistant.tryNext} (
+              {Math.min(lastResponse.suggestions.length, 4)})
               <span aria-hidden="true">{suggestionsExpanded ? "-" : "+"}</span>
             </button>
 
@@ -541,8 +549,8 @@ export function OrbChat() {
               onChange={(e) => setInput(e.target.value)}
               onInput={resizeComposer}
               onKeyDown={handleKeyDown}
-              placeholder="Ask a question..."
-              aria-label="Ask the assistant"
+              placeholder={i18n.orbAssistant.composerPlaceholder}
+              aria-label={i18n.orbAssistant.askAria}
               disabled={orbState === "thinking"}
               autoComplete="off"
               autoCorrect="off"
@@ -554,7 +562,7 @@ export function OrbChat() {
               type="button"
               onClick={() => void handleSubmit(input)}
               disabled={orbState === "thinking" || !input.trim()}
-              aria-label="Send message"
+              aria-label={i18n.orbAssistant.sendMessageAria}
               className="inline-flex min-h-14 h-auto aspect-square self-stretch items-center justify-center rounded-2xl border border-white/20 bg-white/10 text-white transition-all hover:border-white/35 hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-50 focus:outline-none focus:ring-1 focus:ring-white/40 md:min-h-[3.5rem]"
             >
               <svg
@@ -583,13 +591,13 @@ export function OrbChat() {
           <button
             type="button"
             onClick={() => reset()}
-            aria-label="Start a new conversation"
+            aria-label={i18n.orbAssistant.newConversation}
             className="w-full rounded-full border border-white/10 bg-white/[0.02] px-3 py-1.5 text-[11px] text-white/65 transition-colors hover:border-white/20 hover:text-white"
           >
-            New conversation
+            {i18n.orbAssistant.newConversation}
           </button>
         </div>
       )}
     </div>
   );
-}
+};

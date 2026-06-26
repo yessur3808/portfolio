@@ -9,24 +9,24 @@ import { interpolate, t } from "./i18n";
 const WEAK_SCORE_THRESHOLD = 0.25;
 type BriefStyle = "executive" | "technical";
 
-function clamp(value: number, min: number, max: number): number {
+const clamp = (value: number, min: number, max: number): number => {
   return Math.min(max, Math.max(min, value));
-}
+};
 
-function dedupeSuggestions(suggestions: string[]): string[] {
+const dedupeSuggestions = (suggestions: string[]): string[] => {
   return Array.from(new Set(suggestions));
-}
+};
 
-function uniqueById(chunks: KnowledgeChunk[]): KnowledgeChunk[] {
+const uniqueById = (chunks: KnowledgeChunk[]): KnowledgeChunk[] => {
   const seen = new Set<string>();
   return chunks.filter((chunk) => {
     if (seen.has(chunk.id)) return false;
     seen.add(chunk.id);
     return true;
   });
-}
+};
 
-function actionKey(action: AssistantAction): string {
+const actionKey = (action: AssistantAction): string => {
   if (action.type === "scroll") return `scroll:${action.targetId}`;
   if (action.type === "highlight") return `highlight:${action.targetId}`;
   if (action.type === "download") {
@@ -35,9 +35,9 @@ function actionKey(action: AssistantAction): string {
   if (action.type === "open")
     return `open:${action.href}:${action.newTab ?? true}`;
   return "none";
-}
+};
 
-function dedupeActions(actions: AssistantAction[]): AssistantAction[] {
+const dedupeActions = (actions: AssistantAction[]): AssistantAction[] => {
   const seen = new Set<string>();
   const deduped: AssistantAction[] = [];
   for (const action of actions) {
@@ -48,12 +48,9 @@ function dedupeActions(actions: AssistantAction[]): AssistantAction[] {
     }
   }
   return deduped;
-}
+};
 
-function chunksToUse(
-  query: string,
-  results: SemanticSearchResult[],
-): SemanticSearchResult[] {
+const chunksToUse = (query: string, results: SemanticSearchResult[]): SemanticSearchResult[] => {
   const detailedQuery =
     /\b(deep|in depth|detailed|details|explain|breakdown|walk me through|verbatim|exact wording|original wording|source wording|as written|word for word|full details)\b/i.test(
       query,
@@ -104,19 +101,19 @@ function chunksToUse(
               ? 2
               : 3;
   return candidateResults.slice(0, maxChunks);
-}
+};
 
-function truncateForSummary(content: string, maxLength = 150): string {
+const truncateForSummary = (content: string, maxLength = 150): string => {
   const firstSentence = content.split(/(?<=[.!?])\s+/)[0] ?? content;
   const normalized = firstSentence.trim();
   if (normalized.length <= maxLength) return normalized;
   return `${normalized.slice(0, maxLength).trimEnd()}...`;
-}
+};
 
-function splitProjectContent(content: string): {
+const splitProjectContent = (content: string): {
   whatItWas: string;
   whatHeDid: string;
-} {
+} => {
   const sentences = content
     .split(/(?<=[.!?])\s+/)
     .map((sentence) => sentence.trim())
@@ -131,14 +128,9 @@ function splitProjectContent(content: string): {
     whatItWas: whatItWas.replace(/^The\s+/i, "The ").trim(),
     whatHeDid: whatHeDid.trim(),
   };
-}
+};
 
-function buildProjectListNote(
-  query: string,
-  confidence: number,
-  language: AssistantLanguage,
-  firstChunk: KnowledgeChunk,
-): string {
+const buildProjectListNote = (query: string, confidence: number, language: AssistantLanguage, firstChunk: KnowledgeChunk): string => {
   const confidenceText = confidenceLabel(confidence, language);
   const variants = [
     `I matched this in the projects section for "${query}".`,
@@ -152,27 +144,27 @@ function buildProjectListNote(
 
   // Keep the second paragraph concise and conversational.
   return `${lead} ${detail}`;
-}
+};
 
-function isDetailedQuery(query: string): boolean {
+const isDetailedQuery = (query: string): boolean => {
   return /\b(deep|in depth|detailed|details|explain|breakdown|walk me through|verbatim|exact wording|original wording|source wording|as written|word for word|full details)\b/i.test(
     query,
   );
-}
+};
 
-function isProjectListQuery(query: string): boolean {
+const isProjectListQuery = (query: string): boolean => {
   return /\b(what|which|some|list|show)\b.*\b(project|projects)\b|\b(project|projects)\b.*\b(worked on|during|at|from|built)\b/i.test(
     query,
   );
-}
+};
 
-function isQuestionStyleQuery(query: string): boolean {
+const isQuestionStyleQuery = (query: string): boolean => {
   return /\b(what|which|who|how|why|when|where|can you|could you|would you|tell me)\b/i.test(
     query,
   );
-}
+};
 
-function detectBriefStyle(query: string): BriefStyle {
+const detectBriefStyle = (query: string): BriefStyle => {
   const technicalSignal =
     /\b(technical|tech|implementation|implement|architecture|system|design|api|code|coding|algorithm|data\s+model|schema|database|backend|frontend|latency|performance|optimi[sz]e|debug|integration|framework|library|stack|pipeline|security)\b/i.test(
       query,
@@ -185,22 +177,16 @@ function detectBriefStyle(query: string): BriefStyle {
   if (technicalSignal) return "technical";
   if (executiveSignal) return "executive";
   return isDetailedQuery(query) ? "technical" : "executive";
-}
+};
 
-function confidenceLabel(
-  confidence: number,
-  language: AssistantLanguage,
-): string {
+const confidenceLabel = (confidence: number, language: AssistantLanguage): string => {
   const l = t(language);
   if (confidence >= 0.8) return l.confidenceHigh;
   if (confidence >= 0.55) return l.confidenceModerate;
   return l.confidenceLow;
-}
+};
 
-function typeLabel(
-  type: KnowledgeChunk["type"],
-  language: AssistantLanguage,
-): string {
+const typeLabel = (type: KnowledgeChunk["type"], language: AssistantLanguage): string => {
   const l = t(language);
   switch (type) {
     case "project":
@@ -218,17 +204,14 @@ function typeLabel(
     default:
       return l.sectionProfile;
   }
-}
+};
 
-function sectionLabels(
-  language: AssistantLanguage,
-  style: BriefStyle,
-): {
+const sectionLabels = (language: AssistantLanguage, style: BriefStyle): {
   summary: string;
   keyPoints: string;
   details: string;
   links: string;
-} {
+} => {
   switch (language) {
     case "fr":
       return {
@@ -253,12 +236,12 @@ function sectionLabels(
         links: style === "executive" ? "Links" : "References",
       };
   }
-}
+};
 
-function extractReferenceLinks(chunks: KnowledgeChunk[]): Array<{
+const extractReferenceLinks = (chunks: KnowledgeChunk[]): Array<{
   label: string;
   href: string;
-}> {
+}> => {
   const seen = new Set<string>();
   const links: Array<{ label: string; href: string }> = [];
 
@@ -284,16 +267,18 @@ function extractReferenceLinks(chunks: KnowledgeChunk[]): Array<{
   }
 
   return links.slice(0, 4);
-}
+};
 
-function renderDocumentAnswer(options: {
-  summary: string;
-  keyPoints: string[];
-  details: string[];
-  links?: Array<{ label: string; href: string }>;
-  language: AssistantLanguage;
-  style: BriefStyle;
-}): string {
+const renderDocumentAnswer = (
+  options: {
+    summary: string;
+    keyPoints: string[];
+    details: string[];
+    links?: Array<{ label: string; href: string }>;
+    language: AssistantLanguage;
+    style: BriefStyle;
+  },
+): string => {
   const labels = sectionLabels(options.language, options.style);
   const normalizedKeyPoints = options.keyPoints.filter(Boolean);
   const normalizedDetails = options.details.filter(Boolean);
@@ -326,14 +311,9 @@ function renderDocumentAnswer(options: {
   }
 
   return parts.join("\n\n");
-}
+};
 
-function buildAnswerFromChunks(
-  query: string,
-  chunks: KnowledgeChunk[],
-  confidence: number,
-  language: AssistantLanguage,
-): string {
+const buildAnswerFromChunks = (query: string, chunks: KnowledgeChunk[], confidence: number, language: AssistantLanguage): string => {
   const l = t(language);
   const detailed = isDetailedQuery(query);
   const style = detectBriefStyle(query);
@@ -443,12 +423,9 @@ function buildAnswerFromChunks(
     language,
     style,
   });
-}
+};
 
-function buildSuggestionsFromTypes(
-  chunks: KnowledgeChunk[],
-  language: AssistantLanguage,
-): string[] {
+const buildSuggestionsFromTypes = (chunks: KnowledgeChunk[], language: AssistantLanguage): string[] => {
   const l = t(language);
   const suggestions: string[] = [];
   const types = new Set(chunks.map((chunk) => chunk.type));
@@ -488,12 +465,9 @@ function buildSuggestionsFromTypes(
   }
 
   return dedupeSuggestions(suggestions);
-}
+};
 
-function mergeActions(
-  chunks: KnowledgeChunk[],
-  options: { allowOpenActions?: boolean } = {},
-): AssistantAction[] {
+const mergeActions = (chunks: KnowledgeChunk[], options: { allowOpenActions?: boolean } = {}): AssistantAction[] => {
   const allowOpenActions = options.allowOpenActions ?? true;
   const actions: AssistantAction[] = [];
 
@@ -531,13 +505,9 @@ function mergeActions(
   }
 
   return dedupeActions(actions);
-}
+};
 
-export function composeAnswerFromResults(
-  query: string,
-  results: SemanticSearchResult[],
-  language: AssistantLanguage = "en",
-): AssistantResponse {
+export const composeAnswerFromResults = (query: string, results: SemanticSearchResult[], language: AssistantLanguage = "en"): AssistantResponse => {
   const l = t(language);
   const sorted = [...results].sort((a, b) => b.score - a.score);
   const topScore = sorted[0]?.score ?? 0;
@@ -573,17 +543,13 @@ export function composeAnswerFromResults(
     }),
     suggestions: buildSuggestionsFromTypes(matchedChunks, language),
   };
-}
+};
 
-export function composeAnswer(
-  results: SemanticSearchResult[],
-): AssistantResponse {
+export const composeAnswer = (results: SemanticSearchResult[]): AssistantResponse => {
   return composeAnswerFromResults("your request", results, "en");
-}
+};
 
-export function composeFallback(
-  language: AssistantLanguage = "en",
-): AssistantResponse {
+export const composeFallback = (language: AssistantLanguage = "en"): AssistantResponse => {
   const l = t(language);
   return {
     answer: l.fallbackGeneric,
@@ -597,4 +563,4 @@ export function composeFallback(
       l.suggestions.contact,
     ],
   };
-}
+};

@@ -1,5 +1,4 @@
 "use client";
-
 // Browser-only embedding service using Transformers.js (Xenova/all-MiniLM-L6-v2).
 // @huggingface/transformers is dynamically imported so it is never bundled into
 // the server build, and the model loads lazily the first time it is needed.
@@ -31,19 +30,19 @@ export type EmbeddingStatus = "idle" | "loading" | "ready" | "error";
 let status: EmbeddingStatus = "idle";
 let modelPromise: Promise<Extractor> | null = null;
 
-export function getEmbeddingStatus(): EmbeddingStatus {
+export const getEmbeddingStatus = (): EmbeddingStatus => {
   return status;
-}
+};
 
 // ─── SSR guard ───────────────────────────────────────────────────────────────
 
-function assertBrowser(): void {
+const assertBrowser = (): void => {
   if (typeof window === "undefined") {
     throw new Error(
       "[embeddingService] This module is browser-only. Do not call it in Server Components or server utilities.",
     );
   }
-}
+};
 
 // ─── Tensor → number[] conversion ────────────────────────────────────────────
 
@@ -52,7 +51,7 @@ function assertBrowser(): void {
  * number[]. The pipeline can return a Tensor with a `.data` TypedArray or a
  * nested array via `.tolist()`.
  */
-function tensorToFloatArray(output: TensorLike): number[] {
+const tensorToFloatArray = (output: TensorLike): number[] => {
   // Prefer tolist() when available (gives pooled [embedding] or [[...]])
   if (typeof output.tolist === "function") {
     const list = output.tolist();
@@ -77,7 +76,7 @@ function tensorToFloatArray(output: TensorLike): number[] {
   }
 
   return [];
-}
+};
 
 // ─── Model loading ────────────────────────────────────────────────────────────
 
@@ -87,7 +86,7 @@ const MODEL_ID = "Xenova/all-MiniLM-L6-v2";
  * Loads the embedding model exactly once (singleton promise).
  * Safe to call concurrently — multiple callers share the same promise.
  */
-export function loadEmbeddingModel(): Promise<Extractor> {
+export const loadEmbeddingModel = (): Promise<Extractor> => {
   assertBrowser();
 
   if (!modelPromise) {
@@ -119,7 +118,7 @@ export function loadEmbeddingModel(): Promise<Extractor> {
   }
 
   return modelPromise;
-}
+};
 
 // ─── Public embedding API ─────────────────────────────────────────────────────
 
@@ -127,19 +126,19 @@ export function loadEmbeddingModel(): Promise<Extractor> {
  * Embeds a single string and returns a plain number[] vector.
  * The model produces 384-dimensional embeddings (all-MiniLM-L6-v2).
  */
-export async function embedText(text: string): Promise<number[]> {
+export const embedText = async (text: string): Promise<number[]> => {
   assertBrowser();
   const extractor = await loadEmbeddingModel();
   const output = await extractor(text, { pooling: "mean", normalize: true });
   const tensor = Array.isArray(output) ? output[0] : output;
   return tensorToFloatArray(tensor);
-}
+};
 
 /**
  * Embeds multiple strings in parallel.
  * Each item is embedded independently to avoid batching shape surprises.
  */
-export async function embedTexts(texts: string[]): Promise<number[][]> {
+export const embedTexts = async (texts: string[]): Promise<number[][]> => {
   assertBrowser();
   const BATCH_SIZE = 4;
   const out: number[][] = [];
@@ -156,7 +155,7 @@ export async function embedTexts(texts: string[]): Promise<number[][]> {
   }
 
   return out;
-}
+};
 
 // ─── Legacy export alias (used by semanticSearch.client.ts) ──────────────────
 

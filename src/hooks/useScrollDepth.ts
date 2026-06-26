@@ -7,7 +7,7 @@ import { trackEvent } from "@/src/lib/analytics";
  * Hook to track scroll depth milestones (25%, 50%, 75%, 100%)
  * Usage: useScrollDepth() in a page or layout component
  */
-export function useScrollDepth() {
+export const useScrollDepth = () => {
   const trackedMilestones = useRef<Set<number>>(new Set());
 
   useEffect(() => {
@@ -44,4 +44,4 @@ export function useScrollDepth() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-}
+};

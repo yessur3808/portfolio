@@ -1,5 +1,4 @@
-"use client";
-
+"use client";;
 import { useEffect, useRef, useState } from "react";
 import { OrbChat } from "@/src/components/orb/OrbChat";
 import { cn } from "@/src/lib/utils";
@@ -13,13 +12,13 @@ type SphereParticle = {
   theta: number;
 };
 
-function buildParticles(count: number): SphereParticle[] {
+const buildParticles = (count: number): SphereParticle[] => {
   const golden = Math.PI * (1 + Math.sqrt(5));
   return Array.from({ length: count }, (_, i) => ({
     phi: Math.acos(1 - (2 * (i + 0.5)) / count),
     theta: golden * i,
   }));
-}
+};
 
 const PARTICLES = buildParticles(400);
 // Pre-computed per-particle random seeds — deterministic across renders
@@ -45,7 +44,7 @@ type OrbPalette = {
 
 type OrbMode = "idle" | "listening" | "thinking" | "answering" | "error";
 
-function parseCssColor(raw: string): RGB {
+const parseCssColor = (raw: string): RGB => {
   const v = raw.trim();
   if (v.startsWith("#")) {
     const h = v.slice(1).replace(/^(.)(.)(.)$/, "$1$1$2$2$3$3");
@@ -58,25 +57,25 @@ function parseCssColor(raw: string): RGB {
   const m = v.match(/[\d.]+/g);
   if (m && m.length >= 3) return [+m[0], +m[1], +m[2]];
   return [103, 232, 249]; // fallback cyan
-}
+};
 
-function lerpRGB(a: RGB, b: RGB, t: number): RGB {
+const lerpRGB = (a: RGB, b: RGB, t: number): RGB => {
   return [
     Math.round(a[0] + (b[0] - a[0]) * t),
     Math.round(a[1] + (b[1] - a[1]) * t),
     Math.round(a[2] + (b[2] - a[2]) * t),
   ];
-}
+};
 
-function lightenRGB(c: RGB, amount: number): RGB {
+const lightenRGB = (c: RGB, amount: number): RGB => {
   return [
     Math.round(c[0] + (255 - c[0]) * amount),
     Math.round(c[1] + (255 - c[1]) * amount),
     Math.round(c[2] + (255 - c[2]) * amount),
   ];
-}
+};
 
-function lerpPalette(a: OrbPalette, b: OrbPalette, t: number): OrbPalette {
+const lerpPalette = (a: OrbPalette, b: OrbPalette, t: number): OrbPalette => {
   return {
     shadow: lerpRGB(a.shadow, b.shadow, t),
     mid: lerpRGB(a.mid, b.mid, t),
@@ -86,9 +85,9 @@ function lerpPalette(a: OrbPalette, b: OrbPalette, t: number): OrbPalette {
     bright: lerpRGB(a.bright, b.bright, t),
     intensity: a.intensity + (b.intensity - a.intensity) * t,
   };
-}
+};
 
-function buildPaletteFromCSS(): OrbPalette {
+const buildPaletteFromCSS = (): OrbPalette => {
   const s = getComputedStyle(document.documentElement);
   const shadow = parseCssColor(s.getPropertyValue("--ai-orb-shadow"));
   const secondary = parseCssColor(s.getPropertyValue("--ai-orb-secondary"));
@@ -104,7 +103,7 @@ function buildPaletteFromCSS(): OrbPalette {
     bright: lightenRGB(primary, 0.4),
     intensity,
   };
-}
+};
 
 // Matches the default CSS variables in globals.css
 const DEFAULT_PALETTE: OrbPalette = {
@@ -117,7 +116,7 @@ const DEFAULT_PALETTE: OrbPalette = {
   intensity: 1,
 };
 
-export default function AiOrb({ className }: AiOrbProps) {
+const AiOrb = ({ className }: AiOrbProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rafRef = useRef<number | null>(null);
 
@@ -687,4 +686,6 @@ export default function AiOrb({ className }: AiOrbProps) {
       </div>
     </>
   );
-}
+};
+
+export default AiOrb;

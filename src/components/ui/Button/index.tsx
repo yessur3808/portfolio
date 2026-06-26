@@ -42,7 +42,7 @@ const variantStyles: Record<Variant, string> = {
     "glass-surface glass-strong border-[#1F446C]/65 bg-transparent text-slate-300 hover:border-[#8A6CFF]/70 hover:bg-[#0E2A47]/62 hover:text-[#4FC3F7]",
 };
 
-function sanitizeHref(href: string) {
+const sanitizeHref = (href: string) => {
   const cleanedHref = href.trim().replace(/[\u0000-\u001F\u007F]/g, "");
 
   if (!cleanedHref) {
@@ -60,15 +60,17 @@ function sanitizeHref(href: string) {
   }
 
   return cleanedHref;
-}
+};
 
-export function Button({
-  children,
-  variant = "primary",
-  className,
-  external = false,
-  ...props
-}: ButtonProps) {
+export const Button = (
+  {
+    children,
+    variant = "primary",
+    className,
+    external = false,
+    ...props
+  }: ButtonProps,
+) => {
   const styles = cn(baseStyles, variantStyles[variant], className);
 
   if ("href" in props && typeof props.href === "string") {
@@ -95,4 +97,4 @@ export function Button({
       {children}
     </button>
   );
-}
+};

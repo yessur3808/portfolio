@@ -1,5 +1,4 @@
 "use client";
-
 import { getPortfolioKnowledge as portfolioKnowledge } from "./portfolioKnowledge";
 import type { KnowledgeChunk, SemanticSearchResult } from "./types";
 import { embedText, embedTexts } from "./embeddingService.client";
@@ -14,26 +13,26 @@ const DEFAULT_MIN_SCORE = 0.25;
 const cachedChunkEmbeddings = new Map<string, number[]>();
 let indexingPromise: Promise<void> | null = null;
 
-function assertBrowser(): void {
+const assertBrowser = (): void => {
   if (typeof window === "undefined") {
     throw new Error(
       "[semanticSearch] This module is browser-only. Do not call from SSR code.",
     );
   }
-}
+};
 
-function buildChunkEmbeddingInput(chunk: KnowledgeChunk): string {
+const buildChunkEmbeddingInput = (chunk: KnowledgeChunk): string => {
   // Keep semantic vectors focused on natural language content. Tags are still
   // used in keyword scoring and can become very large after multilingual alias expansion.
   return `${chunk.title}\n${chunk.content}`;
-}
+};
 
-function rankKeywordOnly(
+const rankKeywordOnly = (
   chunks: KnowledgeChunk[],
   query: string,
   limit: number,
   minScore: number,
-): SemanticSearchResult[] {
+): SemanticSearchResult[] => {
   return chunks
     .map((chunk) => ({
       chunk,
@@ -46,9 +45,9 @@ function rankKeywordOnly(
     .filter((result) => result.score >= minScore)
     .sort((a, b) => b.score - a.score)
     .slice(0, limit);
-}
+};
 
-export async function buildSemanticIndex(): Promise<void> {
+export const buildSemanticIndex = (): Promise<void> => {
   assertBrowser();
 
   if (!indexingPromise) {
@@ -78,12 +77,12 @@ export async function buildSemanticIndex(): Promise<void> {
   }
 
   return indexingPromise;
-}
+};
 
-export async function semanticSearch(
+export const semanticSearch = async (
   query: string,
   options: { limit?: number; minScore?: number } = {},
-): Promise<SemanticSearchResult[]> {
+): Promise<SemanticSearchResult[]> => {
   assertBrowser();
 
   const limit = options.limit ?? DEFAULT_LIMIT;
@@ -135,9 +134,9 @@ export async function semanticSearch(
     // Graceful fallback when embeddings fail (model load/network/runtime).
     return rankKeywordOnly(chunks, query, limit, minScore);
   }
-}
+};
 
-export function clearSemanticIndex(): void {
+export const clearSemanticIndex = (): void => {
   cachedChunkEmbeddings.clear();
   indexingPromise = null;
-}
+};

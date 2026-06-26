@@ -1,8 +1,18 @@
+"use client";
+
 import { socialLinks } from "@/app/(site)/_data/site";
 
+import { interpolate } from "@/src/i18n/messages";
+import { useI18n } from "@/src/i18n/locale-context";
 import { TrackedSocialLink } from "@/src/components/ui/TrackedSocialLink";
 
-export default function Footer() {
+const Footer = () => {
+  const { messages, isRTL } = useI18n();
+  const localizedLinks = socialLinks.map((link) => ({
+    ...link,
+    label: messages.social.labels[link.id] ?? link.label,
+  }));
+
   return (
     <footer className="relative mt-12 py-8 sm:py-10">
       <div
@@ -14,17 +24,19 @@ export default function Footer() {
           <div className="flex flex-col gap-4 sm:gap-3">
             <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
               <p className="text-sm text-[color:var(--text-muted)]">
-                © {new Date().getFullYear()} Yaser Ibrahim
+                {interpolate(messages.footer.copyright, {
+                  year: String(new Date().getFullYear()),
+                })}
               </p>
               <p className="text-sm text-[color:var(--text-muted)]">
-                Built with Next.js, TypeScript, and Tailwind CSS.
+                {messages.footer.builtWith}
               </p>
             </div>
             <nav
-              aria-label="Footer links"
-              className="flex flex-wrap items-center gap-2.5 text-sm"
+              aria-label={messages.footer.footerLinksLabel}
+              className={`flex flex-wrap items-center gap-2.5 text-sm ${isRTL ? "justify-end" : ""}`}
             >
-              {socialLinks.map((link) => (
+              {localizedLinks.map((link) => (
                 <TrackedSocialLink
                   key={link.id}
                   link={link}
@@ -40,4 +52,6 @@ export default function Footer() {
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;

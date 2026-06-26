@@ -1,5 +1,4 @@
-"use client";
-
+"use client";;
 import { useEffect, useRef } from "react";
 
 type Pulse = {
@@ -17,7 +16,7 @@ const SECTION_ACCENT_MAP: Record<string, string> = {
   contact: "rgb(138, 108, 255)",
 };
 
-export default function InteractiveBackdrop() {
+const InteractiveBackdrop = () => {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const pulsesRef = useRef<HTMLDivElement | null>(null);
   const sweepRef = useRef<SVGLineElement | null>(null);
@@ -227,4 +226,6 @@ export default function InteractiveBackdrop() {
       <div ref={pulsesRef} className="interactive-backdrop__pulses" />
     </div>
   );
-}
+};
+
+export default InteractiveBackdrop;

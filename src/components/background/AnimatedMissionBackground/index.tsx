@@ -1,5 +1,4 @@
-"use client";
-
+"use client";;
 import { useEffect, useRef } from "react";
 
 import { cn } from "@/src/lib/utils";
@@ -48,28 +47,28 @@ const MAX_ACTIVE_CONNECTIONS = 9;
 const SPAWN_INTERVAL_MIN_MS = 520;
 const SPAWN_INTERVAL_MAX_MS = 1250;
 
-function rand(min: number, max: number) {
+const rand = (min: number, max: number) => {
   return min + Math.random() * (max - min);
-}
+};
 
-function randInt(min: number, max: number) {
+const randInt = (min: number, max: number) => {
   return Math.floor(rand(min, max + 1));
-}
+};
 
-function clamp(value: number, min: number, max: number) {
+const clamp = (value: number, min: number, max: number) => {
   return Math.min(max, Math.max(min, value));
-}
+};
 
-function hexToRgba(hex: string, alpha: number) {
+const hexToRgba = (hex: string, alpha: number) => {
   const value = hex.replace("#", "");
   const int = Number.parseInt(value, 16);
   const r = (int >> 16) & 255;
   const g = (int >> 8) & 255;
   const b = int & 255;
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-}
+};
 
-function createNodes(width: number, height: number) {
+const createNodes = (width: number, height: number) => {
   const cols = Math.max(4, Math.floor(width / 220));
   const rows = Math.max(4, Math.floor(height / 190));
   const nodes: Point[] = [];
@@ -94,9 +93,9 @@ function createNodes(width: number, height: number) {
   }
 
   return nodes;
-}
+};
 
-function createStars(width: number, height: number) {
+const createStars = (width: number, height: number) => {
   const count = clamp(Math.floor((width * height) / 21000), 80, 160);
   const stars: Star[] = [];
 
@@ -110,14 +109,9 @@ function createStars(width: number, height: number) {
   }
 
   return stars;
-}
+};
 
-function drawBase(
-  ctx: CanvasRenderingContext2D,
-  width: number,
-  height: number,
-  stars: Star[],
-) {
+const drawBase = (ctx: CanvasRenderingContext2D, width: number, height: number, stars: Star[]) => {
   ctx.save();
 
   ctx.fillStyle = DEEP_BG;
@@ -175,13 +169,9 @@ function drawBase(
   }
 
   ctx.restore();
-}
+};
 
-function drawNodes(
-  ctx: CanvasRenderingContext2D,
-  nodes: Point[],
-  connections: Connection[],
-) {
+const drawNodes = (ctx: CanvasRenderingContext2D, nodes: Point[], connections: Connection[]) => {
   const hotNodes = new Set<string>();
   for (const connection of connections) {
     hotNodes.add(
@@ -216,9 +206,9 @@ function drawNodes(
     ctx.fill();
     ctx.restore();
   }
-}
+};
 
-function findTargetNode(nodes: Point[], from: Point, width: number) {
+const findTargetNode = (nodes: Point[], from: Point, width: number) => {
   const maxDx = width * 0.24;
   const candidates = nodes.filter((node) => {
     const dy = node.y - from.y;
@@ -231,29 +221,24 @@ function findTargetNode(nodes: Point[], from: Point, width: number) {
   }
 
   return candidates[Math.floor(Math.random() * candidates.length)] ?? null;
-}
+};
 
-function isInsideCenterSafeZone(node: Point, width: number, height: number) {
+const isInsideCenterSafeZone = (node: Point, width: number, height: number) => {
   const safeHalfWidth = width * 0.14;
   const safeHalfHeight = height * 0.17;
   return (
     Math.abs(node.x - width * 0.5) <= safeHalfWidth &&
     Math.abs(node.y - height * 0.5) <= safeHalfHeight
   );
-}
+};
 
-function zoneKey(node: Point, width: number, height: number) {
+const zoneKey = (node: Point, width: number, height: number) => {
   const col = node.x < width / 3 ? 0 : node.x > (width * 2) / 3 ? 2 : 1;
   const row = node.y < height / 2 ? 0 : 1;
   return `${row}-${col}`;
-}
+};
 
-function pickStartNode(
-  nodes: Point[],
-  connections: Connection[],
-  width: number,
-  height: number,
-) {
+const pickStartNode = (nodes: Point[], connections: Connection[], width: number, height: number) => {
   const starts = nodes.filter(
     (node) =>
       node.y < height * 0.8 && !isInsideCenterSafeZone(node, width, height),
@@ -281,11 +266,13 @@ function pickStartNode(
     (node) => (load.get(zoneKey(node, width, height)) ?? 0) <= minLoad,
   );
   return candidates[randInt(0, candidates.length - 1)] ?? null;
-}
+};
 
-export function AnimatedMissionBackground({
-  className,
-}: AnimatedMissionBackgroundProps) {
+export const AnimatedMissionBackground = (
+  {
+    className,
+  }: AnimatedMissionBackgroundProps,
+) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const rafRef = useRef<number | null>(null);
   const spawnTimerRef = useRef<number | null>(null);
@@ -510,6 +497,6 @@ export function AnimatedMissionBackground({
       <canvas ref={canvasRef} className="h-full w-full" />
     </div>
   );
-}
+};
 
 export default AnimatedMissionBackground;

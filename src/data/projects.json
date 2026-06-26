@@ -1367,5 +1367,205 @@
     "links": {
       "demo": "https://multimedia.scmp.com/widgets/vert_timeline/?id=tradewarannv"
     }
+  },
+  {
+    "id": "live-sports-platform",
+    "slug": "live-sports-platform",
+    "title": "Live Sports Platform",
+    "image": "/projects/noimg.png",
+    "summary": "A live sports-oriented platform with real-time interaction patterns.",
+    "description": "Built as an open-source project to explore live data experiences, event-driven UI updates, and scalable frontend architecture for sports use cases.",
+    "impact": "Demonstrates product thinking and implementation for real-time sports workflows.",
+    "technologies": [
+      "TypeScript",
+      "React",
+      "Node.js"
+    ],
+    "themes": [
+      "Real-Time Systems",
+      "Sports",
+      "Web Platform"
+    ],
+    "company": "Personal",
+    "period": "Personal Project",
+    "featured": false,
+    "links": {
+      "repo": "https://github.com/yessur3808/live-sports-platform"
+    }
+  },
+  {
+    "id": "live-portfolio-stream",
+    "slug": "live-portfolio-stream",
+    "title": "Live Portfolio Stream",
+    "image": "/projects/noimg.png",
+    "summary": "A live portfolio streaming experience focused on dynamic updates and monitoring.",
+    "description": "Open-source project centered on streaming portfolio state and surfacing changing data in a responsive interface.",
+    "impact": "Showcases practical handling of continuously updating portfolio data.",
+    "technologies": [
+      "TypeScript",
+      "React",
+      "Node.js"
+    ],
+    "themes": [
+      "Streaming",
+      "Finance",
+      "Real-Time UI"
+    ],
+    "company": "Personal",
+    "period": "Personal Project",
+    "featured": false,
+    "links": {
+      "repo": "https://github.com/yessur3808/live-portfolio-stream"
+    }
+  },
+  {
+    "id": "react-2048",
+    "slug": "react-2048",
+    "title": "React 2048",
+    "image": "/projects/noimg.png",
+    "summary": "A browser implementation of 2048 built with React.",
+    "description": "Created a React-based version of the 2048 puzzle game with smooth interactions, board-state logic, and score progression.",
+    "impact": "Demonstrates game-state management and polished frontend interaction design.",
+    "technologies": [
+      "React",
+      "JavaScript",
+      "CSS"
+    ],
+    "themes": [
+      "Games",
+      "Frontend",
+      "UI Logic"
+    ],
+    "company": "Personal",
+    "period": "Personal Project",
+    "featured": false,
+    "links": {
+      "repo": "https://github.com/yessur3808/react-2048"
+    }
+  },
+  {
+    "id": "curie-ai",
+    "slug": "curie-ai",
+    "title": "Curie AI",
+    "image": "/projects/noimg.png",
+    "summary": "An AI-focused project exploring assistant capabilities and applied intelligence workflows.",
+    "description": "Developed as an open-source AI project to experiment with assistant flows, prompt-driven behavior, and product-oriented AI interactions.",
+    "impact": "Represents hands-on work in applied AI product development.",
+    "technologies": [
+      "TypeScript",
+      "React",
+      "AI Tooling"
+    ],
+    "themes": [
+      "AI",
+      "Assistants",
+      "Product Engineering"
+    ],
+    "company": "Personal",
+    "period": "Personal Project",
+    "featured": false,
+    "links": {
+      "repo": "https://github.com/yessur3808/curie-ai"
+    }
+  },
+  {
+    "id": "git-pulse",
+    "slug": "git-pulse",
+    "title": "Git Pulse",
+    "image": "/projects/noimg.png",
+    "summary": "A tooling project for understanding and surfacing Git activity signals.",
+    "description": "Built to analyze repository activity and present actionable insights from commit and collaboration patterns.",
+    "impact": "Supports faster repository health and activity awareness.",
+    "technologies": [
+      "TypeScript",
+      "Node.js",
+      "Git"
+    ],
+    "themes": [
+      "Developer Tools",
+      "Git",
+      "Analytics"
+    ],
+    "company": "Personal",
+    "period": "Personal Project",
+    "featured": false,
+    "links": {
+      "repo": "https://github.com/yessur3808/git-pulse"
+    }
+  },
+  {
+    "id": "reactjs-qr-reader",
+    "slug": "reactjs-qr-reader",
+    "title": "ReactJS QR Reader",
+    "image": "/projects/noimg.png",
+    "summary": "A React-based QR code reader project for camera-driven scanning workflows.",
+    "description": "Implemented QR scanning functionality in React with a focus on browser compatibility and clean integration patterns.",
+    "impact": "Provides a practical reusable reference for QR scanning features in web apps.",
+    "technologies": [
+      "React",
+      "JavaScript",
+      "Web APIs"
+    ],
+    "themes": [
+      "Frontend",
+      "Utilities",
+      "Camera Integration"
+    ],
+    "company": "Personal",
+    "period": "Personal Project",
+    "featured": false,
+    "links": {
+      "repo": "https://github.com/yessur3808/reactjs-qr-reader"
+    }
+  },
+  {
+    "id": "basic-firewall",
+    "slug": "basic-firewall",
+    "title": "Basic Firewall",
+    "image": "/projects/noimg.png",
+    "summary": "A basic firewall implementation project exploring network filtering concepts.",
+    "description": "Created to experiment with security fundamentals, packet filtering logic, and practical firewall rule handling.",
+    "impact": "Demonstrates foundational security engineering concepts in code.",
+    "technologies": [
+      "Python",
+      "Networking",
+      "Security"
+    ],
+    "themes": [
+      "Security",
+      "Networking",
+      "Systems"
+    ],
+    "company": "Personal",
+    "period": "Personal Project",
+    "featured": false,
+    "links": {
+      "repo": "https://github.com/yessur3808/basic-firewall"
+    }
+  },
+  {
+    "id": "python-nn",
+    "slug": "python-nn",
+    "title": "Python NN",
+    "image": "/projects/noimg.png",
+    "summary": "A neural-network-focused project implemented in Python.",
+    "description": "Built to explore core machine learning and neural network implementation patterns in Python.",
+    "impact": "Demonstrates applied machine learning fundamentals and experimentation workflow.",
+    "technologies": [
+      "Python",
+      "Machine Learning",
+      "Neural Networks"
+    ],
+    "themes": [
+      "AI",
+      "Machine Learning",
+      "Research Projects"
+    ],
+    "company": "Personal",
+    "period": "Personal Project",
+    "featured": false,
+    "links": {
+      "repo": "https://github.com/yessur3808/Python-NN"
+    }
   }
 ]

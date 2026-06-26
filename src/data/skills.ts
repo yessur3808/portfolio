@@ -22,9 +22,9 @@ const featuredSkills = new Set([
   "D3.js",
 ]);
 
-function toSkill(name: string): Skill {
+const toSkill = (name: string): Skill => {
   return featuredSkills.has(name) ? { name, featured: true } : { name };
-}
+};
 
 export const skillGroups: SkillGroup[] = [
   {

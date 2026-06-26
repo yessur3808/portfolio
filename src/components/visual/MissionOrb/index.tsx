@@ -5,11 +5,11 @@ type MissionOrbProps = {
   initials?: string;
 };
 
-export function MissionOrb({ className, initials = "YI" }: MissionOrbProps) {
+export const MissionOrb = ({ className, initials = "YI" }: MissionOrbProps) => {
   return (
     <div
       className={cn(
-        "relative flex h-[min(230px,72vw)] w-[min(230px,72vw)] items-center justify-center sm:h-[280px] sm:w-[280px]",
+        "group/mission-orb relative flex h-[min(230px,72vw)] w-[min(230px,72vw)] items-center justify-center sm:h-[280px] sm:w-[280px]",
         className,
       )}
       aria-hidden="true"
@@ -22,7 +22,7 @@ export function MissionOrb({ className, initials = "YI" }: MissionOrbProps) {
         aria-hidden="true"
         focusable="false"
       >
-        <g className="mission-anim-orbit origin-center motion-reduce:animate-none [transform-origin:50%_50%]">
+        <g className="mission-anim-orbit origin-center motion-reduce:animate-none [transform-origin:50%_50%] group-hover/mission-orb:[animation-duration:12s] group-hover/mission-shell:[animation-duration:12s]">
           <circle
             cx="50"
             cy="50"
@@ -32,10 +32,7 @@ export function MissionOrb({ className, initials = "YI" }: MissionOrbProps) {
             strokeWidth="0.55"
           />
         </g>
-        <g
-          className="mission-anim-orbit origin-center motion-reduce:animate-none [transform-origin:50%_50%]"
-          style={{ animationDuration: "30s", animationDirection: "reverse" }}
-        >
+        <g className="mission-anim-orbit origin-center motion-reduce:animate-none [transform-origin:50%_50%] [animation-duration:30s] [animation-direction:reverse] group-hover/mission-orb:[animation-duration:16s] group-hover/mission-shell:[animation-duration:16s]">
           <circle
             cx="50"
             cy="50"
@@ -45,10 +42,7 @@ export function MissionOrb({ className, initials = "YI" }: MissionOrbProps) {
             strokeWidth="0.6"
           />
         </g>
-        <g
-          className="mission-anim-orbit origin-center motion-reduce:animate-none [transform-origin:50%_50%]"
-          style={{ animationDuration: "35s" }}
-        >
+        <g className="mission-anim-orbit origin-center motion-reduce:animate-none [transform-origin:50%_50%] [animation-duration:35s] group-hover/mission-orb:[animation-duration:20s] group-hover/mission-shell:[animation-duration:20s]">
           <circle
             cx="50"
             cy="50"
@@ -60,20 +54,20 @@ export function MissionOrb({ className, initials = "YI" }: MissionOrbProps) {
         </g>
       </svg>
 
-      <div className="mission-anim-orbit motion-reduce:animate-none absolute inset-0 [animation-duration:22s]">
+      <div className="mission-anim-orbit origin-center motion-reduce:animate-none absolute inset-0 [transform-origin:50%_50%] [animation-duration:22s] group-hover/mission-orb:[animation-duration:13s] group-hover/mission-shell:[animation-duration:13s]">
         <span className="mission-status-dot absolute left-1/2 top-[5.5%] h-2.5 w-2.5 -translate-x-1/2" />
         <span className="mission-status-dot is-online absolute bottom-[10%] right-[16%] h-2 w-2" />
       </div>
 
       <div
-        className="mission-anim-orbit motion-reduce:animate-none absolute inset-[7%] [animation-duration:29s]"
+        className="mission-anim-orbit origin-center motion-reduce:animate-none absolute inset-[7%] [transform-origin:50%_50%] [animation-duration:29s] group-hover/mission-orb:[animation-duration:17s] group-hover/mission-shell:[animation-duration:17s]"
         style={{ animationDirection: "reverse" }}
       >
         <span className="mission-status-dot absolute left-[8%] top-[42%] h-2 w-2" />
         <span className="mission-status-dot absolute right-[9%] top-[34%] h-2.5 w-2.5" />
       </div>
 
-      <div className="mission-anim-orbit motion-reduce:animate-none absolute inset-[16%] [animation-duration:34s]">
+      <div className="mission-anim-orbit origin-center motion-reduce:animate-none absolute inset-[16%] [transform-origin:50%_50%] [animation-duration:34s] group-hover/mission-orb:[animation-duration:19s] group-hover/mission-shell:[animation-duration:19s]">
         <span className="mission-status-dot is-online absolute left-[20%] bottom-[14%] h-2 w-2" />
         <span className="mission-status-dot absolute right-[25%] top-[8%] h-2 w-2" />
       </div>
@@ -86,4 +80,4 @@ export function MissionOrb({ className, initials = "YI" }: MissionOrbProps) {
       </div>
     </div>
   );
-}
+};

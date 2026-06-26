@@ -1,5 +1,5 @@
 import { clsx, type ClassValue } from "clsx";
 
-export function cn(...inputs: ClassValue[]) {
+export const cn = (...inputs: ClassValue[]) => {
   return clsx(inputs);
-}
+};

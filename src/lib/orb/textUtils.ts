@@ -7,13 +7,13 @@ export const ENGLISH_ONLY_MODE = true;
 const STRIP_PUNCTUATION = /[^\w\s##+./\-@]/g;
 
 /** Lowercase, trim, collapse whitespace, remove unhelpful punctuation. */
-export function normalizeText(input: string): string {
+export const normalizeText = (input: string): string => {
   return input
     .toLowerCase()
     .replace(STRIP_PUNCTUATION, " ")
     .replace(/\s+/g, " ")
     .trim();
-}
+};
 
 // Common English stop words to discard during tokenization.
 const STOP_WORDS = new Set([
@@ -86,17 +86,17 @@ const STOP_WORDS = new Set([
  * Normalizes and splits input into meaningful tokens,
  * removing stop words and single-character tokens.
  */
-export function tokenize(input: string): string[] {
+export const tokenize = (input: string): string[] => {
   return normalizeText(input)
     .split(" ")
     .filter((t) => t.length > 1 && !STOP_WORDS.has(t));
-}
+};
 
 /**
  * Cosine similarity between two numeric vectors.
  * Returns 0 for empty or mismatched-length inputs.
  */
-export function cosineSimilarity(a: number[], b: number[]): number {
+export const cosineSimilarity = (a: number[], b: number[]): number => {
   if (a.length === 0 || b.length === 0 || a.length !== b.length) return 0;
 
   let dot = 0,
@@ -111,17 +111,13 @@ export function cosineSimilarity(a: number[], b: number[]): number {
   return normA === 0 || normB === 0
     ? 0
     : dot / (Math.sqrt(normA) * Math.sqrt(normB));
-}
+};
 
 /**
  * Token-overlap score between a query and a body of text + optional tags.
  * Returns a value in [0, 1].
  */
-export function keywordScore(
-  query: string,
-  text: string,
-  tags: string[] = [],
-): number {
+export const keywordScore = (query: string, text: string, tags: string[] = []): number => {
   const queryTokens = tokenize(query);
   if (queryTokens.length === 0) return 0;
 
@@ -136,68 +132,60 @@ export function keywordScore(
   }
 
   return hits / queryTokens.length;
-}
+};
 
 /** Clamp a number within [min, max]. */
-export function clamp(value: number, min: number, max: number): number {
+export const clamp = (value: number, min: number, max: number): number => {
   return Math.min(max, Math.max(min, value));
-}
+};
 
 /**
  * Creates a stable-enough client-side ID using a timestamp and random string.
  * Not cryptographically secure — suitable for UI keys and message IDs only.
  */
-export function createId(prefix?: string): string {
+export const createId = (prefix?: string): string => {
   const rand = Math.random().toString(36).slice(2, 9);
   const ts = Date.now().toString(36);
   return prefix ? `${prefix}-${ts}-${rand}` : `${ts}-${rand}`;
-}
+};
 
 /** Build a single searchable string from title, content, and tags. */
-export function buildSearchText(
-  title: string,
-  content: string,
-  tags: string[],
-): string {
+export const buildSearchText = (title: string, content: string, tags: string[]): string => {
   return normalizeText([title, content, tags.join(" ")].join(" "));
-}
+};
 
 /** Truncate a string to maxLength, appending an ellipsis if needed. */
-export function truncate(value: string, maxLength: number): string {
+export const truncate = (value: string, maxLength: number): string => {
   if (value.length <= maxLength) return value;
   return `${value.slice(0, maxLength).trimEnd()}…`;
-}
+};
 
 const ARABIC_SCRIPT = /[\u0600-\u06FF]/;
 const FRENCH_HINTS =
   /[àâçéèêëîïôùûüÿœæ]|\b(bonjour|merci|projets|experience|compétence|competence|contact|cv|resume|travail|ingénieur|ingenieur)\b/i;
 
-export function detectAssistantLanguage(input: string): AssistantLanguage {
+export const detectAssistantLanguage = (input: string): AssistantLanguage => {
   const text = input.trim();
   if (!text) return "en";
   if (ENGLISH_ONLY_MODE) return "en";
   if (ARABIC_SCRIPT.test(text)) return "ar";
   if (FRENCH_HINTS.test(text)) return "fr";
   return "en";
-}
+};
 
-export function parseLanguageCommand(
-  input: string,
-): AssistantLanguageMode | null {
+export const parseLanguageCommand = (input: string): AssistantLanguageMode | null => {
   const trimmed = input.trim().toLowerCase();
   const match = ENGLISH_ONLY_MODE
     ? trimmed.match(/^\/lang\s+(en|auto)$/)
     : trimmed.match(/^\/lang\s+(en|ar|fr|auto)$/);
   return (match?.[1] as AssistantLanguageMode | undefined) ?? null;
-}
+};
 
-export function parseDisabledLanguageCommand(
-  input: string,
-): "ar" | "fr" | null {
+export const parseDisabledLanguageCommand = (input: string): "ar" | "fr" | null => {
   if (!ENGLISH_ONLY_MODE) return null;
   const match = input
     .trim()
     .toLowerCase()
     .match(/^\/lang\s+(ar|fr)$/);
   return (match?.[1] as "ar" | "fr" | undefined) ?? null;
-}
+};

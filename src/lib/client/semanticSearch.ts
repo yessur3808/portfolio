@@ -1,5 +1,4 @@
 "use client";
-
 import type { ProjectRecord } from "@/src/data/projects";
 
 export type SemanticDocument = {
@@ -35,25 +34,25 @@ const DEFAULT_MODEL = "Xenova/all-MiniLM-L6-v2";
 
 let extractorPromise: Promise<ExtractorFn> | null = null;
 
-function assertBrowser() {
+const assertBrowser = () => {
   if (typeof window === "undefined") {
     throw new Error(
       "semanticSearch is browser-only. Call it from a client component.",
     );
   }
-}
+};
 
-function normalizeText(value: string): string {
+const normalizeText = (value: string): string => {
   return value.replace(/\s+/g, " ").trim();
-}
+};
 
-function buildSearchText(doc: SemanticDocument): string {
+const buildSearchText = (doc: SemanticDocument): string => {
   return normalizeText(
     [doc.title, doc.content, doc.tags?.join(" ") ?? ""].join(" "),
   );
-}
+};
 
-function toNumberArray(value: unknown): number[] {
+const toNumberArray = (value: unknown): number[] => {
   if (!value) {
     return [];
   }
@@ -84,9 +83,9 @@ function toNumberArray(value: unknown): number[] {
   }
 
   return [];
-}
+};
 
-function cosineSimilarity(a: number[], b: number[]): number {
+const cosineSimilarity = (a: number[], b: number[]): number => {
   if (a.length === 0 || b.length === 0 || a.length !== b.length) {
     return 0;
   }
@@ -108,9 +107,9 @@ function cosineSimilarity(a: number[], b: number[]): number {
   }
 
   return dot / (Math.sqrt(normA) * Math.sqrt(normB));
-}
+};
 
-async function loadExtractor(model = DEFAULT_MODEL): Promise<ExtractorFn> {
+const loadExtractor = (model = DEFAULT_MODEL): Promise<ExtractorFn> => {
   assertBrowser();
 
   if (!extractorPromise) {
@@ -134,7 +133,7 @@ async function loadExtractor(model = DEFAULT_MODEL): Promise<ExtractorFn> {
   }
 
   return extractorPromise;
-}
+};
 
 export class BrowserSemanticSearch {
   private readonly docs: SemanticDocument[];
@@ -262,9 +261,9 @@ export class BrowserSemanticSearch {
   }
 }
 
-export function buildProjectSemanticDocuments(
+export const buildProjectSemanticDocuments = (
   projects: ProjectRecord[],
-): SemanticDocument[] {
+): SemanticDocument[] => {
   return projects.map((project) => ({
     id: project.id,
     title: project.title,
@@ -286,14 +285,14 @@ export function buildProjectSemanticDocuments(
       slug: project.slug,
     },
   }));
-}
+};
 
-export async function createPortfolioSemanticSearch(
+export const createPortfolioSemanticSearch = async (
   projects: ProjectRecord[],
-): Promise<BrowserSemanticSearch> {
+): Promise<BrowserSemanticSearch> => {
   const engine = new BrowserSemanticSearch(
     buildProjectSemanticDocuments(projects),
   );
   await engine.init();
   return engine;
-}
+};

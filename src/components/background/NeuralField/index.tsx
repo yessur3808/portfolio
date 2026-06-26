@@ -1,5 +1,4 @@
-"use client";
-
+"use client";;
 import { useEffect, useRef } from "react";
 
 import { cn } from "@/src/lib/utils";
@@ -61,11 +60,11 @@ const VI = "129,140,248";
 const MG = "217,140,250";
 const WT = "255,255,255";
 
-function clampAlpha(value: number) {
+const clampAlpha = (value: number) => {
   return value > 0 ? (value < 1 ? value : 1) : 0;
-}
+};
 
-export default function NeuralField({ className }: NeuralFieldProps) {
+const NeuralField = ({ className }: NeuralFieldProps) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -107,7 +106,7 @@ export default function NeuralField({ className }: NeuralFieldProps) {
     let pulses: NeuralPulse[] = [];
     let shocks: NeuralShock[] = [];
 
-    function build() {
+    const build = () => {
       nodes = [];
       edges = [];
 
@@ -204,9 +203,9 @@ export default function NeuralField({ className }: NeuralFieldProps) {
 
       pulses = [];
       shocks = [];
-    }
+    };
 
-    function paintBackground() {
+    const paintBackground = () => {
       bgCanvas.width = canvasElement.width;
       bgCanvas.height = canvasElement.height;
       bgContext.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -238,9 +237,9 @@ export default function NeuralField({ className }: NeuralFieldProps) {
         bgContext.fillStyle = radial;
         bgContext.fillRect(0, 0, width, height);
       }
-    }
+    };
 
-    function edgeFade(x: number, y: number) {
+    const edgeFade = (x: number, y: number) => {
       if (!(width > 0) || !(height > 0)) {
         return 0;
       }
@@ -248,13 +247,13 @@ export default function NeuralField({ className }: NeuralFieldProps) {
       const margin = Math.min(width, height) * 0.16;
       const distance = Math.min(x, width - x, y, height - y);
       return distance <= 0 ? 0 : distance < margin ? distance / margin : 1;
-    }
+    };
 
-    function otherNodeIndex(edge: NeuralEdge, index: number) {
+    const otherNodeIndex = (edge: NeuralEdge, index: number) => {
       return edge.a === index ? edge.b : edge.a;
-    }
+    };
 
-    function spawnPulse(a: number, b: number, color: string, generation = 0) {
+    const spawnPulse = (a: number, b: number, color: string, generation = 0) => {
       pulses.push({
         a,
         b,
@@ -263,9 +262,9 @@ export default function NeuralField({ className }: NeuralFieldProps) {
         col: color,
         gen: generation,
       });
-    }
+    };
 
-    function ambientPulse() {
+    const ambientPulse = () => {
       if (!edges.length) {
         return;
       }
@@ -279,9 +278,9 @@ export default function NeuralField({ className }: NeuralFieldProps) {
           return;
         }
       }
-    }
+    };
 
-    function fireAt(mouseX: number, mouseY: number) {
+    const fireAt = (mouseX: number, mouseY: number) => {
       let best = -1;
       let bestDistance = Number.POSITIVE_INFINITY;
 
@@ -313,9 +312,9 @@ export default function NeuralField({ className }: NeuralFieldProps) {
           spawnPulse(best, otherNodeIndex(edge, best), MG, 1);
         }
       }
-    }
+    };
 
-    function drawStatic() {
+    const drawStatic = () => {
       drawingContext.drawImage(bgCanvas, 0, 0, width, height);
       drawingContext.globalCompositeOperation = "lighter";
 
@@ -352,9 +351,9 @@ export default function NeuralField({ className }: NeuralFieldProps) {
       }
 
       drawingContext.globalCompositeOperation = "source-over";
-    }
+    };
 
-    function resize() {
+    const resize = () => {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       width = canvasElement.clientWidth;
       height = canvasElement.clientHeight;
@@ -372,9 +371,9 @@ export default function NeuralField({ className }: NeuralFieldProps) {
       if (reducedMotion) {
         drawStatic();
       }
-    }
+    };
 
-    function syncPointer(clientX: number, clientY: number) {
+    const syncPointer = (clientX: number, clientY: number) => {
       const rect = canvasElement.getBoundingClientRect();
       pointer.x = clientX - rect.left;
       pointer.y = clientY - rect.top;
@@ -383,15 +382,15 @@ export default function NeuralField({ className }: NeuralFieldProps) {
         pointer.x <= rect.width &&
         pointer.y >= 0 &&
         pointer.y <= rect.height;
-    }
+    };
 
-    function resetPointer() {
+    const resetPointer = () => {
       pointer.active = false;
       pointer.x = -9999;
       pointer.y = -9999;
-    }
+    };
 
-    function frame(timestamp: number) {
+    const frame = (timestamp: number) => {
       if (timestamp - last < 16) {
         raf = window.requestAnimationFrame(frame);
         return;
@@ -715,9 +714,9 @@ export default function NeuralField({ className }: NeuralFieldProps) {
       }
 
       raf = window.requestAnimationFrame(frame);
-    }
+    };
 
-    function start() {
+    const start = () => {
       window.cancelAnimationFrame(raf);
       raf = 0;
 
@@ -728,36 +727,36 @@ export default function NeuralField({ className }: NeuralFieldProps) {
 
       last = 0;
       raf = window.requestAnimationFrame(frame);
-    }
+    };
 
-    function handlePointerMove(event: PointerEvent) {
+    const handlePointerMove = (event: PointerEvent) => {
       syncPointer(event.clientX, event.clientY);
-    }
+    };
 
-    function handlePointerDown(event: PointerEvent) {
+    const handlePointerDown = (event: PointerEvent) => {
       syncPointer(event.clientX, event.clientY);
       if (pointer.active) {
         fireAt(pointer.x, pointer.y);
       }
-    }
+    };
 
-    function handlePointerOut(event: PointerEvent) {
+    const handlePointerOut = (event: PointerEvent) => {
       if (event.relatedTarget === null) {
         resetPointer();
       }
-    }
+    };
 
-    function handleVisibilityChange() {
+    const handleVisibilityChange = () => {
       if (document.hidden) {
         resetPointer();
       }
-    }
+    };
 
-    function handleMotionChange() {
+    const handleMotionChange = () => {
       reducedMotion = media.matches;
       resize();
       start();
-    }
+    };
 
     resize();
     start();
@@ -797,4 +796,6 @@ export default function NeuralField({ className }: NeuralFieldProps) {
       <canvas ref={canvasRef} className="block h-full w-full" />
     </div>
   );
-}
+};
+
+export default NeuralField;

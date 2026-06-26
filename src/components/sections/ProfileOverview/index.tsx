@@ -1,66 +1,56 @@
+"use client";
+
 import { heroData, socialLinks } from "@/app/(site)/_data/site";
+import { useI18n } from "@/src/i18n/locale-context";
 import MissionStatusHUD from "@/src/components/sections/MissionStatusHUD";
 import { Button } from "@/src/components/ui/Button";
 import { Section } from "@/src/components/ui/Section";
 import { TrackedSocialLink } from "@/src/components/ui/TrackedSocialLink";
 import { MissionOrb } from "@/src/components/visual/MissionOrb";
-
-const currentFocus = [
-  "Digital asset systems",
-  "Internal platform workflows",
-  "Reliable distributed services",
-];
-
-const facts = [
-  "Based in Hong Kong",
-  "Hong Kong Permanent Resident",
-  "American Citizen",
-];
-
-const areas = [
-  "Frontend Architecture",
-  "Backend Services",
-  "System Design",
-  "Developer Tooling",
-  "Data Visualization",
-];
-
-const floatingSignals = [
-  {
-    label: "ONLINE",
-    className: "left-2 top-6 hidden min-[360px]:inline-flex sm:left-6",
-  },
-  {
-    label: "9+ YEARS",
-    className: "right-2 top-10 hidden min-[390px]:inline-flex sm:right-8",
-  },
-  {
-    label: "FULL STACK",
-    className: "left-1/2 top-2 inline-flex -translate-x-1/2",
-  },
-];
+import { trackEvent } from "@/src/lib/analytics";
 
 const profileSocialLinks = socialLinks.filter(
   (link) => link.id !== "portfolio",
 );
 
-export default function ProfileOverview() {
+const ProfileOverview = () => {
+  const { messages, isRTL } = useI18n();
+  const currentFocus = messages.aboutSection.missionControlTab.currentFocus;
+  const facts = messages.aboutSection.facts;
+  const areas = messages.aboutSection.missionControlTab.areas;
+  const floatingSignals = [
+    {
+      label: messages.aboutSection.floatingSignals.online,
+      className: "left-2 top-6 hidden min-[360px]:inline-flex sm:left-6",
+    },
+    {
+      label: messages.aboutSection.floatingSignals.years,
+      className: "right-2 top-10 hidden min-[390px]:inline-flex sm:right-8",
+    },
+    {
+      label: messages.aboutSection.floatingSignals.fullStack,
+      className: "left-1/2 top-2 inline-flex -translate-x-1/2",
+    },
+  ];
+  const localizedSocialLinks = profileSocialLinks.map((link) => ({
+    ...link,
+    label: messages.social.labels[link.id] ?? link.label,
+  }));
+
   return (
     <Section id="about" className="mission-section !pt-[140px]">
       <div className="grid items-start gap-7 sm:gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
         <div className="space-y-6">
           <header className="space-y-4">
-            <p className="mission-label">MISSION PROFILE</p>
+            <p className="mission-label">{messages.aboutSection.title}</p>
             <h1 className="text-3xl font-semibold tracking-tight text-[color:var(--text-main)] sm:text-4xl lg:text-[2.65rem]">
-              Yaser Ibrahim
+              {messages.aboutSection.name}
             </h1>
             <p className="max-w-2xl text-base leading-7 text-[color:var(--text-main)]/92 sm:text-lg">
-              Senior Full Stack Software Engineer building secure, scalable
-              platforms for fintech, digital assets, and internal systems.
+              {messages.aboutSection.description}
             </p>
             <p className="max-w-2xl text-sm leading-7 text-[color:var(--text-muted)] sm:text-base">
-              I design interface architecture and backend workflows that make
-              complex operations feel clear, reliable, and actionable.
+              {messages.aboutSection.missionControlTab.description}
             </p>
           </header>
 
@@ -81,10 +71,12 @@ export default function ProfileOverview() {
             ))}
           </ul>
 
-          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+          <div
+            className={`flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center ${isRTL ? "sm:flex-row-reverse" : ""}`}
+          >
             <nav aria-label="Profile social links">
               <ul className="flex flex-wrap gap-2.5">
-                {profileSocialLinks.map((link) => (
+                {localizedSocialLinks.map((link) => (
                   <li key={link.id}>
                     <TrackedSocialLink
                       link={link}
@@ -99,16 +91,27 @@ export default function ProfileOverview() {
               </ul>
             </nav>
             <Button
-              href={heroData.primaryCta.href}
-              variant="primary"
-              className="w-full rounded-xl border-[color:var(--border-cyan)]/90 bg-[linear-gradient(140deg,rgba(56,189,248,0.96),rgba(34,211,238,0.9),rgba(139,92,246,0.8))] text-[#F8FDFF] shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_14px_30px_rgba(2,6,23,0.52),0_0_24px_rgba(34,211,238,0.2)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[color:var(--border-cyan)] hover:shadow-[0_10px_22px_rgba(2,6,23,0.42),0_0_18px_rgba(34,211,238,0.18)] sm:w-auto"
+              href={messages.aboutSection.cta.href || heroData.primaryCta.href}
+              onClick={() => {
+                trackEvent("navigation_click", {
+                  button_id: "about_primary_cta",
+                  button_label: messages.aboutSection.cta.label,
+                  button_location: "about_section_profile_overview",
+                  nav_target:
+                    messages.aboutSection.cta.href || heroData.primaryCta.href,
+                });
+              }}
+              variant="secondary"
+              className="w-full sm:w-auto !h-11 !rounded-xl !border !border-[color:var(--border-soft)]/85 !bg-[linear-gradient(145deg,rgba(15,23,42,0.9),rgba(15,23,42,0.72))] !px-4.5 !py-2.5 !text-[color:var(--text-main)] !shadow-[inset_0_1px_0_rgba(148,163,184,0.12),0_6px_16px_rgba(2,6,23,0.35)] !transition-all !duration-200 hover:-translate-y-0.5 hover:!border-[color:var(--border-cyan)] hover:!shadow-[0_10px_22px_rgba(2,6,23,0.42),0_0_18px_rgba(34,211,238,0.18)]"
             >
-              {heroData.primaryCta.label}
+              {messages.aboutSection.cta.label}
             </Button>
           </div>
 
           <div className="mission-panel mission-grid-bg space-y-4 rounded-3xl p-5 sm:p-6">
-            <h3 className="mission-label">Operational Focus</h3>
+            <h3 className="mission-label">
+              {messages.aboutSection.missionControlTab.header}
+            </h3>
             <ul className="space-y-2.5 text-sm text-[color:var(--text-main)]/88 sm:text-[0.95rem]">
               {currentFocus.map((item) => (
                 <li key={item} className="flex items-start gap-2.5">
@@ -130,7 +133,7 @@ export default function ProfileOverview() {
           </div>
         </div>
 
-        <aside className="mission-panel mission-grid-bg mission-scanline mission-anim-float relative isolate min-h-[320px] rounded-3xl p-4 sm:min-h-[430px] sm:p-6">
+        <aside className="group/mission-shell mission-panel mission-grid-bg mission-scanline mission-anim-float relative isolate min-h-[320px] rounded-3xl p-4 sm:min-h-[430px] sm:p-6">
           <div className="absolute inset-0 rounded-3xl bg-[radial-gradient(circle_at_50%_48%,rgba(34,211,238,0.14),transparent_58%)]" />
 
           <MissionOrb
@@ -152,4 +155,6 @@ export default function ProfileOverview() {
       </div>
     </Section>
   );
-}
+};
+
+export default ProfileOverview;

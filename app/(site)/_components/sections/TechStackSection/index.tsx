@@ -3,7 +3,7 @@ import { Card } from "@/app/(site)/_components/ui/Card";
 import { Container } from "@/app/(site)/_components/ui/Container";
 import { SectionHeading } from "@/app/(site)/_components/ui/SectionHeading";
 
-export function TechStackSection() {
+export const TechStackSection = () => {
   return (
     <section id="stack" className="border-t border-sky-950/70 py-14 sm:py-16">
       <Container>
@@ -28,4 +28,4 @@ export function TechStackSection() {
       </Container>
     </section>
   );
-}
+};

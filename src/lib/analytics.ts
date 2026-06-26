@@ -31,13 +31,13 @@ export type AnalyticsEvent =
 /**
  * Check if gtag is available in the window object
  */
-export function isGtagAvailable(): boolean {
+export const isGtagAvailable = (): boolean => {
   if (typeof window === "undefined") return false;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return typeof (window as any).gtag === "function";
-}
+};
 
-export function initializeGA(): void {
+export const initializeGA = (): void => {
   if (typeof window === "undefined") return;
 
   const script = document.createElement("script");
@@ -48,27 +48,26 @@ export function initializeGA(): void {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const win = window as any;
   win.dataLayer = win.dataLayer || [];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unused-vars
-  function gtag(..._args: any[]): void {
-    // eslint-disable-next-line prefer-rest-params
-    win.dataLayer.push(arguments);
-  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const gtag = (...args: any[]): void => {
+    win.dataLayer.push(args);
+  };
   win.gtag = gtag;
   gtag("js", new Date());
   gtag("config", GA_MEASUREMENT_ID, {
     allow_google_signals: false,
     allow_ad_personalization_signals: false,
   });
-}
+};
 
 /**
  * Track an event in Google Analytics
  * This is a no-op if gtag is not available (before consent)
  */
-export function trackEvent(
+export const trackEvent = (
   eventName: string,
   eventData: Record<string, string | number | boolean | undefined> = {},
-): void {
+): void => {
   if (!isGtagAvailable()) {
     console.debug(
       `[Analytics] Event tracked (gtag not loaded yet): ${eventName}`,
@@ -85,15 +84,15 @@ export function trackEvent(
   } catch (error) {
     console.error(`[Analytics] Failed to track event: ${eventName}`, error);
   }
-}
+};
 
 /**
  * Set GA4 user properties
  * Call this after identifying user segments or behaviors
  */
-export function setUserProperties(
+export const setUserProperties = (
   properties: Record<string, string | number | boolean>,
-): void {
+): void => {
   if (!isGtagAvailable()) {
     console.debug(
       "[Analytics] User properties not set (gtag not loaded yet)",
@@ -111,7 +110,7 @@ export function setUserProperties(
   } catch (error) {
     console.error("[Analytics] Failed to set user properties", error);
   }
-}
+};
 
 /**
  * Consent management helper

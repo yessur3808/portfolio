@@ -34,7 +34,7 @@ const Contact = dynamic(() => import("@/src/components/sections/Contact"), {
   loading: () => <SectionSkeleton className="min-h-[420px]" />,
 });
 
-function SectionSkeleton({ className }: { className?: string }) {
+const SectionSkeleton = ({ className }: { className?: string }) => {
   return (
     <section className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
       <div
@@ -42,7 +42,7 @@ function SectionSkeleton({ className }: { className?: string }) {
       />
     </section>
   );
-}
+};
 
 export const metadata: Metadata = {
   title: `${siteConfig.siteName} | Software Engineer`,
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function HomePage() {
+const HomePage = () => {
   return (
     <>
       <ProfileOverview />
@@ -82,4 +82,6 @@ export default function HomePage() {
       </div>
     </>
   );
-}
+};
+
+export default HomePage;

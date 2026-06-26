@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { CookieConsent } from "@/src/components/CookieConsent";
+import { LocaleProvider } from "@/src/i18n/locale-context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -52,19 +53,23 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+const RootLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) => {
   return (
     <html lang="en" className="h-full">
       <body
         className={`${geistSans.variable} ${geistMono.variable} min-h-full flex flex-col font-sans antialiased`}
       >
-        {children}
-        <CookieConsent />
+        <LocaleProvider>
+          {children}
+          <CookieConsent />
+        </LocaleProvider>
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;

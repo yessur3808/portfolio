@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { useI18n } from "@/src/i18n/locale-context";
 import { useOrbAssistant } from "@/src/hooks/useOrbAssistant";
 import { executeActions } from "@/src/lib/orb/actionExecutor.client";
 
@@ -8,9 +9,11 @@ type OrbAssistantProps = {
   className?: string;
 };
 
-export function OrbAssistant({ className }: OrbAssistantProps) {
+export const OrbAssistant = ({ className }: OrbAssistantProps) => {
+  const { messages: i18n, locale } = useI18n();
   const { messages, orbState, lastResponse, send, reset } = useOrbAssistant({
     preload: true,
+    languageMode: locale,
   });
   const [input, setInput] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -35,10 +38,10 @@ export function OrbAssistant({ className }: OrbAssistantProps) {
   return (
     <div className={className}>
       <div aria-live="polite" className="sr-only">
-        {orbState === "thinking" ? "Thinking…" : ""}
+        {orbState === "thinking" ? i18n.orbAssistant.thinking : ""}
       </div>
 
-      <div role="log" aria-label="Assistant conversation">
+      <div role="log" aria-label={i18n.orbAssistant.conversationAria}>
         {messages.map((msg) => (
           <div key={msg.id} data-role={msg.role} dir="auto">
             {msg.content}
@@ -47,7 +50,7 @@ export function OrbAssistant({ className }: OrbAssistantProps) {
       </div>
 
       {lastResponse?.suggestions && lastResponse.suggestions.length > 0 && (
-        <ul aria-label="Suggested questions">
+        <ul aria-label={i18n.orbAssistant.suggestionsAria}>
           {lastResponse.suggestions.map((s) => (
             <li key={s}>
               <button type="button" onClick={() => void handleSubmit(s)}>
@@ -66,22 +69,26 @@ export function OrbAssistant({ className }: OrbAssistantProps) {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Ask Yaser's AI Assistant…"
-          aria-label="Ask the assistant"
+          placeholder={i18n.orbAssistant.placeholder}
+          aria-label={i18n.orbAssistant.askAria}
           disabled={orbState === "thinking"}
         />
         <button
           type="button"
           onClick={() => void handleSubmit(input)}
           disabled={orbState === "thinking" || !input.trim()}
-          aria-label="Send"
+          aria-label={i18n.orbAssistant.sendAria}
         >
-          Send
+          {i18n.orbAssistant.send}
         </button>
-        <button type="button" onClick={reset} aria-label="Reset conversation">
-          Reset
+        <button
+          type="button"
+          onClick={reset}
+          aria-label={i18n.orbAssistant.resetAria}
+        >
+          {i18n.orbAssistant.reset}
         </button>
       </div>
     </div>
   );
-}
+};

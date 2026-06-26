@@ -1,6 +1,6 @@
 import { Container } from "@/app/(site)/_components/ui/Container";
 
-export function ResumeSection() {
+export const ResumeSection = () => {
   return (
     <section className="border-t border-sky-950/70 py-14 sm:py-16">
       <Container>
@@ -17,4 +17,4 @@ export function ResumeSection() {
       </Container>
     </section>
   );
-}
+};

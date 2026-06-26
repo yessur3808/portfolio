@@ -6,7 +6,7 @@ import { Card } from "@/app/(site)/_components/ui/Card";
 import { Container } from "@/app/(site)/_components/ui/Container";
 import { SectionHeading } from "@/app/(site)/_components/ui/SectionHeading";
 
-export function WorkSection() {
+export const WorkSection = () => {
   return (
     <section id="work" className="border-t border-sky-950/70 py-14 sm:py-16">
       <Container>
@@ -65,4 +65,4 @@ export function WorkSection() {
       </Container>
     </section>
   );
-}
+};

@@ -1,5 +1,4 @@
-"use client";
-
+"use client";;
 import { useEffect, useRef } from "react";
 import { QualityManager } from "@/src/lib/qualityManager";
 import type { QualityConfig } from "@/src/lib/qualityManager";
@@ -82,15 +81,15 @@ const STAR_LAYER_CONFIG = [
 const NETWORK_NODE_COUNT = 22;
 const BURST_DURATION_MS = 1200;
 
-function clamp(v: number, lo: number, hi: number) {
+const clamp = (v: number, lo: number, hi: number) => {
   return Math.min(hi, Math.max(lo, v));
-}
+};
 
-function lerp(a: number, b: number, t: number) {
+const lerp = (a: number, b: number, t: number) => {
   return a + (b - a) * t;
-}
+};
 
-function hslToRgb(h: number, s: number, l: number): [number, number, number] {
+const hslToRgb = (h: number, s: number, l: number): [number, number, number] => {
   const hue = ((h % 360) + 360) % 360;
   const chroma = (1 - Math.abs(2 * l - 1)) * s;
   const x = chroma * (1 - Math.abs(((hue / 60) % 2) - 1));
@@ -125,9 +124,9 @@ function hslToRgb(h: number, s: number, l: number): [number, number, number] {
     Math.round((gp + m) * 255),
     Math.round((bp + m) * 255),
   ];
-}
+};
 
-function createSphereParticles(count: number): Particle[] {
+const createSphereParticles = (count: number): Particle[] => {
   const pts: Particle[] = [];
   const golden = Math.PI * (3 - Math.sqrt(5));
 
@@ -145,13 +144,9 @@ function createSphereParticles(count: number): Particle[] {
   }
 
   return pts;
-}
+};
 
-function createStarLayers(
-  w: number,
-  h: number,
-  counts: readonly [number, number, number],
-): StarLayer[] {
+const createStarLayers = (w: number, h: number, counts: readonly [number, number, number]): StarLayer[] => {
   return STAR_LAYER_CONFIG.map((cfg, i) => {
     const stars: Star[] = [];
 
@@ -173,9 +168,9 @@ function createStarLayers(
       glow: cfg.glow,
     };
   });
-}
+};
 
-function createNetworkNodes(count: number): NetworkNode[] {
+const createNetworkNodes = (count: number): NetworkNode[] => {
   const nodes: NetworkNode[] = [];
 
   for (let i = 0; i < count; i++) {
@@ -191,9 +186,9 @@ function createNetworkNodes(count: number): NetworkNode[] {
   }
 
   return nodes;
-}
+};
 
-function createNetworkEdges(nodes: NetworkNode[]): NetworkEdge[] {
+const createNetworkEdges = (nodes: NetworkNode[]): NetworkEdge[] => {
   const edgeSet = new Set<string>();
 
   nodes.forEach((n, i) => {
@@ -209,21 +204,21 @@ function createNetworkEdges(nodes: NetworkNode[]): NetworkEdge[] {
       const [from, to] = k.split("-").map(Number);
       return { from, to };
     });
-}
+};
 
-function rotateX(p: { x: number; y: number; z: number }, a: number) {
+const rotateX = (p: { x: number; y: number; z: number }, a: number) => {
   const c = Math.cos(a),
     s = Math.sin(a);
   return { x: p.x, y: p.y * c - p.z * s, z: p.y * s + p.z * c };
-}
+};
 
-function rotateY(p: { x: number; y: number; z: number }, a: number) {
+const rotateY = (p: { x: number; y: number; z: number }, a: number) => {
   const c = Math.cos(a),
     s = Math.sin(a);
   return { x: p.x * c + p.z * s, y: p.y, z: -p.x * s + p.z * c };
-}
+};
 
-export default function InteractiveSphereBackground() {
+const InteractiveSphereBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -708,4 +703,6 @@ export default function InteractiveSphereBackground() {
       className="pointer-events-none fixed inset-0 -z-10 h-screen w-screen bg-slate-950"
     />
   );
-}
+};
+
+export default InteractiveSphereBackground;

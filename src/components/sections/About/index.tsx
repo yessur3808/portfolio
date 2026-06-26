@@ -16,7 +16,7 @@ const facts = [
   "American Citizen",
 ];
 
-export default function About() {
+const About = () => {
   return (
     <Section
       id="about"
@@ -67,4 +67,6 @@ export default function About() {
       </div>
     </Section>
   );
-}
+};
+
+export default About;

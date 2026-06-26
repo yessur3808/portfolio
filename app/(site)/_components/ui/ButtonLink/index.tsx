@@ -12,14 +12,16 @@ type ButtonLinkProps = {
   rel?: string;
 };
 
-export function ButtonLink({
-  href,
-  children,
-  className,
-  variant = "primary",
-  target,
-  rel,
-}: ButtonLinkProps) {
+export const ButtonLink = (
+  {
+    href,
+    children,
+    className,
+    variant = "primary",
+    target,
+    rel,
+  }: ButtonLinkProps,
+) => {
   return (
     <Link
       href={href}
@@ -36,4 +38,4 @@ export function ButtonLink({
       {children}
     </Link>
   );
-}
+};

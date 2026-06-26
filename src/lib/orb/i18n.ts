@@ -158,16 +158,13 @@ const locales: Record<AssistantLanguage, UiLocale> = {
   },
 };
 
-export function t(language: AssistantLanguage): UiLocale {
+export const t = (language: AssistantLanguage): UiLocale => {
   return locales[language] ?? locales.en;
-}
+};
 
-export function interpolate(
-  template: string,
-  values: Record<string, string>,
-): string {
+export const interpolate = (template: string, values: Record<string, string>): string => {
   return Object.entries(values).reduce(
     (out, [key, value]) => out.replaceAll(`{{${key}}}`, value),
     template,
   );
-}
+};

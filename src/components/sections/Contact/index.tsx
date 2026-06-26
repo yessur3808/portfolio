@@ -1,29 +1,30 @@
 "use client";
-
 import { MapPin } from "lucide-react";
 
 import { socialLinks } from "@/app/(site)/_data/site";
 
+import { useI18n } from "@/src/i18n/locale-context";
 import { Button } from "@/src/components/ui/Button";
 import { Section } from "@/src/components/ui/Section";
 import { SocialIcon } from "@/src/components/ui/SocialIcon";
 import { trackEvent } from "@/src/lib/analytics";
 
-const facts = [
-  "Currently based in Hong Kong",
-  "Hong Kong Permanent Resident",
-  "American Citizen",
-];
+const Contact = () => {
+  const { messages, isRTL } = useI18n();
+  const facts = messages.contactSection.facts;
+  const contactLinks = socialLinks
+    .filter((link) => link.id !== "portfolio")
+    .map((link) => ({
+      ...link,
+      label: messages.social.labels[link.id] ?? link.label,
+    }));
 
-const contactLinks = socialLinks.filter((link) => link.id !== "portfolio");
-
-export default function Contact() {
   return (
     <Section
       id="contact"
-      eyebrow="OPEN TRANSMISSION"
-      title="Let's Connect"
-      description="I am available for senior engineering opportunities, technical collaboration, and platform-focused teams."
+      eyebrow={messages.contactSection.eyebrow}
+      title={messages.contactSection.title}
+      description={messages.contactSection.description}
       className="mission-section"
     >
       <div className="mission-panel mission-grid-bg mission-scanline relative overflow-hidden rounded-3xl border border-[color:var(--border-soft)] p-5 sm:p-7">
@@ -36,9 +37,7 @@ export default function Contact() {
         <div className="grid gap-7 pt-6 lg:grid-cols-[1.35fr_1fr]">
           <div className="space-y-6">
             <p className="max-w-2xl text-sm leading-7 text-[color:var(--text-main)]/90 sm:text-base">
-              If you are building fintech infrastructure, digital asset
-              platforms, internal engineering systems, or data-rich product
-              experiences, I am happy to connect and contribute.
+              {messages.contactSection.intro}
             </p>
 
             <div className="grid gap-2.5 sm:grid-cols-2">
@@ -51,6 +50,12 @@ export default function Contact() {
                       social_id: link.id,
                       social_label: link.label,
                       location: "contact",
+                      button_id: `contact_social_${link.id}`,
+                      button_label: link.label,
+                      button_location: "contact_section_channels",
+                      button_position:
+                        contactLinks.findIndex((item) => item.id === link.id) +
+                        1,
                       href: link.href,
                     });
 
@@ -61,6 +66,9 @@ export default function Contact() {
                     ) {
                       trackEvent("contact_click", {
                         contact_type: link.id,
+                        button_id: `contact_channel_${link.id}`,
+                        button_label: link.label,
+                        button_location: "contact_section_channels",
                       });
                     }
                   }}
@@ -75,9 +83,9 @@ export default function Contact() {
                   <SocialIcon
                     icon={link.icon}
                     variant="brand"
-                    className="mr-2 h-[18px] w-[18px]"
+                    className={`h-[18px] w-[18px] ${isRTL ? "ml-2" : "mr-2"}`}
                   />
-                  {link.label} Channel
+                  {link.label} {messages.contactSection.channelSuffix}
                 </Button>
               ))}
             </div>
@@ -86,7 +94,7 @@ export default function Contact() {
           <aside className="mission-panel space-y-4 rounded-2xl border border-[color:var(--border-soft)] p-4 sm:p-5">
             <h3 className="mission-label inline-flex items-center gap-2">
               <MapPin className="h-4 w-4" aria-hidden="true" />
-              Status Block
+              {messages.contactSection.statusBlock.title}
             </h3>
 
             <ul className="space-y-2.5 text-sm text-[color:var(--text-main)]/90">
@@ -97,10 +105,10 @@ export default function Contact() {
                 />
                 <span>
                   <span className="mission-label mr-2 text-[10px] text-[color:var(--text-muted)]">
-                    STATUS:
+                    {messages.contactSection.statusBlock.statusLabel}:
                   </span>
                   <span className="text-[color:var(--text-main)]">
-                    AVAILABLE
+                    {messages.contactSection.statusBlock.statusValue}
                   </span>
                 </span>
               </li>
@@ -111,10 +119,10 @@ export default function Contact() {
                 />
                 <span>
                   <span className="mission-label mr-2 text-[10px] text-[color:var(--text-muted)]">
-                    LOCATION:
+                    {messages.contactSection.statusBlock.locationLabel}:
                   </span>
                   <span className="text-[color:var(--text-main)]">
-                    Hong Kong
+                    {messages.contactSection.statusBlock.locationValue}
                   </span>
                 </span>
               </li>
@@ -125,10 +133,10 @@ export default function Contact() {
                 />
                 <span>
                   <span className="mission-label mr-2 text-[10px] text-[color:var(--text-muted)]">
-                    FOCUS:
+                    {messages.contactSection.statusBlock.focusLabel}:
                   </span>
                   <span className="text-[color:var(--text-main)]">
-                    Senior Full Stack / Platform Engineering
+                    {messages.contactSection.statusBlock.focusValue}
                   </span>
                 </span>
               </li>
@@ -150,4 +158,6 @@ export default function Contact() {
       </div>
     </Section>
   );
-}
+};
+
+export default Contact;

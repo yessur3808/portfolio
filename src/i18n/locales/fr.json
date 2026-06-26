@@ -1,0 +1,231 @@
+{
+  "common": {
+    "language": "Langue",
+    "languages": {
+      "en": "Anglais",
+      "fr": "Français",
+      "ar": "Arabe"
+    },
+    "actions": {
+      "open": "Ouvrir",
+      "live": "En direct"
+    }
+  },
+  "navBar": {
+    "title": "Navigation",
+    "mobile": {
+      "openMenu": "Ouvrir le menu de navigation",
+      "closeMenu": "Fermer le menu de navigation",
+      "closeOverlay": "Fermer le menu de navigation",
+      "closeLabel": "Fermer le menu",
+      "openLabel": "Ouvrir le menu",
+      "currentTrack": {
+        "title": "Parcours actuel",
+        "description": "Touchez une section pour naviguer directement dans le portfolio."
+      }
+    },
+    "items": {
+      "about": "À propos",
+      "experience": "Expérience",
+      "work": "Travaux",
+      "capabilities": "Capacités",
+      "metrics": "Métriques",
+      "contact": "Contact",
+      "portfolio": "Portfolio"
+    }
+  },
+  "aboutSection": {
+    "title": "PROFIL DE MISSION",
+    "name": "Yaser Ibrahim",
+    "description": "Ingénieur logiciel full stack senior construisant des plateformes sûres et évolutives pour la fintech, les actifs numériques et les systèmes internes.",
+    "missionControlTab": {
+      "header": "Priorités Opérationnelles",
+      "description": "Je conçois des architectures d'interface et des flux backend qui rendent les opérations complexes claires, fiables et exploitables.",
+      "currentFocus": [
+        "Systèmes d'actifs numériques",
+        "Flux de travail de plateformes internes",
+        "Services distribués fiables"
+      ],
+      "areas": [
+        "Architecture Frontend",
+        "Services Backend",
+        "Conception Système",
+        "Outils Développeur",
+        "Visualisation de Données"
+      ]
+    },
+    "facts": [
+      "Basé à Hong Kong",
+      "Résident permanent de Hong Kong",
+      "Citoyen américain"
+    ],
+    "floatingSignals": {
+      "online": "EN LIGNE",
+      "years": "9+ ANS",
+      "fullStack": "FULL STACK"
+    },
+    "cta": {
+      "label": "Voir les travaux",
+      "href": "/#work"
+    }
+  },
+  "contactSection": {
+    "eyebrow": "TRANSMISSION OUVERTE",
+    "title": "Restons en contact",
+    "description": "Disponible pour des opportunités senior en ingénierie, des collaborations techniques et des équipes orientées plateforme.",
+    "intro": "Si vous développez une infrastructure fintech, des plateformes d'actifs numériques, des systèmes d'ingénierie internes ou des expériences produit riches en données, je serais ravi d'échanger.",
+    "channelSuffix": "Canal",
+    "statusBlock": {
+      "title": "Bloc Statut",
+      "statusLabel": "STATUT",
+      "statusValue": "DISPONIBLE",
+      "locationLabel": "LOCALISATION",
+      "locationValue": "Hong Kong",
+      "focusLabel": "FOCUS",
+      "focusValue": "Ingénierie Full Stack Senior / Plateformes"
+    },
+    "facts": [
+      "Actuellement basé à Hong Kong",
+      "Résident permanent de Hong Kong",
+      "Citoyen américain"
+    ]
+  },
+  "experienceSection": {
+    "eyebrow": "CHRONOLOGIE DE CARRIÈRE",
+    "description": "Rôles sélectionnés et contributions clés. Parcourez la frise en faisant défiler.",
+    "scrollHint": "Faites défiler pour parcourir la chronologie",
+    "keyPoints": "Points clés",
+    "tech": "Technos"
+  },
+  "caseStudiesSection": {
+    "eyebrow": "RÉALISATIONS PHARES",
+    "title": "Systèmes et réalisations sélectionnés en fintech, actifs numériques et interfaces riches en données",
+    "description": "Une sélection ciblée de systèmes en production, plateformes internes et produits interactifs.",
+    "viewFullPortfolio": "Voir tout le portfolio",
+    "systemScanActive": "ANALYSE SYSTÈME ACTIVE",
+    "selectedWork": "Travail sélectionné",
+    "build": "BUILD",
+    "viewDetails": "Voir les détails",
+    "open": "Ouvrir",
+    "code": "Code",
+    "article": "Article",
+    "opensExternalLink": "Ouvre un lien externe",
+    "openLiveProjectFor": "Ouvrir le projet en ligne pour",
+    "openSourceCodeFor": "Ouvrir le code source pour",
+    "openArticleFor": "Ouvrir l'article pour"
+  },
+  "techStackSection": {
+    "eyebrow": "CAPACITÉS SYSTÈME",
+    "title": "Capacités d'ingénierie clés sur les systèmes d'interface, l'architecture de plateforme et les opérations de livraison",
+    "description": "Une cartographie structurée des technologies et catégories que j'utilise pour livrer des systèmes produits sûrs et évolutifs.",
+    "module": "MODULE",
+    "categories": "Catégories"
+  },
+  "signalMetricsSection": {
+    "eyebrow": "Métriques Signal",
+    "title": "Impact opérationnel sur les systèmes, la fiabilité et la livraison",
+    "description": "Un aperçu en direct du rendement, des performances et de l'impact produit.",
+    "metrics": {
+      "projectsShipped": {
+        "label": "Projets livrés",
+        "supportingText": "Systèmes en production livrés avec des résultats mesurables."
+      },
+      "yearsExperience": {
+        "label": "Années d'expérience",
+        "supportingText": "Ingénierie full stack sur des équipes fintech et plateforme."
+      },
+      "apisIntegrated": {
+        "label": "API intégrées",
+        "supportingText": "Services internes et tiers connectés de bout en bout."
+      },
+      "usersImpacted": {
+        "label": "Utilisateurs impactés",
+        "supportingText": "Interfaces et flux utilisés par des opérations globales."
+      },
+      "costReduced": {
+        "label": "Coût réduit",
+        "supportingText": "Gains d'efficacité via consolidation des systèmes et automatisation."
+      },
+      "accuracyImproved": {
+        "label": "Précision améliorée",
+        "supportingText": "Qualité de signal renforcée via des couches de validation robustes."
+      }
+    }
+  },
+  "missionStatusHud": {
+    "ariaLabel": "HUD de statut mission",
+    "title": "HUD Statut Mission",
+    "stable": "Stable",
+    "live": "En direct",
+    "signals": "Signaux",
+    "rows": {
+      "aiEngine": "Moteur IA",
+      "riskLayer": "Couche Risque",
+      "dataPipeline": "Pipeline de données",
+      "signalLatency": "Latence signal",
+      "systemUptime": "Disponibilité système",
+      "online": "EN LIGNE",
+      "monitoring": "SURVEILLANCE",
+      "synced": "SYNCHRONISÉ"
+    }
+  },
+  "portfolioPage": {
+    "metadataTitle": "Portfolio",
+    "metadataDescription": "Un portfolio complet de travaux d'ingénierie couvrant les actifs numériques, la fintech, les systèmes médias et les plateformes internes.",
+    "eyebrow": "Portfolio complet",
+    "title": "Archive des projets",
+    "description": "Une vision plus profonde des systèmes livrés, des compromis d'architecture et des résultats d'exécution.",
+    "backToHomeShowcase": "Retour à la vitrine d'accueil",
+    "sortOrder": "Ordre de tri",
+    "latestToEarliest": "Du plus récent au plus ancien",
+    "earliestToLatest": "Du plus ancien au plus récent",
+    "titleAsc": "Titre A-Z",
+    "titleDesc": "Titre Z-A"
+  },
+  "projectDetailPage": {
+    "metadataNotFoundTitle": "Projet introuvable",
+    "metadataTitleSuffix": "Portfolio",
+    "eyebrow": "Détail du projet",
+    "backToPortfolio": "Retour au portfolio",
+    "backToHome": "Retour à l'accueil",
+    "overview": "Vue d'ensemble",
+    "impact": "Impact",
+    "context": "Contexte",
+    "themes": "Thèmes",
+    "technologies": "Technologies",
+    "undisclosed": "Non divulgué",
+    "dateNotListed": "Date non indiquée"
+  },
+  "footer": {
+    "copyright": "© {{year}} Yaser Ibrahim",
+    "builtWith": "Construit avec Next.js, TypeScript et Tailwind CSS.",
+    "footerLinksLabel": "Liens de pied de page"
+  },
+  "social": {
+    "labels": {
+      "email": "Email",
+      "linkedin": "LinkedIn",
+      "github": "GitHub",
+      "portfolio": "Portfolio"
+    }
+  },
+  "orbAssistant": {
+    "placeholder": "Posez une question à l'assistant IA de Yaser…",
+    "composerPlaceholder": "Posez une question...",
+    "send": "Envoyer",
+    "reset": "Réinitialiser",
+    "thinking": "Réflexion…",
+    "welcomeTitle": "Posez une question à l'assistant IA de Yaser",
+    "welcomeBody": "Sur mes projets, mon expérience, mes compétences, ou comment je peux aider votre équipe.",
+    "tryNext": "Essayez ensuite",
+    "newConversation": "Nouvelle conversation",
+    "copyMessage": "Copier le message",
+    "copiedMessage": "Message copié",
+    "conversationAria": "Conversation de l'assistant",
+    "suggestionsAria": "Suggestions de questions",
+    "askAria": "Interroger l'assistant",
+    "sendAria": "Envoyer",
+    "sendMessageAria": "Envoyer le message",
+    "resetAria": "Réinitialiser la conversation"
+  }
+}

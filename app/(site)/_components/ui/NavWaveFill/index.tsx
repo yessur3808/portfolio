@@ -2,13 +2,15 @@
 import { useEffect, useRef } from "react";
 import { useState } from "react";
 
-export function NavWaveFill({
-  progress,
-  color = "#4FC3F7",
-}: {
-  progress: number;
-  color?: string;
-}) {
+export const NavWaveFill = (
+  {
+    progress,
+    color = "#4FC3F7",
+  }: {
+    progress: number;
+    color?: string;
+  },
+) => {
   const ref = useRef<SVGPathElement>(null);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
@@ -83,4 +85,4 @@ export function NavWaveFill({
       <path ref={ref} fill="url(#navwavefill)" />
     </svg>
   );
-}
+};

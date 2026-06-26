@@ -158,24 +158,24 @@ const MULTILINGUAL_TAG_SYNONYMS: Record<string, string[]> = {
   eu: ["union européenne", "الاتحاد الأوروبي"],
 };
 
-function normalizeTagKey(value: string): string {
+const normalizeTagKey = (value: string): string => {
   return value
     .trim()
     .toLowerCase()
     .replace(/[\-_/.,:;()\[\]{}]+/g, " ")
     .replace(/\s+/g, " ")
     .trim();
-}
+};
 
-function getMultilingualTagVariants(tag: string): string[] {
+const getMultilingualTagVariants = (tag: string): string[] => {
   const rawKey = tag.trim().toLowerCase();
   const normalizedKey = normalizeTagKey(tag);
   const direct = MULTILINGUAL_TAG_SYNONYMS[rawKey] ?? [];
   const normalized = MULTILINGUAL_TAG_SYNONYMS[normalizedKey] ?? [];
   return Array.from(new Set([tag, ...direct, ...normalized]));
-}
+};
 
-function makeTags(...values: Array<string | undefined>): string[] {
+const makeTags = (...values: Array<string | undefined>): string[] => {
   return Array.from(
     new Set(
       values
@@ -186,9 +186,9 @@ function makeTags(...values: Array<string | undefined>): string[] {
   )
     .map((value) => value.trim())
     .filter(Boolean);
-}
+};
 
-function projectChunks(): KnowledgeChunk[] {
+const projectChunks = (): KnowledgeChunk[] => {
   return getAllProjects().map((project) => ({
     id: `project:${project.slug}`,
     title: project.title,
@@ -217,9 +217,9 @@ function projectChunks(): KnowledgeChunk[] {
       ? [{ type: "open", href: project.links.demo, newTab: true }]
       : [],
   }));
-}
+};
 
-function experienceChunks(): KnowledgeChunk[] {
+const experienceChunks = (): KnowledgeChunk[] => {
   return experienceItems.map((item) => ({
     id: `experience:${item.company.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
     title: `${item.role} at ${item.company}`,
@@ -240,9 +240,9 @@ function experienceChunks(): KnowledgeChunk[] {
       ...item.technologies,
     ),
   }));
-}
+};
 
-function skillChunks(): KnowledgeChunk[] {
+const skillChunks = (): KnowledgeChunk[] => {
   return skillGroups.flatMap((group) => {
     const chunk: KnowledgeChunk = {
       id: `skills:${group.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
@@ -259,9 +259,9 @@ function skillChunks(): KnowledgeChunk[] {
 
     return [chunk];
   });
-}
+};
 
-function caseStudyChunks(): KnowledgeChunk[] {
+const caseStudyChunks = (): KnowledgeChunk[] => {
   return caseStudies.map((study) => ({
     id: `case-study:${study.id}`,
     title: study.title,
@@ -276,9 +276,9 @@ function caseStudyChunks(): KnowledgeChunk[] {
     type: "project",
     tags: makeTags("case study", ...study.technologies, ...study.themes),
   }));
-}
+};
 
-function contactChunks(): KnowledgeChunk[] {
+const contactChunks = (): KnowledgeChunk[] => {
   return [
     {
       id: "contact:profile",
@@ -301,9 +301,9 @@ function contactChunks(): KnowledgeChunk[] {
         .map((link) => ({ type: "open", href: link.href, newTab: true })),
     },
   ];
-}
+};
 
-function deepExperienceChunks(): KnowledgeChunk[] {
+const deepExperienceChunks = (): KnowledgeChunk[] => {
   return [
     {
       id: "experience:hex-trust-overview-deep",
@@ -848,9 +848,9 @@ function deepExperienceChunks(): KnowledgeChunk[] {
       ),
     },
   ];
-}
+};
 
-function narrativeExperienceChunks(): KnowledgeChunk[] {
+const narrativeExperienceChunks = (): KnowledgeChunk[] => {
   return [
     {
       id: "narrative:hex-trust-full",
@@ -951,9 +951,9 @@ function narrativeExperienceChunks(): KnowledgeChunk[] {
       ),
     },
   ];
-}
+};
 
-function verbatimSourceChunks(): KnowledgeChunk[] {
+const verbatimSourceChunks = (): KnowledgeChunk[] => {
   return [
     {
       id: "verbatim:hex-trust-overview",
@@ -1216,9 +1216,9 @@ function verbatimSourceChunks(): KnowledgeChunk[] {
       tags: makeTags("verbatim", "source", "creative coding hk", "teaching"),
     },
   ];
-}
+};
 
-export function getPortfolioKnowledge(): KnowledgeChunk[] {
+export const getPortfolioKnowledge = (): KnowledgeChunk[] => {
   return [
     {
       id: "profile:overview",
@@ -1304,4 +1304,4 @@ export function getPortfolioKnowledge(): KnowledgeChunk[] {
     ...skillChunks(),
     ...contactChunks(),
   ];
-}
+};

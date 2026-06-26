@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Activity,
@@ -12,6 +11,7 @@ import {
 } from "lucide-react";
 
 import { Section } from "@/src/components/ui/Section";
+import { useI18n } from "@/src/i18n/locale-context";
 import { cn } from "@/src/lib/utils";
 
 type MetricTone = "cyan" | "blue" | "violet" | "green";
@@ -103,13 +103,14 @@ const TONE_STYLES: Record<
   },
 };
 
-function formatMetric(metric: MetricItem, progress: number) {
+const formatMetric = (metric: MetricItem, progress: number) => {
   const value = Math.round(metric.value * progress);
   const compactValue = value >= 1000 ? value.toLocaleString() : String(value);
   return `${metric.prefix ?? ""}${compactValue}${metric.suffix ?? ""}`;
-}
+};
 
-export default function SignalMetrics() {
+const SignalMetrics = () => {
+  const { messages, isRTL } = useI18n();
   const sectionRef = useRef<HTMLElement | null>(null);
   const frameRef = useRef<number | null>(null);
   const [hasEntered, setHasEntered] = useState(false);
@@ -201,19 +202,60 @@ export default function SignalMetrics() {
     return reducedMotion ? 1 : progress;
   }, [hasEntered, progress, reducedMotion]);
 
+  const localizedMetrics = useMemo<MetricItem[]>(() => {
+    return [
+      {
+        ...METRICS[0],
+        label: messages.signalMetricsSection.metrics.projectsShipped.label,
+        supportingText:
+          messages.signalMetricsSection.metrics.projectsShipped.supportingText,
+      },
+      {
+        ...METRICS[1],
+        label: messages.signalMetricsSection.metrics.yearsExperience.label,
+        supportingText:
+          messages.signalMetricsSection.metrics.yearsExperience.supportingText,
+      },
+      {
+        ...METRICS[2],
+        label: messages.signalMetricsSection.metrics.apisIntegrated.label,
+        supportingText:
+          messages.signalMetricsSection.metrics.apisIntegrated.supportingText,
+      },
+      {
+        ...METRICS[3],
+        label: messages.signalMetricsSection.metrics.usersImpacted.label,
+        supportingText:
+          messages.signalMetricsSection.metrics.usersImpacted.supportingText,
+      },
+      {
+        ...METRICS[4],
+        label: messages.signalMetricsSection.metrics.costReduced.label,
+        supportingText:
+          messages.signalMetricsSection.metrics.costReduced.supportingText,
+      },
+      {
+        ...METRICS[5],
+        label: messages.signalMetricsSection.metrics.accuracyImproved.label,
+        supportingText:
+          messages.signalMetricsSection.metrics.accuracyImproved.supportingText,
+      },
+    ];
+  }, [messages]);
+
   return (
     <Section
       id="metrics"
-      eyebrow="Signal Metrics"
-      title="Operational impact across systems, reliability, and delivery"
-      description="A live mission-style snapshot of output, performance, and product impact."
+      eyebrow={messages.signalMetricsSection.eyebrow}
+      title={messages.signalMetricsSection.title}
+      description={messages.signalMetricsSection.description}
       className="mission-section"
     >
       <section
         ref={sectionRef}
         className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3"
       >
-        {METRICS.map((metric) => {
+        {localizedMetrics.map((metric) => {
           const Icon = metric.icon;
           const tone = TONE_STYLES[metric.tone];
 
@@ -222,7 +264,9 @@ export default function SignalMetrics() {
               key={metric.label}
               className="mission-panel mission-grid-bg mission-scanline group flex h-full min-h-[12.6rem] flex-col rounded-2xl border border-[color:var(--border-soft)] p-4 transition-all duration-300 motion-reduce:transition-none hover:border-[color:var(--border-cyan)] hover:shadow-[0_0_0_1px_rgba(34,211,238,0.2),0_22px_46px_rgba(2,6,23,0.58)]"
             >
-              <div className="mb-4 flex items-center justify-between gap-2">
+              <div
+                className={`mb-4 flex items-center justify-between gap-2 ${isRTL ? "flex-row-reverse" : ""}`}
+              >
                 <span
                   className={cn(
                     "mission-chip px-2 py-1 text-[10px]",
@@ -241,7 +285,9 @@ export default function SignalMetrics() {
                 </span>
               </div>
 
-              <div className="mb-3 flex items-center gap-2.5">
+              <div
+                className={`mb-3 flex items-center gap-2.5 ${isRTL ? "flex-row-reverse justify-end" : ""}`}
+              >
                 <span
                   className={cn(
                     "h-2 w-2 rounded-full",
@@ -268,4 +314,6 @@ export default function SignalMetrics() {
       </section>
     </Section>
   );
-}
+};
+
+export default SignalMetrics;

@@ -8,7 +8,7 @@ type BadgeProps = {
   className?: string;
 };
 
-export function Badge({ children, featured = false, className }: BadgeProps) {
+export const Badge = ({ children, featured = false, className }: BadgeProps) => {
   return (
     <span
       className={cn(
@@ -22,4 +22,4 @@ export function Badge({ children, featured = false, className }: BadgeProps) {
       {children}
     </span>
   );
-}
+};

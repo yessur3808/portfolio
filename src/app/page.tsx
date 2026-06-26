@@ -2,7 +2,7 @@ import Footer from "@/src/components/layout/Footer";
 import Experience from "@/src/components/sections/Experience";
 import ProfileOverview from "@/src/components/sections/ProfileOverview";
 
-export default function Page() {
+const Page = () => {
   return (
     <>
       <main>
@@ -12,4 +12,6 @@ export default function Page() {
       <Footer />
     </>
   );
-}
+};
+
+export default Page;

@@ -1,5 +1,8 @@
+"use client";
+
 import { Section } from "@/src/components/ui/Section";
 import { skillGroups } from "@/src/data/skills";
+import { useI18n } from "@/src/i18n/locale-context";
 
 type CapabilityModule = {
   id: string;
@@ -56,11 +59,11 @@ const fintechFocusSet = new Set([
   "Monitoring & Logging Tools",
 ]);
 
-function getSkillsByCategory(category: string) {
+const getSkillsByCategory = (category: string) => {
   return skillGroups.find((group) => group.title === category)?.skills ?? [];
-}
+};
 
-function getModuleSkills(module: CapabilityModule) {
+const getModuleSkills = (module: CapabilityModule) => {
   if (module.id === "digital-assets-fintech") {
     return skillGroups
       .flatMap((group) => group.skills)
@@ -77,15 +80,16 @@ function getModuleSkills(module: CapabilityModule) {
       (skill, index, list) =>
         list.findIndex((item) => item.name === skill.name) === index,
     );
-}
+};
 
-export default function TechStack() {
+const TechStack = () => {
+  const { messages, isRTL } = useI18n();
   return (
     <Section
       id="stack"
-      eyebrow="SYSTEM CAPABILITIES"
-      title="Core engineering capabilities across interface systems, platform architecture, and delivery operations"
-      description="A structured map of the technologies and categories I use to ship secure, scalable product systems."
+      eyebrow={messages.techStackSection.eyebrow}
+      title={messages.techStackSection.title}
+      description={messages.techStackSection.description}
       className="mission-section"
     >
       <div className="grid auto-rows-fr gap-4 sm:grid-cols-2 xl:grid-cols-3">
@@ -98,9 +102,12 @@ export default function TechStack() {
               className="mission-panel mission-grid-bg mission-scanline group flex h-full flex-col rounded-3xl border border-[color:var(--border-soft)] p-5 transition-all duration-200 motion-reduce:transition-none hover:border-[color:var(--border-cyan)] hover:shadow-[0_0_0_1px_rgba(34,211,238,0.2),0_22px_48px_rgba(2,6,23,0.56)]"
             >
               <header className="mb-4 space-y-2 border-b border-[color:var(--border-soft)]/80 pb-3">
-                <div className="flex items-center gap-2">
+                <div
+                  className={`flex items-center gap-2 ${isRTL ? "flex-row-reverse justify-end" : ""}`}
+                >
                   <span className="mission-label text-[10px]">
-                    MODULE {String(index + 1).padStart(2, "0")}
+                    {messages.techStackSection.module}{" "}
+                    {String(index + 1).padStart(2, "0")}
                   </span>
                   <span
                     aria-hidden="true"
@@ -115,7 +122,8 @@ export default function TechStack() {
                   {module.title}
                 </h3>
                 <p className="break-words text-xs uppercase leading-5 tracking-[0.12em] text-[color:var(--text-muted)] sm:text-[11px]">
-                  Categories: {module.categories.join(" · ")}
+                  {messages.techStackSection.categories}:{" "}
+                  {module.categories.join(" · ")}
                 </p>
               </header>
 
@@ -135,4 +143,6 @@ export default function TechStack() {
       </div>
     </Section>
   );
-}
+};
+
+export default TechStack;

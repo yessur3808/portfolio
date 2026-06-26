@@ -1,7 +1,7 @@
 "use client";
-
 import { useEffect, useRef, useState } from "react";
 
+import { useI18n } from "@/src/i18n/locale-context";
 import { cn } from "@/src/lib/utils";
 
 type MissionStatusHUDProps = {
@@ -17,13 +17,13 @@ type StatusRow = {
   };
 };
 
-function randInt(min: number, max: number) {
+const randInt = (min: number, max: number) => {
   return Math.floor(min + Math.random() * (max - min + 1));
-}
+};
 
-function clamp(value: number, min: number, max: number) {
+const clamp = (value: number, min: number, max: number) => {
   return Math.min(max, Math.max(min, value));
-}
+};
 
 const DOT_CYAN = {
   background: "rgba(34, 211, 238, 0.92)",
@@ -45,7 +45,8 @@ const DOT_VIOLET = {
   boxShadow: "0 0 10px rgba(139, 92, 246, 0.56)",
 };
 
-export default function MissionStatusHUD({ className }: MissionStatusHUDProps) {
+const MissionStatusHUD = ({ className }: MissionStatusHUDProps) => {
+  const { messages } = useI18n();
   const [latencyMs, setLatencyMs] = useState(24);
   const [signalsProcessed, setSignalsProcessed] = useState(48231);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -95,20 +96,36 @@ export default function MissionStatusHUD({ className }: MissionStatusHUDProps) {
   }, [reducedMotion]);
 
   const rows: StatusRow[] = [
-    { label: "AI Engine", value: "ONLINE", dotStyle: DOT_GREEN },
-    { label: "Risk Layer", value: "MONITORING", dotStyle: DOT_CYAN },
-    { label: "Data Pipeline", value: "SYNCED", dotStyle: DOT_BLUE },
     {
-      label: "Signal Latency",
+      label: messages.missionStatusHud.rows.aiEngine,
+      value: messages.missionStatusHud.rows.online,
+      dotStyle: DOT_GREEN,
+    },
+    {
+      label: messages.missionStatusHud.rows.riskLayer,
+      value: messages.missionStatusHud.rows.monitoring,
+      dotStyle: DOT_CYAN,
+    },
+    {
+      label: messages.missionStatusHud.rows.dataPipeline,
+      value: messages.missionStatusHud.rows.synced,
+      dotStyle: DOT_BLUE,
+    },
+    {
+      label: messages.missionStatusHud.rows.signalLatency,
       value: `${latencyMs}ms`,
       dotStyle: DOT_VIOLET,
     },
-    { label: "System Uptime", value: "99.98%", dotStyle: DOT_GREEN },
+    {
+      label: messages.missionStatusHud.rows.systemUptime,
+      value: "99.98%",
+      dotStyle: DOT_GREEN,
+    },
   ];
 
   return (
     <section
-      aria-label="Mission status HUD"
+      aria-label={messages.missionStatusHud.ariaLabel}
       className={cn(
         "mission-panel relative z-20 rounded-2xl border border-[color:var(--border-soft)] bg-[rgba(2,6,23,0.72)] p-3.5 sm:p-4",
         className,
@@ -116,7 +133,7 @@ export default function MissionStatusHUD({ className }: MissionStatusHUDProps) {
     >
       <div className="mb-2.5 flex items-center justify-between gap-2">
         <p className="mission-label text-[10px] tracking-[0.18em]">
-          Mission Status HUD
+          {messages.missionStatusHud.title}
         </p>
         <p
           className={cn(
@@ -124,7 +141,9 @@ export default function MissionStatusHUD({ className }: MissionStatusHUDProps) {
             !reducedMotion && isUpdating && "text-[color:var(--accent-cyan)]",
           )}
         >
-          {reducedMotion ? "Stable" : "Live"}
+          {reducedMotion
+            ? messages.missionStatusHud.stable
+            : messages.missionStatusHud.live}
         </p>
       </div>
 
@@ -148,7 +167,9 @@ export default function MissionStatusHUD({ className }: MissionStatusHUDProps) {
             <span
               className={cn(
                 "font-mono text-[10px] tracking-[0.08em] text-[color:var(--text-main)] sm:text-[11px] transition-colors duration-300",
-                !reducedMotion && isUpdating && row.label === "Signal Latency"
+                !reducedMotion &&
+                  isUpdating &&
+                  row.label === messages.missionStatusHud.rows.signalLatency
                   ? "text-[color:var(--accent-cyan)]"
                   : "",
               )}
@@ -160,7 +181,9 @@ export default function MissionStatusHUD({ className }: MissionStatusHUDProps) {
       </ul>
 
       <div className="mt-2.5 flex items-center justify-between border-t border-[rgba(148,163,184,0.15)] pt-2 text-[10px] text-[color:var(--text-muted)]">
-        <span className="font-mono uppercase tracking-[0.14em]">Signals</span>
+        <span className="font-mono uppercase tracking-[0.14em]">
+          {messages.missionStatusHud.signals}
+        </span>
         <span
           className={cn(
             "font-mono tracking-[0.08em] transition-colors duration-300",
@@ -174,4 +197,6 @@ export default function MissionStatusHUD({ className }: MissionStatusHUDProps) {
       </div>
     </section>
   );
-}
+};
+
+export default MissionStatusHUD;

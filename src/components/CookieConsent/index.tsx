@@ -1,15 +1,14 @@
-"use client";
-
+"use client";;
 import { useState, useEffect, useSyncExternalStore } from "react";
 import { consentManager, initializeGA } from "@/src/lib/analytics";
 
-function useHasConsentBeenAsked() {
+const useHasConsentBeenAsked = () => {
   return useSyncExternalStore(
     () => () => {},
     () => consentManager.hasConsentBeenAsked(),
     () => true,
   );
-}
+};
 
 const styles = `
   .cookie-banner {
@@ -108,7 +107,7 @@ const styles = `
   }
 `;
 
-export function CookieConsent() {
+export const CookieConsent = () => {
   const hasBeenAsked = useHasConsentBeenAsked();
   const [dismissed, setDismissed] = useState(false);
 
@@ -171,4 +170,4 @@ export function CookieConsent() {
       </div>
     </>
   );
-}
+};

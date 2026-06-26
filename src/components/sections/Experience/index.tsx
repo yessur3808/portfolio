@@ -1,9 +1,9 @@
 "use client";
-
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { CalendarDays, Globe2 } from "lucide-react";
 
 import { experienceItems } from "@/src/data/experience";
+import { useI18n } from "@/src/i18n/locale-context";
 
 import { Card } from "@/src/components/ui/Card";
 import { Section } from "@/src/components/ui/Section";
@@ -15,20 +15,26 @@ type NodePoint = {
 
 type ExperienceItem = (typeof experienceItems)[number];
 
-function clamp(value: number, min: number, max: number) {
+const clamp = (value: number, min: number, max: number) => {
   return Math.min(max, Math.max(min, value));
-}
+};
 
 type TimelineCardProps = {
   item: ExperienceItem;
   isDesktopTrack: boolean;
   isCurrent: boolean;
+  keyPointsLabel: string;
+  techLabel: string;
+  isRTL: boolean;
 };
 
 const TimelineCard = memo(function TimelineCard({
   item,
   isDesktopTrack,
   isCurrent,
+  keyPointsLabel,
+  techLabel,
+  isRTL,
 }: TimelineCardProps) {
   const itemId = `${item.company}-${item.period}`;
 
@@ -51,7 +57,9 @@ const TimelineCard = memo(function TimelineCard({
                 {item.company}
               </p>
 
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-slate-300 sm:text-[13px]">
+              <div
+                className={`flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-slate-300 sm:text-[13px] ${isRTL ? "justify-end" : ""}`}
+              >
                 <span className="inline-flex items-center gap-1.5">
                   <Globe2
                     className="h-3.5 w-3.5 text-blue-300/85"
@@ -77,7 +85,7 @@ const TimelineCard = memo(function TimelineCard({
               className="space-y-2"
             >
               <h4 className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">
-                Key Points
+                {keyPointsLabel}
               </h4>
               <ul className="space-y-1.5 text-sm leading-[1.35rem] text-slate-300 sm:text-[15px] sm:leading-5">
                 {item.highlights.map((highlight) => (
@@ -96,7 +104,7 @@ const TimelineCard = memo(function TimelineCard({
               className="space-y-1.5"
             >
               <h4 className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
-                Tech
+                {techLabel}
               </h4>
               <p className="text-[13px] leading-5 text-slate-400">
                 {item.technologies.join(" · ")}
@@ -109,7 +117,8 @@ const TimelineCard = memo(function TimelineCard({
   );
 });
 
-export default function Experience() {
+const Experience = () => {
+  const { messages, isRTL } = useI18n();
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [pinHeight, setPinHeight] = useState(1200);
@@ -279,17 +288,25 @@ export default function Experience() {
           item={item}
           isDesktopTrack={isDesktopTrack}
           isCurrent={Math.round(activeStep) === index}
+          keyPointsLabel={messages.experienceSection.keyPoints}
+          techLabel={messages.experienceSection.tech}
+          isRTL={isRTL}
         />
       );
     },
-    [activeStep],
+    [
+      activeStep,
+      isRTL,
+      messages.experienceSection.keyPoints,
+      messages.experienceSection.tech,
+    ],
   );
 
   return (
     <Section
       id="experience"
-      eyebrow="CAREER TIMELINE"
-      description="Selected roles and key contributions. Review the timeline as you scroll."
+      eyebrow={messages.experienceSection.eyebrow}
+      description={messages.experienceSection.description}
     >
       <div
         ref={pinSectionRef}
@@ -300,8 +317,10 @@ export default function Experience() {
           ref={stickyRef}
           className="sticky top-16 max-h-[calc(100vh-4rem)] overflow-hidden rounded-none bg-slate-950/12 px-0 py-4 sm:top-20 sm:max-h-[calc(100vh-5rem)] sm:py-5 lg:top-24 lg:max-h-[calc(100vh-6rem)] lg:py-6"
         >
-          <p className="pointer-events-none absolute right-4 top-2 z-10 text-[10px] tracking-[0.08em] text-slate-400/90 sm:right-8 sm:text-[11px]">
-            Scroll to move through the timeline
+          <p
+            className={`pointer-events-none absolute top-2 z-10 text-[10px] tracking-[0.08em] text-slate-400/90 sm:text-[11px] ${isRTL ? "left-4 sm:left-8" : "right-4 sm:right-8"}`}
+          >
+            {messages.experienceSection.scrollHint}
           </p>
           <div className="relative overflow-hidden pt-16">
             {nodePoints.length > 1 ? (
@@ -384,4 +403,6 @@ export default function Experience() {
       </div>
     </Section>
   );
-}
+};
+
+export default Experience;

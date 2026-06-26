@@ -11,14 +11,16 @@ type SectionProps = {
   className?: string;
 };
 
-export function Section({
-  id,
-  eyebrow,
-  title,
-  description,
-  children,
-  className,
-}: SectionProps) {
+export const Section = (
+  {
+    id,
+    eyebrow,
+    title,
+    description,
+    children,
+    className,
+  }: SectionProps,
+) => {
   const headingId = id && title ? `${id}-title` : undefined;
 
   return (
@@ -54,4 +56,4 @@ export function Section({
       </div>
     </section>
   );
-}
+};

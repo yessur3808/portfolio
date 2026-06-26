@@ -1,0 +1,231 @@
+{
+  "common": {
+    "language": "Language",
+    "languages": {
+      "en": "English",
+      "fr": "French",
+      "ar": "Arabic"
+    },
+    "actions": {
+      "open": "Open",
+      "live": "Live"
+    }
+  },
+  "navBar": {
+    "title": "Navigation",
+    "mobile": {
+      "openMenu": "Open navigation menu",
+      "closeMenu": "Close navigation menu",
+      "closeOverlay": "Close navigation menu",
+      "closeLabel": "Close menu",
+      "openLabel": "Open menu",
+      "currentTrack": {
+        "title": "Current track",
+        "description": "Tap a section to jump directly through the portfolio."
+      }
+    },
+    "items": {
+      "about": "About",
+      "experience": "Experience",
+      "work": "Work",
+      "capabilities": "Capabilities",
+      "metrics": "Metrics",
+      "contact": "Contact",
+      "portfolio": "Portfolio"
+    }
+  },
+  "aboutSection": {
+    "title": "MISSION PROFILE",
+    "name": "Yaser Ibrahim",
+    "description": "Senior Full Stack Software Engineer building secure, scalable platforms for fintech, digital assets, and internal systems.",
+    "missionControlTab": {
+      "header": "Operational Focus",
+      "description": "I design interface architecture and backend workflows that make complex operations feel clear, reliable, and actionable.",
+      "currentFocus": [
+        "Digital asset systems",
+        "Internal platform workflows",
+        "Reliable distributed services"
+      ],
+      "areas": [
+        "Frontend Architecture",
+        "Backend Services",
+        "System Design",
+        "Developer Tooling",
+        "Data Visualization"
+      ]
+    },
+    "facts": [
+      "Based in Hong Kong",
+      "Hong Kong Permanent Resident",
+      "American Citizen"
+    ],
+    "floatingSignals": {
+      "online": "ONLINE",
+      "years": "9+ YEARS",
+      "fullStack": "FULL STACK"
+    },
+    "cta": {
+      "label": "View Work",
+      "href": "/#work"
+    }
+  },
+  "contactSection": {
+    "eyebrow": "OPEN TRANSMISSION",
+    "title": "Let's Connect",
+    "description": "I am available for senior engineering opportunities, technical collaboration, and platform-focused teams.",
+    "intro": "If you are building fintech infrastructure, digital asset platforms, internal engineering systems, or data-rich product experiences, I am happy to connect and contribute.",
+    "channelSuffix": "Channel",
+    "statusBlock": {
+      "title": "Status Block",
+      "statusLabel": "STATUS",
+      "statusValue": "AVAILABLE",
+      "locationLabel": "LOCATION",
+      "locationValue": "Hong Kong",
+      "focusLabel": "FOCUS",
+      "focusValue": "Senior Full Stack Engineering"
+    },
+    "facts": [
+      "Currently based in Hong Kong",
+      "Hong Kong Permanent Resident",
+      "American Citizen"
+    ]
+  },
+  "experienceSection": {
+    "eyebrow": "CAREER TIMELINE",
+    "description": "Selected roles and key contributions. Review the timeline as you scroll.",
+    "scrollHint": "Scroll to move through the timeline",
+    "keyPoints": "Key Points",
+    "tech": "Tech"
+  },
+  "caseStudiesSection": {
+    "eyebrow": "FEATURED BUILDS",
+    "title": "Selected systems and builds across fintech, digital assets, and data-rich interfaces",
+    "description": "A focused selection of production systems, internal platforms, and interactive products.",
+    "viewFullPortfolio": "View Full Portfolio",
+    "systemScanActive": "SYSTEM SCAN ACTIVE",
+    "selectedWork": "Selected Work",
+    "build": "BUILD",
+    "viewDetails": "View Details",
+    "open": "Open",
+    "code": "Code",
+    "article": "Article",
+    "opensExternalLink": "Opens external link",
+    "openLiveProjectFor": "Open live project for",
+    "openSourceCodeFor": "Open source code for",
+    "openArticleFor": "Open article for"
+  },
+  "techStackSection": {
+    "eyebrow": "SYSTEM CAPABILITIES",
+    "title": "Core engineering capabilities across interface systems, platform architecture, and delivery operations",
+    "description": "A structured map of the technologies and categories I use to ship secure, scalable product systems.",
+    "module": "MODULE",
+    "categories": "Categories"
+  },
+  "signalMetricsSection": {
+    "eyebrow": "Signal Metrics",
+    "title": "Operational impact across systems, reliability, and delivery",
+    "description": "A live mission-style snapshot of output, performance, and product impact.",
+    "metrics": {
+      "projectsShipped": {
+        "label": "Projects shipped",
+        "supportingText": "Production systems delivered with measurable outcomes."
+      },
+      "yearsExperience": {
+        "label": "Years experience",
+        "supportingText": "Full stack engineering across fintech and platform teams."
+      },
+      "apisIntegrated": {
+        "label": "APIs integrated",
+        "supportingText": "Internal and third-party services connected end-to-end."
+      },
+      "usersImpacted": {
+        "label": "Users impacted",
+        "supportingText": "Interfaces and workflows used by global operations."
+      },
+      "costReduced": {
+        "label": "Cost reduced",
+        "supportingText": "Efficiency gains from system consolidation and automation."
+      },
+      "accuracyImproved": {
+        "label": "Accuracy improved",
+        "supportingText": "Higher signal quality through robust validation layers."
+      }
+    }
+  },
+  "missionStatusHud": {
+    "ariaLabel": "Mission status HUD",
+    "title": "Mission Status HUD",
+    "stable": "Stable",
+    "live": "Live",
+    "signals": "Signals",
+    "rows": {
+      "aiEngine": "AI Engine",
+      "riskLayer": "Risk Layer",
+      "dataPipeline": "Data Pipeline",
+      "signalLatency": "Signal Latency",
+      "systemUptime": "System Uptime",
+      "online": "ONLINE",
+      "monitoring": "MONITORING",
+      "synced": "SYNCED"
+    }
+  },
+  "portfolioPage": {
+    "metadataTitle": "Portfolio",
+    "metadataDescription": "A full portfolio of engineering work spanning digital assets, fintech, media systems, and internal platforms.",
+    "eyebrow": "Full Portfolio",
+    "title": "Project Archive",
+    "description": "A deeper view into shipped systems, architecture trade-offs, and execution outcomes.",
+    "backToHomeShowcase": "Back to Home Showcase",
+    "sortOrder": "Sort Order",
+    "latestToEarliest": "Latest to earliest",
+    "earliestToLatest": "Earliest to latest",
+    "titleAsc": "Title A-Z",
+    "titleDesc": "Title Z-A"
+  },
+  "projectDetailPage": {
+    "metadataNotFoundTitle": "Project Not Found",
+    "metadataTitleSuffix": "Portfolio",
+    "eyebrow": "Project Detail",
+    "backToPortfolio": "Back to Portfolio",
+    "backToHome": "Back to Home",
+    "overview": "Overview",
+    "impact": "Impact",
+    "context": "Context",
+    "themes": "Themes",
+    "technologies": "Technologies",
+    "undisclosed": "Undisclosed",
+    "dateNotListed": "Date not listed"
+  },
+  "footer": {
+    "copyright": "© {{year}} Yaser Ibrahim",
+    "builtWith": "Built with Next.js, TypeScript, and Tailwind CSS.",
+    "footerLinksLabel": "Footer links"
+  },
+  "social": {
+    "labels": {
+      "email": "Email",
+      "linkedin": "LinkedIn",
+      "github": "GitHub",
+      "portfolio": "Portfolio"
+    }
+  },
+  "orbAssistant": {
+    "placeholder": "Ask Yaser's AI Assistant…",
+    "composerPlaceholder": "Ask a question...",
+    "send": "Send",
+    "reset": "Reset",
+    "thinking": "Thinking…",
+    "welcomeTitle": "Ask Yaser's AI Assistant",
+    "welcomeBody": "About my projects, experience, skills, or how I can help your team.",
+    "tryNext": "Try next",
+    "newConversation": "New conversation",
+    "copyMessage": "Copy message",
+    "copiedMessage": "Message copied",
+    "conversationAria": "Assistant conversation",
+    "suggestionsAria": "Suggested questions",
+    "askAria": "Ask the assistant",
+    "sendAria": "Send",
+    "sendMessageAria": "Send message",
+    "resetAria": "Reset conversation"
+  }
+}

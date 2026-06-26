@@ -4,7 +4,7 @@ import { heroData } from "@/app/(site)/_data/site";
 import { ButtonLink } from "@/app/(site)/_components/ui/ButtonLink";
 import { Container } from "@/app/(site)/_components/ui/Container";
 
-export function HeroSection() {
+export const HeroSection = () => {
   return (
     <section id="home" className="border-b border-sky-950/70 py-16 sm:py-20">
       <Container>
@@ -28,4 +28,4 @@ export function HeroSection() {
       </Container>
     </section>
   );
-}
+};

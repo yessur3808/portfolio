@@ -2,27 +2,27 @@ import { t } from "./i18n";
 import type { AssistantLanguage, AssistantResponse } from "./types";
 import { normalizeText } from "./textUtils";
 
-function hasWord(text: string, word: string): boolean {
+const hasWord = (text: string, word: string): boolean => {
   return text.split(" ").includes(word);
-}
+};
 
-function hasAnyToken(text: string, tokens: string[]): boolean {
+const hasAnyToken = (text: string, tokens: string[]): boolean => {
   return tokens.some((token) => hasWord(text, token));
-}
+};
 
-function hasAnyWord(text: string, words: string[]): boolean {
+const hasAnyWord = (text: string, words: string[]): boolean => {
   return hasAnyToken(text, words);
-}
+};
 
-function hasAnyPhrase(text: string, phrases: string[]): boolean {
+const hasAnyPhrase = (text: string, phrases: string[]): boolean => {
   return phrases.some((phrase) => text.includes(phrase));
-}
+};
 
-function hasAnyPattern(text: string, patterns: RegExp[]): boolean {
+const hasAnyPattern = (text: string, patterns: RegExp[]): boolean => {
   return patterns.some((pattern) => pattern.test(text));
-}
+};
 
-function isLikelyQuestion(text: string): boolean {
+const isLikelyQuestion = (text: string): boolean => {
   return (
     hasAnyWord(text, ["what", "which", "who", "how", "why", "best"]) ||
     hasAnyPhrase(text, [
@@ -34,21 +34,21 @@ function isLikelyQuestion(text: string): boolean {
       "is there",
     ])
   );
-}
+};
 
-function hasExplicitNavigationVerb(text: string): boolean {
+const hasExplicitNavigationVerb = (text: string): boolean => {
   return hasAnyPattern(text, [
     /\b(go|jump|take|scroll|open|view|navigate|return|back|show)\b/,
   ]);
-}
+};
 
-function buildResponse(
+const buildResponse = (
   answer: string,
   confidence: number,
   actions: AssistantResponse["actions"],
   suggestions: string[],
   language: AssistantLanguage,
-): AssistantResponse {
+): AssistantResponse => {
   return {
     answer,
     language,
@@ -57,19 +57,13 @@ function buildResponse(
     actions,
     suggestions,
   };
-}
+};
 
-function localizedAnswer(
-  language: AssistantLanguage,
-  answers: Record<AssistantLanguage, string>,
-): string {
+const localizedAnswer = (language: AssistantLanguage, answers: Record<AssistantLanguage, string>): string => {
   return answers[language] ?? answers.en;
-}
+};
 
-export function detectDirectCommand(
-  input: string,
-  language: AssistantLanguage = "en",
-): AssistantResponse | null {
+export const detectDirectCommand = (input: string, language: AssistantLanguage = "en"): AssistantResponse | null => {
   const text = normalizeText(input);
   if (!text) return null;
   const l = t(language);
@@ -486,4 +480,4 @@ export function detectDirectCommand(
   }
 
   return null;
-}
+};

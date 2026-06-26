@@ -1,5 +1,4 @@
-"use client";
-
+"use client";;
 import { useEffect, useRef } from "react";
 import { trackEvent } from "@/src/lib/analytics";
 
@@ -17,7 +16,7 @@ const SECTION_IDS = [
   "contact",
 ] as const;
 
-export default function SectionObserver() {
+const SectionObserver = () => {
   const prevSectionRef = useRef<string>("");
 
   useEffect(() => {
@@ -65,4 +64,6 @@ export default function SectionObserver() {
   }, []);
 
   return null;
-}
+};
+
+export default SectionObserver;

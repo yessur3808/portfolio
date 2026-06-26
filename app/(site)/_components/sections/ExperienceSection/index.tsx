@@ -5,7 +5,7 @@ import { Container } from "@/app/(site)/_components/ui/Container";
 import { SectionHeading } from "@/app/(site)/_components/ui/SectionHeading";
 import { Card } from "@/src/components/ui/Card";
 
-export function ExperienceSection() {
+export const ExperienceSection = () => {
   return (
     <section
       id="experience"
@@ -47,4 +47,4 @@ export function ExperienceSection() {
       </Container>
     </section>
   );
-}
+};

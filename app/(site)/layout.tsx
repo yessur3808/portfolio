@@ -11,7 +11,7 @@ type SiteLayoutProps = {
   children: ReactNode;
 };
 
-export default function SiteLayout({ children }: SiteLayoutProps) {
+const SiteLayout = ({ children }: SiteLayoutProps) => {
   return (
     <div className="relative isolate flex min-h-screen flex-col bg-transparent text-slate-100">
       <NeuralField />
@@ -25,4 +25,6 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
       </div>
     </div>
   );
-}
+};
+
+export default SiteLayout;

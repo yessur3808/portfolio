@@ -1,0 +1,231 @@
+{
+  "common": {
+    "language": "اللغة",
+    "languages": {
+      "en": "الإنجليزية",
+      "fr": "الفرنسية",
+      "ar": "العربية"
+    },
+    "actions": {
+      "open": "فتح",
+      "live": "مباشر"
+    }
+  },
+  "navBar": {
+    "title": "التنقل",
+    "mobile": {
+      "openMenu": "فتح قائمة التنقل",
+      "closeMenu": "إغلاق قائمة التنقل",
+      "closeOverlay": "إغلاق قائمة التنقل",
+      "closeLabel": "إغلاق القائمة",
+      "openLabel": "فتح القائمة",
+      "currentTrack": {
+        "title": "المسار الحالي",
+        "description": "اضغط على أي قسم للانتقال مباشرة داخل البورتفوليو."
+      }
+    },
+    "items": {
+      "about": "نبذة",
+      "experience": "الخبرة",
+      "work": "الأعمال",
+      "capabilities": "القدرات",
+      "metrics": "المؤشرات",
+      "contact": "التواصل",
+      "portfolio": "المعرض"
+    }
+  },
+  "aboutSection": {
+    "title": "ملف المهمة",
+    "name": "ياسر إبراهيم",
+    "description": "مهندس برمجيات فل ستاك أول يبني منصات آمنة وقابلة للتوسع لقطاع التقنية المالية والأصول الرقمية والأنظمة الداخلية.",
+    "missionControlTab": {
+      "header": "التركيز التشغيلي",
+      "description": "أصمم بنية الواجهات وسير العمل الخلفي بحيث تصبح العمليات المعقدة واضحة وموثوقة وقابلة للتنفيذ.",
+      "currentFocus": [
+        "أنظمة الأصول الرقمية",
+        "سير عمل المنصات الداخلية",
+        "خدمات موزعة موثوقة"
+      ],
+      "areas": [
+        "هندسة الواجهات الأمامية",
+        "خدمات الواجهة الخلفية",
+        "تصميم الأنظمة",
+        "أدوات المطورين",
+        "تصوير البيانات"
+      ]
+    },
+    "facts": [
+      "مقيم في هونغ كونغ",
+      "مقيم دائم في هونغ كونغ",
+      "مواطن أمريكي"
+    ],
+    "floatingSignals": {
+      "online": "متصل",
+      "years": "+9 سنوات",
+      "fullStack": "فل ستاك"
+    },
+    "cta": {
+      "label": "عرض الأعمال",
+      "href": "/#work"
+    }
+  },
+  "contactSection": {
+    "eyebrow": "قناة اتصال مفتوحة",
+    "title": "لنتواصل",
+    "description": "متاح لفرص هندسية متقدمة وتعاون تقني والعمل ضمن فرق تركز على بناء المنصات.",
+    "intro": "إذا كنت تبني بنية تحتية للتقنية المالية، أو منصات أصول رقمية، أو أنظمة هندسية داخلية، أو تجارب منتجات غنية بالبيانات، يسعدني التواصل والمساهمة.",
+    "channelSuffix": "قناة",
+    "statusBlock": {
+      "title": "كتلة الحالة",
+      "statusLabel": "الحالة",
+      "statusValue": "متاح",
+      "locationLabel": "الموقع",
+      "locationValue": "هونغ كونغ",
+      "focusLabel": "التركيز",
+      "focusValue": "هندسة المنصات / فل ستاك أول"
+    },
+    "facts": [
+      "أقيم حالياً في هونغ كونغ",
+      "مقيم دائم في هونغ كونغ",
+      "مواطن أمريكي"
+    ]
+  },
+  "experienceSection": {
+    "eyebrow": "المسار المهني",
+    "description": "أدوار مختارة ومساهمات أساسية. تصفح الخط الزمني أثناء التمرير.",
+    "scrollHint": "مرّر للتنقل عبر الخط الزمني",
+    "keyPoints": "نقاط أساسية",
+    "tech": "التقنيات"
+  },
+  "caseStudiesSection": {
+    "eyebrow": "أبرز الأعمال",
+    "title": "أنظمة وبُنى مختارة عبر التقنية المالية والأصول الرقمية وواجهات البيانات الغنية",
+    "description": "مجموعة مركزة من أنظمة إنتاجية ومنصات داخلية ومنتجات تفاعلية.",
+    "viewFullPortfolio": "عرض المعرض الكامل",
+    "systemScanActive": "فحص النظام مفعل",
+    "selectedWork": "عمل مختار",
+    "build": "إصدار",
+    "viewDetails": "عرض التفاصيل",
+    "open": "فتح",
+    "code": "الكود",
+    "article": "مقال",
+    "opensExternalLink": "يفتح رابطاً خارجياً",
+    "openLiveProjectFor": "فتح المشروع المباشر لـ",
+    "openSourceCodeFor": "فتح الشفرة المصدرية لـ",
+    "openArticleFor": "فتح المقال لـ"
+  },
+  "techStackSection": {
+    "eyebrow": "قدرات النظام",
+    "title": "قدرات هندسية أساسية عبر أنظمة الواجهة ومعمارية المنصة وعمليات التسليم",
+    "description": "خريطة منظمة للتقنيات والتصنيفات التي أستخدمها لبناء أنظمة منتجات آمنة وقابلة للتوسع.",
+    "module": "وحدة",
+    "categories": "التصنيفات"
+  },
+  "signalMetricsSection": {
+    "eyebrow": "مؤشرات الإشارة",
+    "title": "الأثر التشغيلي عبر الأنظمة والموثوقية والتسليم",
+    "description": "لقطة مباشرة بأسلوب المهمة عن المخرجات والأداء وأثر المنتج.",
+    "metrics": {
+      "projectsShipped": {
+        "label": "مشاريع تم تسليمها",
+        "supportingText": "أنظمة إنتاجية تم تسليمها بنتائج قابلة للقياس."
+      },
+      "yearsExperience": {
+        "label": "سنوات الخبرة",
+        "supportingText": "هندسة فل ستاك عبر فرق التقنية المالية والمنصات."
+      },
+      "apisIntegrated": {
+        "label": "واجهات API مدمجة",
+        "supportingText": "ربط خدمات داخلية وخارجية من البداية للنهاية."
+      },
+      "usersImpacted": {
+        "label": "مستخدمون متأثرون",
+        "supportingText": "واجهات وسير عمل تستخدمها عمليات عالمية."
+      },
+      "costReduced": {
+        "label": "خفض التكلفة",
+        "supportingText": "تحسينات كفاءة عبر توحيد الأنظمة والأتمتة."
+      },
+      "accuracyImproved": {
+        "label": "تحسين الدقة",
+        "supportingText": "جودة إشارة أعلى عبر طبقات تحقق قوية."
+      }
+    }
+  },
+  "missionStatusHud": {
+    "ariaLabel": "لوحة حالة المهمة",
+    "title": "لوحة حالة المهمة",
+    "stable": "مستقر",
+    "live": "مباشر",
+    "signals": "الإشارات",
+    "rows": {
+      "aiEngine": "محرك الذكاء",
+      "riskLayer": "طبقة المخاطر",
+      "dataPipeline": "خط البيانات",
+      "signalLatency": "زمن تأخر الإشارة",
+      "systemUptime": "استمرارية النظام",
+      "online": "متصل",
+      "monitoring": "قيد المراقبة",
+      "synced": "متزامن"
+    }
+  },
+  "portfolioPage": {
+    "metadataTitle": "المعرض",
+    "metadataDescription": "معرض كامل لأعمال هندسية تشمل الأصول الرقمية والتقنية المالية وأنظمة الإعلام والمنصات الداخلية.",
+    "eyebrow": "المعرض الكامل",
+    "title": "أرشيف المشاريع",
+    "description": "نظرة أعمق على الأنظمة المُسلّمة ومفاضلات المعمارية ونتائج التنفيذ.",
+    "backToHomeShowcase": "العودة إلى عرض الصفحة الرئيسية",
+    "sortOrder": "ترتيب الفرز",
+    "latestToEarliest": "الأحدث إلى الأقدم",
+    "earliestToLatest": "الأقدم إلى الأحدث",
+    "titleAsc": "العنوان أ-ي",
+    "titleDesc": "العنوان ي-أ"
+  },
+  "projectDetailPage": {
+    "metadataNotFoundTitle": "المشروع غير موجود",
+    "metadataTitleSuffix": "المعرض",
+    "eyebrow": "تفاصيل المشروع",
+    "backToPortfolio": "العودة إلى المعرض",
+    "backToHome": "العودة إلى الصفحة الرئيسية",
+    "overview": "نظرة عامة",
+    "impact": "الأثر",
+    "context": "السياق",
+    "themes": "المحاور",
+    "technologies": "التقنيات",
+    "undisclosed": "غير معلن",
+    "dateNotListed": "التاريخ غير مذكور"
+  },
+  "footer": {
+    "copyright": "© {{year}} ياسر إبراهيم",
+    "builtWith": "تم البناء باستخدام Next.js وTypeScript وTailwind CSS.",
+    "footerLinksLabel": "روابط التذييل"
+  },
+  "social": {
+    "labels": {
+      "email": "البريد الإلكتروني",
+      "linkedin": "لينكدإن",
+      "github": "جيت هب",
+      "portfolio": "المعرض"
+    }
+  },
+  "orbAssistant": {
+    "placeholder": "اسأل مساعد ياسر الذكي…",
+    "composerPlaceholder": "اكتب سؤالك...",
+    "send": "إرسال",
+    "reset": "إعادة تعيين",
+    "thinking": "جارٍ التفكير…",
+    "welcomeTitle": "اسأل مساعد ياسر الذكي",
+    "welcomeBody": "عن مشاريعي وخبرتي ومهاراتي أو كيف يمكنني دعم فريقك.",
+    "tryNext": "جرّب التالي",
+    "newConversation": "محادثة جديدة",
+    "copyMessage": "نسخ الرسالة",
+    "copiedMessage": "تم نسخ الرسالة",
+    "conversationAria": "محادثة المساعد",
+    "suggestionsAria": "أسئلة مقترحة",
+    "askAria": "اسأل المساعد",
+    "sendAria": "إرسال",
+    "sendMessageAria": "إرسال الرسالة",
+    "resetAria": "إعادة تعيين المحادثة"
+  }
+}

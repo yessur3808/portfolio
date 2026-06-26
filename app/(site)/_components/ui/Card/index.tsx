@@ -7,7 +7,7 @@ type CardProps = {
   className?: string;
 };
 
-export function Card({ children, className }: CardProps) {
+export const Card = ({ children, className }: CardProps) => {
   return (
     <article
       className={cn(
@@ -18,4 +18,4 @@ export function Card({ children, className }: CardProps) {
       {children}
     </article>
   );
-}
+};
