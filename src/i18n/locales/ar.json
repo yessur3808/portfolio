@@ -65,24 +65,24 @@
       "fullStack": "فل ستاك"
     },
     "cta": {
-      "label": "عرض الأعمال",
+      "label": "مشاريعي",
       "href": "/#work"
     }
   },
   "contactSection": {
     "eyebrow": "قناة اتصال مفتوحة",
-    "title": "لنتواصل",
+    "title": "تواصل معي",
     "description": "متاح لفرص هندسية متقدمة وتعاون تقني والعمل ضمن فرق تركز على بناء المنصات.",
     "intro": "إذا كنت تبني بنية تحتية للتقنية المالية، أو منصات أصول رقمية، أو أنظمة هندسية داخلية، أو تجارب منتجات غنية بالبيانات، يسعدني التواصل والمساهمة.",
     "channelSuffix": "قناة",
     "statusBlock": {
-      "title": "كتلة الحالة",
+      "title": "لوحة الحالة",
       "statusLabel": "الحالة",
       "statusValue": "متاح",
       "locationLabel": "الموقع",
       "locationValue": "هونغ كونغ",
       "focusLabel": "التركيز",
-      "focusValue": "هندسة المنصات / فل ستاك أول"
+      "focusValue": "هندسة المنصات وتطوير فل ستاك أول"
     },
     "facts": [
       "أقيم حالياً في هونغ كونغ",
@@ -101,11 +101,11 @@
     "eyebrow": "أبرز الأعمال",
     "title": "أنظمة وبُنى مختارة عبر التقنية المالية والأصول الرقمية وواجهات البيانات الغنية",
     "description": "مجموعة مركزة من أنظمة إنتاجية ومنصات داخلية ومنتجات تفاعلية.",
-    "viewFullPortfolio": "عرض المعرض الكامل",
+    "viewFullPortfolio": "كل المشاريع",
     "systemScanActive": "فحص النظام مفعل",
-    "selectedWork": "عمل مختار",
-    "build": "إصدار",
-    "viewDetails": "عرض التفاصيل",
+    "selectedWork": "أعمال مختارة",
+    "build": "بناء",
+    "viewDetails": "التفاصيل",
     "open": "فتح",
     "code": "الكود",
     "article": "مقال",
@@ -116,13 +116,13 @@
   },
   "techStackSection": {
     "eyebrow": "قدرات النظام",
-    "title": "قدرات هندسية أساسية عبر أنظمة الواجهة ومعمارية المنصة وعمليات التسليم",
+    "title": "قدرات هندسية أساسية في الواجهة والمعمارية والتسليم",
     "description": "خريطة منظمة للتقنيات والتصنيفات التي أستخدمها لبناء أنظمة منتجات آمنة وقابلة للتوسع.",
     "module": "وحدة",
     "categories": "التصنيفات"
   },
   "signalMetricsSection": {
-    "eyebrow": "مؤشرات الإشارة",
+    "eyebrow": "مؤشرات الأداء",
     "title": "الأثر التشغيلي عبر الأنظمة والموثوقية والتسليم",
     "description": "لقطة مباشرة بأسلوب المهمة عن المخرجات والأداء وأثر المنتج.",
     "metrics": {
@@ -154,16 +154,16 @@
   },
   "missionStatusHud": {
     "ariaLabel": "لوحة حالة المهمة",
-    "title": "لوحة حالة المهمة",
+    "title": "حالة المهمة",
     "stable": "مستقر",
     "live": "مباشر",
     "signals": "الإشارات",
     "rows": {
-      "aiEngine": "محرك الذكاء",
-      "riskLayer": "طبقة المخاطر",
-      "dataPipeline": "خط البيانات",
+      "aiEngine": "محرك الذكاء الاصطناعي",
+      "riskLayer": "طبقة إدارة المخاطر",
+      "dataPipeline": "مسار البيانات",
       "signalLatency": "زمن تأخر الإشارة",
-      "systemUptime": "استمرارية النظام",
+      "systemUptime": "جاهزية النظام",
       "online": "متصل",
       "monitoring": "قيد المراقبة",
       "synced": "متزامن"
@@ -175,10 +175,10 @@
     "eyebrow": "المعرض الكامل",
     "title": "أرشيف المشاريع",
     "description": "نظرة أعمق على الأنظمة المُسلّمة ومفاضلات المعمارية ونتائج التنفيذ.",
-    "backToHomeShowcase": "العودة إلى عرض الصفحة الرئيسية",
-    "sortOrder": "ترتيب الفرز",
-    "latestToEarliest": "الأحدث إلى الأقدم",
-    "earliestToLatest": "الأقدم إلى الأحدث",
+    "backToHomeShowcase": "العودة للرئيسية",
+    "sortOrder": "الترتيب",
+    "latestToEarliest": "الأحدث",
+    "earliestToLatest": "الأقدم",
     "titleAsc": "العنوان أ-ي",
     "titleDesc": "العنوان ي-أ"
   },
@@ -186,15 +186,15 @@
     "metadataNotFoundTitle": "المشروع غير موجود",
     "metadataTitleSuffix": "المعرض",
     "eyebrow": "تفاصيل المشروع",
-    "backToPortfolio": "العودة إلى المعرض",
-    "backToHome": "العودة إلى الصفحة الرئيسية",
+    "backToPortfolio": "إلى المعرض",
+    "backToHome": "الرئيسية",
     "overview": "نظرة عامة",
     "impact": "الأثر",
     "context": "السياق",
     "themes": "المحاور",
     "technologies": "التقنيات",
-    "undisclosed": "غير معلن",
-    "dateNotListed": "التاريخ غير مذكور"
+    "undisclosed": "غير متاح",
+    "dateNotListed": "تاريخ غير متاح"
   },
   "footer": {
     "copyright": "© {{year}} ياسر إبراهيم",
@@ -205,7 +205,7 @@
     "labels": {
       "email": "البريد الإلكتروني",
       "linkedin": "لينكدإن",
-      "github": "جيت هب",
+      "github": "غيت هب",
       "portfolio": "المعرض"
     }
   },
@@ -216,8 +216,8 @@
     "reset": "إعادة تعيين",
     "thinking": "جارٍ التفكير…",
     "welcomeTitle": "اسأل مساعد ياسر الذكي",
-    "welcomeBody": "عن مشاريعي وخبرتي ومهاراتي أو كيف يمكنني دعم فريقك.",
-    "tryNext": "جرّب التالي",
+    "welcomeBody": "اسأل عن مشاريعي وخبرتي ومهاراتي أو كيف يمكنني دعم فريقك.",
+    "tryNext": "جرّب سؤالاً",
     "newConversation": "محادثة جديدة",
     "copyMessage": "نسخ الرسالة",
     "copiedMessage": "تم نسخ الرسالة",
