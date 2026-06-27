@@ -7,7 +7,7 @@ import type {
 
 export const siteConfig: SiteConfig = {
   siteName: "Yaser Portfolio",
-  url: "https://example.com",
+  url: "https://yaseribrahim3808.com",
   description:
     "Portfolio of Yaser: product-minded software engineer building fast, reliable web experiences.",
   location: "Remote",

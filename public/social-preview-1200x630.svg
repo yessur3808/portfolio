@@ -1,0 +1,39 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Yaser Ibrahim Portfolio Social Preview</title>
+  <desc id="desc">Social sharing preview for Yaser Ibrahim portfolio website.</desc>
+  <defs>
+    <linearGradient id="bg" x1="80" y1="40" x2="1120" y2="590" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B1220"/>
+      <stop offset="0.55" stop-color="#10213F"/>
+      <stop offset="1" stop-color="#0A3A66"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(260 118) rotate(55) scale(520 340)">
+      <stop stop-color="#2BA8FF" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="#2BA8FF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1040 630) rotate(-140) scale(560 420)">
+      <stop stop-color="#38BDF8" stop-opacity="0.36"/>
+      <stop offset="1" stop-color="#38BDF8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="line" x1="120" y1="490" x2="970" y2="490" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#38BDF8"/>
+      <stop offset="1" stop-color="#93C5FD"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" rx="24" fill="url(#bg)"/>
+  <rect width="1200" height="630" rx="24" fill="url(#glowA)"/>
+  <rect width="1200" height="630" rx="24" fill="url(#glowB)"/>
+
+  <circle cx="1010" cy="128" r="116" fill="#0B1630" fill-opacity="0.88"/>
+  <circle cx="1010" cy="128" r="88" stroke="#38BDF8" stroke-opacity="0.62" stroke-width="2"/>
+
+  <text x="120" y="172" fill="#7DD3FC" font-family="Geist, Segoe UI, Arial, sans-serif" font-size="28" letter-spacing="3.2">YASER IBRAHIM</text>
+  <text x="120" y="275" fill="#F8FAFC" font-family="Geist, Segoe UI, Arial, sans-serif" font-size="70" font-weight="700" letter-spacing="-1.2">Senior Full Stack</text>
+  <text x="120" y="352" fill="#F8FAFC" font-family="Geist, Segoe UI, Arial, sans-serif" font-size="70" font-weight="700" letter-spacing="-1.2">Software Engineer</text>
+
+  <line x1="120" y1="404" x2="972" y2="404" stroke="url(#line)" stroke-width="3" stroke-linecap="round"/>
+
+  <text x="120" y="462" fill="#BFDBFE" font-family="Geist, Segoe UI, Arial, sans-serif" font-size="30">Fintech • Digital Assets • Scalable Product Engineering</text>
+  <text x="120" y="516" fill="#E2E8F0" font-family="Geist, Segoe UI, Arial, sans-serif" font-size="28">yaseribrahim3808.com</text>
+</svg>

@@ -1,6 +1,12 @@
 import { sanitizeText } from "@/src/lib/sanitize";
 
 export const GA_MEASUREMENT_ID = "G-PG2WHYK00C";
+const ATTRIBUTION_SOURCE_STORAGE_KEY = "traffic_source";
+const ATTRIBUTION_PARAM_KEY_STORAGE_KEY = "traffic_source_param_key";
+const ATTRIBUTION_TYPE_STORAGE_KEY = "traffic_source_type";
+const ATTRIBUTION_MEDIUM_STORAGE_KEY = "traffic_medium";
+const ATTRIBUTION_CAMPAIGN_STORAGE_KEY = "traffic_campaign";
+const SOURCE_QUERY_KEYS = ["ref", "reference", "source", "utm_source"];
 
 export type QueryIntent =
   | "portfolio"
@@ -12,6 +18,15 @@ export type QueryIntent =
 
 export type AnalyticsEvent =
   | { type: "page_view"; page_path: string; page_title: string }
+  | {
+      type: "traffic_source_detected";
+      source: string;
+      source_type: "query_param" | "referrer" | "stored";
+      param_key?: string;
+      utm_medium?: string;
+      utm_campaign?: string;
+      landing_path: string;
+    }
   | { type: "portfolio_click"; project_slug: string; project_category?: string }
   | { type: "portfolio_view"; project_slug: string }
   | {
@@ -112,6 +127,187 @@ export const sanitizeAnalyticsQueryText = (
   maxLength = 120,
 ): string => {
   return sanitizeText(input, maxLength);
+};
+
+const normalizeAttributionValue = (value: string): string => {
+  return sanitizeText(value.trim().toLowerCase(), 60)
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9._-]/g, "");
+};
+
+type DetectedAttribution = {
+  source: string;
+  sourceType: "query_param" | "referrer" | "stored";
+  paramKey?: string;
+  medium?: string;
+  campaign?: string;
+  hasQueryParams: boolean;
+};
+
+const readStoredAttribution = (): DetectedAttribution | null => {
+  if (typeof window === "undefined") return null;
+
+  const source = localStorage.getItem(ATTRIBUTION_SOURCE_STORAGE_KEY);
+  if (!source) return null;
+
+  const sourceType = localStorage.getItem(ATTRIBUTION_TYPE_STORAGE_KEY);
+  const paramKey = localStorage.getItem(ATTRIBUTION_PARAM_KEY_STORAGE_KEY);
+  const medium = localStorage.getItem(ATTRIBUTION_MEDIUM_STORAGE_KEY);
+  const campaign = localStorage.getItem(ATTRIBUTION_CAMPAIGN_STORAGE_KEY);
+
+  return {
+    source,
+    sourceType:
+      sourceType === "query_param" ||
+      sourceType === "referrer" ||
+      sourceType === "stored"
+        ? sourceType
+        : "stored",
+    paramKey: paramKey ?? undefined,
+    medium: medium ?? undefined,
+    campaign: campaign ?? undefined,
+    hasQueryParams: false,
+  };
+};
+
+const persistAttribution = (attribution: DetectedAttribution): void => {
+  if (typeof window === "undefined") return;
+
+  localStorage.setItem(ATTRIBUTION_SOURCE_STORAGE_KEY, attribution.source);
+  localStorage.setItem(ATTRIBUTION_TYPE_STORAGE_KEY, attribution.sourceType);
+
+  if (attribution.paramKey) {
+    localStorage.setItem(
+      ATTRIBUTION_PARAM_KEY_STORAGE_KEY,
+      attribution.paramKey,
+    );
+  } else {
+    localStorage.removeItem(ATTRIBUTION_PARAM_KEY_STORAGE_KEY);
+  }
+
+  if (attribution.medium) {
+    localStorage.setItem(ATTRIBUTION_MEDIUM_STORAGE_KEY, attribution.medium);
+  } else {
+    localStorage.removeItem(ATTRIBUTION_MEDIUM_STORAGE_KEY);
+  }
+
+  if (attribution.campaign) {
+    localStorage.setItem(
+      ATTRIBUTION_CAMPAIGN_STORAGE_KEY,
+      attribution.campaign,
+    );
+  } else {
+    localStorage.removeItem(ATTRIBUTION_CAMPAIGN_STORAGE_KEY);
+  }
+};
+
+const detectAttributionFromLocation = (): DetectedAttribution | null => {
+  if (typeof window === "undefined") return null;
+
+  const searchParams = new URLSearchParams(window.location.search);
+  const queryMedium = normalizeAttributionValue(
+    searchParams.get("utm_medium") ?? "",
+  );
+  const queryCampaign = normalizeAttributionValue(
+    searchParams.get("utm_campaign") ?? "",
+  );
+
+  const storedAttribution = readStoredAttribution();
+
+  let sourceFromQuery: string | undefined;
+  let sourceParamKey: string | undefined;
+
+  for (const key of SOURCE_QUERY_KEYS) {
+    const rawValue = searchParams.get(key);
+    if (!rawValue) continue;
+
+    const source = normalizeAttributionValue(rawValue);
+    if (!source) continue;
+
+    sourceFromQuery = source;
+    sourceParamKey = key;
+    break;
+  }
+
+  let sourceFromReferrer: string | undefined;
+
+  if (document.referrer) {
+    try {
+      const referrerHost = new URL(document.referrer).hostname.replace(
+        /^www\./,
+        "",
+      );
+      const source = normalizeAttributionValue(referrerHost);
+
+      if (source) {
+        sourceFromReferrer = source;
+      }
+    } catch {
+      // Ignore malformed referrer URLs.
+    }
+  }
+
+  const source =
+    sourceFromQuery ?? sourceFromReferrer ?? storedAttribution?.source;
+  if (!source) {
+    return null;
+  }
+
+  const sourceType: "query_param" | "referrer" | "stored" = sourceFromQuery
+    ? "query_param"
+    : sourceFromReferrer
+      ? "referrer"
+      : "stored";
+
+  return {
+    source,
+    sourceType,
+    paramKey: sourceParamKey ?? storedAttribution?.paramKey,
+    medium: queryMedium || storedAttribution?.medium,
+    campaign: queryCampaign || storedAttribution?.campaign,
+    hasQueryParams: Boolean(sourceFromQuery || queryMedium || queryCampaign),
+  };
+};
+
+/**
+ * Detects source from URL params such as ref/reference/source/utm_source,
+ * then falls back to referrer or previously stored value.
+ */
+export const trackAttributionSource = (): void => {
+  if (typeof window === "undefined") return;
+
+  const attribution = detectAttributionFromLocation();
+  if (!attribution) return;
+
+  persistAttribution(attribution);
+
+  if (attribution.sourceType !== "stored" || attribution.hasQueryParams) {
+    const pagePath = `${window.location.pathname}${window.location.search}`;
+
+    trackEvent("traffic_source_detected", {
+      source: attribution.source,
+      source_type: attribution.sourceType,
+      param_key: attribution.paramKey,
+      utm_medium: attribution.medium,
+      utm_campaign: attribution.campaign,
+      landing_path: pagePath,
+    });
+  }
+
+  const userProperties: Record<string, string | number | boolean> = {
+    traffic_source: attribution.source,
+    traffic_source_type: attribution.sourceType,
+  };
+
+  if (attribution.medium) {
+    userProperties.traffic_medium = attribution.medium;
+  }
+
+  if (attribution.campaign) {
+    userProperties.traffic_campaign = attribution.campaign;
+  }
+
+  setUserProperties(userProperties);
 };
 
 /**

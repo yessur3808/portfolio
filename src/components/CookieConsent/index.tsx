@@ -1,6 +1,10 @@
-"use client";;
+"use client";
 import { useState, useEffect, useSyncExternalStore } from "react";
-import { consentManager, initializeGA } from "@/src/lib/analytics";
+import {
+  consentManager,
+  initializeGA,
+  trackAttributionSource,
+} from "@/src/lib/analytics";
 
 const useHasConsentBeenAsked = () => {
   return useSyncExternalStore(
@@ -114,12 +118,13 @@ export const CookieConsent = () => {
   useEffect(() => {
     if (consentManager.getConsent() === true) {
       initializeGA();
+      trackAttributionSource();
     }
   }, []);
 
   const handleAccept = () => {
     consentManager.setConsent(true);
-    initializeGA();
+    trackAttributionSource();
     setDismissed(true);
   };
 
