@@ -12,7 +12,11 @@ import {
   parseDisabledLanguageCommand,
   parseLanguageCommand,
 } from "@/src/lib/orb/textUtils";
-import { trackEvent } from "@/src/lib/analytics";
+import {
+  sanitizeAnalyticsQueryText,
+  trackEvent,
+  type QueryIntent,
+} from "@/src/lib/analytics";
 
 type UseOrbAssistantOptions = {
   preload?: boolean;
@@ -107,6 +111,42 @@ const publishOrbState = (detail: OrbStateEventDetail): void => {
   window.dispatchEvent(
     new CustomEvent<OrbStateEventDetail>("orb-state-change", { detail }),
   );
+};
+
+const inferQueryIntent = (query: string): QueryIntent => {
+  const normalized = query.toLowerCase();
+
+  if (
+    /\b(project|portfolio|case study|work|show me your work)\b/.test(normalized)
+  ) {
+    return "portfolio";
+  }
+
+  if (
+    /\b(experience|career|role|roles|timeline|history|years)\b/.test(normalized)
+  ) {
+    return "experience";
+  }
+
+  if (
+    /\b(skill|skills|tech|stack|tool|tools|language|languages)\b/.test(
+      normalized,
+    )
+  ) {
+    return "skills";
+  }
+
+  if (
+    /\b(contact|email|linkedin|github|twitter|reach|hire)\b/.test(normalized)
+  ) {
+    return "contact";
+  }
+
+  if (/\b(about|bio|who are you|mission|summary)\b/.test(normalized)) {
+    return "about";
+  }
+
+  return "other";
 };
 
 export const useOrbAssistant = (
@@ -210,11 +250,19 @@ export const useOrbAssistant = (
 
       const previousResponse = lastResponse;
       const memorySnapshot = sessionMemoryRef.current;
+      const queryLanguage =
+        activeLanguageMode === "auto"
+          ? detectAssistantLanguage(trimmed)
+          : activeLanguageMode;
+      const queryText = sanitizeAnalyticsQueryText(trimmed);
 
       // Track query submission
       trackEvent("orb_query_submitted", {
         query_length: trimmed.length,
         has_context: messages.length > 0,
+        query_intent: inferQueryIntent(trimmed),
+        query_language: queryLanguage,
+        query_text: queryText,
       });
 
       publishOrbState({

@@ -1,4 +1,14 @@
+import { sanitizeText } from "@/src/lib/sanitize";
+
 export const GA_MEASUREMENT_ID = "G-PG2WHYK00C";
+
+export type QueryIntent =
+  | "portfolio"
+  | "experience"
+  | "skills"
+  | "contact"
+  | "about"
+  | "other";
 
 export type AnalyticsEvent =
   | { type: "page_view"; page_path: string; page_title: string }
@@ -15,7 +25,14 @@ export type AnalyticsEvent =
       page_path: string;
     }
   | { type: "orb_chat_opened"; timestamp: number }
-  | { type: "orb_query_submitted"; query_length: number; has_context: boolean }
+  | {
+      type: "orb_query_submitted";
+      query_length: number;
+      has_context: boolean;
+      query_intent?: QueryIntent;
+      query_language?: "en" | "ar" | "fr";
+      query_text?: string;
+    }
   | {
       type: "orb_search_result";
       result_count: number;
@@ -84,6 +101,17 @@ export const trackEvent = (
   } catch (error) {
     console.error(`[Analytics] Failed to track event: ${eventName}`, error);
   }
+};
+
+/**
+ * Sanitizes free-form query text before analytics collection.
+ * Keeps only safe, normalized content and truncates to a conservative limit.
+ */
+export const sanitizeAnalyticsQueryText = (
+  input: string,
+  maxLength = 120,
+): string => {
+  return sanitizeText(input, maxLength);
 };
 
 /**
