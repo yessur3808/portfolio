@@ -4,6 +4,8 @@ import { getAllProjects } from "@/src/data/projects";
 
 const SITE_URL = "https://yaseribrahim3808.com";
 
+export const dynamic = "force-static";
+
 const toAbsolute = (path: string): string => `${SITE_URL}${path}`;
 
 const sitemap = (): MetadataRoute.Sitemap => {
