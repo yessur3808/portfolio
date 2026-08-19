@@ -1,6 +1,11 @@
 import { sanitizeText } from "@/src/lib/sanitize";
 
+
+
 export const GA_MEASUREMENT_ID = "G-PG2WHYK00C";
+const COOKIE_CONSENT_STORAGE_KEY = "cookie_consent";
+const COOKIE_CONSENT_ACCEPTED = "accepted";
+const COOKIE_CONSENT_REJECTED = "rejected";
 const ATTRIBUTION_SOURCE_STORAGE_KEY = "traffic_source";
 const ATTRIBUTION_PARAM_KEY_STORAGE_KEY = "traffic_source_param_key";
 const ATTRIBUTION_TYPE_STORAGE_KEY = "traffic_source_type";
@@ -65,26 +70,35 @@ export type AnalyticsEvent =
  */
 export const isGtagAvailable = (): boolean => {
   if (typeof window === "undefined") return false;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return typeof (window as any).gtag === "function";
+  return (
+    typeof window.gtag === "function" &&
+    localStorage.getItem(COOKIE_CONSENT_STORAGE_KEY) ===
+      COOKIE_CONSENT_ACCEPTED
+  );
 };
 
 export const initializeGA = (): void => {
   if (typeof window === "undefined") return;
 
-  const script = document.createElement("script");
-  script.async = true;
-  script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
-  document.head.appendChild(script);
+  const win = window;
+  if (win.gaInitialized) return;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const win = window as any;
-  win.dataLayer = win.dataLayer || [];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const gtag = (...args: any[]): void => {
-    win.dataLayer.push(args);
-  };
-  win.gtag = gtag;
+  const dataLayer = win.dataLayer || [];
+  win.dataLayer = dataLayer;
+  win.gtag =
+    win.gtag ||
+    ((...args: unknown[]): void => {
+      dataLayer.push(args);
+    });
+
+  const gtag = win.gtag as (...args: unknown[]) => void;
+  win.gaInitialized = true;
+  gtag("consent", "update", {
+    analytics_storage: "granted",
+    ad_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied",
+  });
   gtag("js", new Date());
   gtag("config", GA_MEASUREMENT_ID, {
     allow_google_signals: false,
@@ -341,9 +355,9 @@ export const setUserProperties = (
  * Store consent status in localStorage and GA4
  */
 export const consentManager = {
-  CONSENT_KEY: "cookie_consent",
-  CONSENT_VALUE_ACCEPTED: "accepted",
-  CONSENT_VALUE_REJECTED: "rejected",
+  CONSENT_KEY: COOKIE_CONSENT_STORAGE_KEY,
+  CONSENT_VALUE_ACCEPTED: COOKIE_CONSENT_ACCEPTED,
+  CONSENT_VALUE_REJECTED: COOKIE_CONSENT_REJECTED,
 
   /**
    * Save consent status to localStorage and GA4
@@ -358,6 +372,13 @@ export const consentManager = {
       initializeGA();
       setUserProperties({
         analytics_consent: true,
+      });
+    } else if (typeof window.gtag === "function") {
+      window.gtag("consent", "update", {
+        analytics_storage: "denied",
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
       });
     }
   },
@@ -390,5 +411,6 @@ declare global {
     dataLayer?: any[];
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     gtag?: (...args: any[]) => void;
+    gaInitialized?: boolean;
   }
 }

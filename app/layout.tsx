@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { CookieConsent } from "@/src/components/CookieConsent";
 import { LocaleProvider } from "@/src/i18n/locale-context";
+import { GA_MEASUREMENT_ID } from "@/src/lib/analytics";
 import {
   SITE_URL,
   SOCIAL_PREVIEW_IMAGE_PATH,
@@ -89,6 +91,19 @@ const RootLayout = ({
 }>) => {
   return (
     <html lang="en" className="h-full">
+      <Script id="google-analytics-consent-default" strategy="beforeInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = window.gtag || function(){window.dataLayer.push(arguments);};
+          window.gtag('consent', 'default', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+            wait_for_update: 500
+          });
+        `}
+      </Script>
       <body
         className={`${geistSans.variable} ${geistMono.variable} min-h-full flex flex-col font-sans antialiased`}
       >
@@ -97,6 +112,11 @@ const RootLayout = ({
           <CookieConsent />
         </LocaleProvider>
       </body>
+      <Script
+        id="google-analytics"
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+        strategy="afterInteractive"
+      />
     </html>
   );
 };
