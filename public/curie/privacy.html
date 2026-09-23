@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Curie AI and Observatory — privacy information</title>
+<style>body{margin:0;background:#10171d;color:#e5edf4;font:17px/1.65 system-ui,sans-serif}main{max-width:760px;margin:0 auto;padding:64px 24px}h1,h2{line-height:1.2}h1{font-size:42px}h2{margin-top:36px;font-size:23px}a{color:#a9d6f4}small{color:#a6b5c0}.notice{padding:16px;border:1px solid #516572;border-radius:12px}</style>
+</head>
+<body>
+<main>
+<small>CURIE AI · PRIVACY INFORMATION</small>
+<h1>How Curie uses Google data</h1>
+<p>This page describes Google connections in Yaser’s private Curie AI assistant and Curie Observatory dashboard. Each connector requires authorization for its own permissions.</p>
+<h2>Information accessed</h2>
+<p>With the owner’s authorization, the dashboard reads upcoming events from the configured Google Calendar, including event titles, times, locations and links. It reads Google Analytics reports for configured properties, including daily page or screen views and session totals.</p>
+<p>The requested permissions are <code>calendar.events.readonly</code> and <code>analytics.readonly</code>. These permissions do not allow the dashboard to create, modify or delete calendar events or change Analytics properties.</p>
+<h2>Separate Curie AI connectors</h2>
+<p>Outside the dashboard, optional Curie AI connectors can read Google Calendar information for an agenda and read Gmail messages when the owner separately authorizes those features. Separate write workflows can request Calendar event editing or Gmail sending permission and require an action preview and approval. These permissions are not requested by the dashboard connection.</p>
+<p>Information returned by these connectors can be used in the owner’s requested assistant tasks. Curie AI uses the operating-system credential store for its connector refresh tokens; the dashboard uses the restricted server files described below.</p>
+<h2>Use and storage</h2>
+<p>The dashboard uses this information to display the calendar and project reports and to provide context for Curie conversations and daily briefings. It caches information on the private server and may save dashboard snapshots on paired devices and in the browser for offline use.</p>
+<p>Google OAuth credentials and refresh tokens are stored in restricted files on the owner’s server. The dashboard does not include them in its source repository or desktop installers, and does not return them through the settings interface.</p>
+<h2>Curie processing</h2>
+<p>Relevant dashboard information can be sent to the owner’s configured Curie AI service to answer questions and prepare briefings. That service may use an external AI provider according to its configuration. Optional voice features also use the configured speech services. The owner should review those services before including sensitive calendar information.</p>
+<h2>Sharing and control</h2>
+<p>The dashboard has no advertising or data-sale feature. Google data is used for the owner’s dashboard and requested assistant features. People with access to a paired device or the dashboard’s access key may be able to view saved information.</p>
+<p>The owner can disconnect Google in dashboard settings, revoke the app’s access in <a href="https://myaccount.google.com/connections">Google Account connections</a>, and clear the browser’s saved snapshot in settings. Disconnecting does not erase copies already saved on other devices or in backups; remove those copies separately.</p>
+<p>Questions or deletion requests can be directed to <a href="mailto:yaser3808@gmail.com">yaser3808@gmail.com</a>.</p>
+<p>
+<a href="index.html">About Curie Observatory</a>
+</p>
+</main>
+</body>
+</html>
