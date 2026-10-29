@@ -9,6 +9,7 @@ import { Section } from "@/src/components/ui/Section";
 import { ClientMetadata } from "@/src/components/i18n/ClientMetadata";
 import type { ProjectRecord } from "@/src/data/projects";
 import { ProjectReleaseStatus } from "@/src/components/ui/ProjectReleaseStatus";
+import { ProjectGitHubLink } from "@/src/components/ui/ProjectGitHubLink";
 
 type ProjectDetailClientProps = {
   project: ProjectRecord;
@@ -38,6 +39,12 @@ const ProjectDetailClient = ({ project }: ProjectDetailClientProps) => {
           <Button href="/#work" variant="ghost">
             {messages.projectDetailPage.backToHome}
           </Button>
+          {project.links.repo ? (
+            <ProjectGitHubLink
+              href={project.links.repo}
+              label={`${messages.caseStudiesSection.openSourceCodeFor} ${project.title}`}
+            />
+          ) : null}
         </div>
 
         <div className="grid gap-20 lg:grid-cols-[1.3fr_1fr]">

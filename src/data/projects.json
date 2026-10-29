@@ -64,30 +64,97 @@
     "links": {}
   },
   {
-    "id": "defi-wallet-and-token-intelligence",
-    "slug": "defi-wallet-and-token-intelligence",
-    "title": "DeFi Wallet and Token Intelligence",
-    "image": "/projects/featured/defi-wallet-and-token-intelligence.svg",
-    "summary": "Desktop wallet workflows, internal bridge tooling, and live token visualization.",
-    "description": "Delivered wallet UX improvements, cross-chain bridge support, and data-rich token dashboards for large crypto audiences.",
-    "impact": "Improved wallet usability and enabled faster market interpretation across 250+ assets.",
+    "id": "gryfyn-wallet",
+    "slug": "gryfyn-wallet",
+    "title": "Gryfyn Wallet",
+    "image": "/projects/library/gryfyn-wallet.webp",
+    "summary": "An NFT-centric custodial wallet designed to make Web3 access seamless and secure.",
+    "description": "Contributed to wallet interface and product-level implementation supporting custody, digital assets, and Web3-ready account workflows.",
+    "impact": "Improved usability and product consistency across wallet flows for the Animoca Brands and Hex Trust joint venture.",
     "technologies": [
-      "Electron",
       "React",
       "TypeScript",
-      "GraphQL",
-      "D3.js",
-      "Cypress"
+      "CSS",
+      "MUI",
+      "Node.js",
+      "Go",
+      "Java",
+      "Keycloak",
+      "PostgreSQL"
     ],
     "themes": [
       "Wallet UX",
-      "Data Visualization",
+      "Crypto",
+      "Product Engineering"
+    ],
+    "company": "Hex Trust × Animoca Brands",
+    "period": "2022",
+    "featured": true,
+    "links": {
+      "article": "https://www.animocabrands.com/announcement/animoca-brands-and-hex-trust-launch-gryfyn-nft-centric-custodial-wallet-joint-venture"
+    }
+  },
+  {
+    "id": "hex-safe-v2",
+    "slug": "hex-safe-v2",
+    "title": "Hex Safe v2",
+    "image": "/projects/library/hexsafe-v2.webp",
+    "summary": "The second-generation institutional custody wallet platform from Hex Trust.",
+    "description": "Worked on product-facing wallet experiences and supporting full-stack systems for the enhanced Hex Safe platform, including Web3 connectivity, enterprise account structures, configurable policies, and mobile approvals.",
+    "impact": "Helped deliver robust institutional wallet capabilities under strict security, compliance, and reliability requirements.",
+    "technologies": [
+      "React",
+      "TypeScript",
+      "CSS",
+      "MUI",
+      "Vite",
+      "Node.js",
+      "Go",
+      "Java",
+      "Keycloak",
+      "PostgreSQL"
+    ],
+    "themes": [
+      "Custody",
+      "Enterprise Wallets",
+      "Fintech Infrastructure"
+    ],
+    "company": "Hex Trust",
+    "period": "2023",
+    "featured": true,
+    "links": {
+      "demo": "https://www.hextrust.com/hex-safe",
+      "article": "https://www.hextrust.com/resources-collection/introducing-the-enhanced-hex-safe-where-security-meets-flexibility-and-connectivity"
+    }
+  },
+  {
+    "id": "crypto-com-defi-desktop-wallet",
+    "slug": "crypto-com-defi-desktop-wallet",
+    "title": "Crypto.com DeFi Desktop Wallet",
+    "image": "/projects/library/crypto-com-defi-desktop-wallet.webp",
+    "summary": "A non-custodial desktop wallet offering core DeFi workflows in one application.",
+    "description": "Contributed to wallet UX and desktop functionality for DeFi users, with a focus on usability and reliability across key flows.",
+    "impact": "Supported delivery of a production wallet experience for crypto users.",
+    "technologies": [
+      "Electron",
+      "React",
+      "Node.js",
+      "TypeScript",
+      "JavaScript",
+      "LESS",
+      "CSS"
+    ],
+    "themes": [
+      "Wallet UX",
+      "Desktop Apps",
       "Blockchain"
     ],
     "company": "Crypto.com",
     "period": "2022",
     "featured": true,
-    "links": {}
+    "links": {
+      "repo": "https://github.com/crypto-com/chain-desktop-wallet"
+    }
   },
   {
     "id": "kyc-automation-suite",
@@ -190,35 +257,6 @@
     "featured": true,
     "links": {
       "demo": "https://yessur3808.github.io/my-3d-model/"
-    }
-  },
-  {
-    "id": "crypto-com-defi-desktop-wallet",
-    "slug": "crypto-com-defi-desktop-wallet",
-    "title": "Crypto.com DeFi Desktop Wallet",
-    "image": "/projects/library/crypto-com-defi-desktop-wallet.webp",
-    "summary": "A non-custodial desktop wallet offering core DeFi workflows in one application.",
-    "description": "Contributed to wallet UX and desktop functionality for DeFi users, with a focus on usability and reliability across key flows.",
-    "impact": "Supported delivery of a production wallet experience for crypto users.",
-    "technologies": [
-      "Electron",
-      "React",
-      "Node.js",
-      "TypeScript",
-      "JavaScript",
-      "LESS",
-      "CSS"
-    ],
-    "themes": [
-      "Wallet UX",
-      "Desktop Apps",
-      "Blockchain"
-    ],
-    "company": "Crypto.com",
-    "period": "2022",
-    "featured": false,
-    "links": {
-      "repo": "https://github.com/crypto-com/chain-desktop-wallet"
     }
   },
   {
@@ -560,73 +598,10 @@
     }
   },
   {
-    "id": "hexsafe",
-    "slug": "hexsafe",
-    "title": "Hexsafe",
-    "image": "/projects/library/hexsafe.webp",
-    "summary": "The Hexsafe enterprise custodial wallet platform.",
-    "description": "Worked on product-facing wallet experiences and supporting full-stack systems for enterprise custody workflows.",
-    "impact": "Helped deliver robust institutional wallet capabilities under strict reliability and security requirements.",
-    "technologies": [
-      "React",
-      "TypeScript",
-      "CSS",
-      "MUI",
-      "Vite",
-      "Node.js",
-      "Go",
-      "Java",
-      "Keycloak",
-      "PostgreSQL"
-    ],
-    "themes": [
-      "Custody",
-      "Enterprise Wallets",
-      "Fintech Infrastructure"
-    ],
-    "company": "Hex Trust",
-    "period": "2023",
-    "featured": true,
-    "links": {
-      "demo": "https://hextrust.com/products/hex-safe"
-    }
-  },
-  {
-    "id": "gryfyn-wallet",
-    "slug": "gryfyn-wallet",
-    "title": "Gryfyn Wallet",
-    "image": "/projects/library/gryfyn-wallet.png",
-    "summary": "Custodial crypto wallet experience for users and ecosystem integrations.",
-    "description": "Contributed to wallet interface and product-level implementation supporting custody and Web3-ready account workflows.",
-    "impact": "Improved usability and product consistency across wallet flows.",
-    "technologies": [
-      "React",
-      "TypeScript",
-      "CSS",
-      "MUI",
-      "Node.js",
-      "Go",
-      "Java",
-      "Keycloak",
-      "PostgreSQL"
-    ],
-    "themes": [
-      "Wallet UX",
-      "Crypto",
-      "Product Engineering"
-    ],
-    "company": "Hex Trust",
-    "period": "2022",
-    "featured": true,
-    "links": {
-      "demo": "https://wallet.gryfyn.io/"
-    }
-  },
-  {
     "id": "gryfyn-io",
     "slug": "gryfyn-io",
     "title": "Gryfyn.io",
-    "image": "/projects/library/gryfyn-io.webp",
+    "image": "/projects/library/gryfyn-wallet.webp",
     "summary": "Marketing and product site for Gryfyn wallet and Web3 integrations.",
     "description": "Developed frontend experience and site-level components to communicate product capabilities and integrations.",
     "impact": "Strengthened product discoverability and launch communication for wallet audiences.",
@@ -645,9 +620,9 @@
     ],
     "company": "Hex Trust",
     "period": "2022",
-    "featured": true,
+    "featured": false,
     "links": {
-      "demo": "https://www.gryfyn.io/"
+      "article": "https://www.animocabrands.com/announcement/animoca-brands-and-hex-trust-launch-gryfyn-nft-centric-custodial-wallet-joint-venture"
     }
   },
   {

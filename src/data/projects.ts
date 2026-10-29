@@ -103,3 +103,11 @@ export const getPreferredProjectLink = (
 
   return candidates.find((link) => Boolean(link && link.trim()));
 };
+
+export const getPrimaryProjectActionLink = (
+  project: Pick<ProjectRecord, "links">,
+): string | undefined => {
+  const candidates = [project.links.demo, project.links.article];
+
+  return candidates.find((link) => Boolean(link && link.trim()));
+};

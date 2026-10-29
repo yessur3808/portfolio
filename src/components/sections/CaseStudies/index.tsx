@@ -6,11 +6,13 @@ import { ExternalLink } from "lucide-react";
 import {
   getFeaturedProjects,
   getPreferredProjectLink,
+  getPrimaryProjectActionLink,
 } from "@/src/data/projects";
 import { useI18n } from "@/src/i18n/locale-context";
 import { Button } from "@/src/components/ui/Button";
 import { PortfolioCard } from "@/src/components/ui/PortfolioCard";
 import { ProjectReleaseStatus } from "@/src/components/ui/ProjectReleaseStatus";
+import { ProjectGitHubLink } from "@/src/components/ui/ProjectGitHubLink";
 import { Section } from "@/src/components/ui/Section";
 import { trackEvent } from "@/src/lib/analytics";
 
@@ -49,6 +51,7 @@ const CaseStudies = () => {
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
         {featuredProjects.map((project, index) => {
           const preferredLink = getPreferredProjectLink(project);
+          const primaryActionLink = getPrimaryProjectActionLink(project);
 
           return (
             <PortfolioCard
@@ -198,41 +201,52 @@ const CaseStudies = () => {
                     >
                       {messages.caseStudiesSection.viewDetails}
                     </Link>
-                    {preferredLink && (
+                    {primaryActionLink ? (
                       <Link
-                        href={preferredLink}
+                        href={primaryActionLink}
                         onClick={() => {
                           trackEvent("portfolio_click", {
                             project_slug: project.slug,
                             project_category:
                               project.themes[0] || "uncategorized",
-                            link_type: project.links.demo
-                              ? "demo"
-                              : project.links.repo
-                                ? "code"
-                                : "article",
+                            link_type: project.links.demo ? "demo" : "article",
                             button_id: "portfolio_external_action",
                             button_label: project.links.demo
                               ? messages.caseStudiesSection.open
-                              : project.links.repo
-                                ? messages.caseStudiesSection.code
-                                : messages.caseStudiesSection.article,
+                              : messages.caseStudiesSection.article,
                             button_location: "case_studies_card_footer",
                             button_position: index + 1,
                           });
                         }}
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label={`${project.links.demo ? messages.caseStudiesSection.openLiveProjectFor : project.links.repo ? messages.caseStudiesSection.openSourceCodeFor : messages.caseStudiesSection.openArticleFor} ${project.title}`}
+                        aria-label={`${project.links.demo ? messages.caseStudiesSection.openLiveProjectFor : messages.caseStudiesSection.openArticleFor} ${project.title}`}
                         className="mission-chip flex-1 justify-center rounded-md border-[color:var(--border-soft)] bg-[rgba(15,23,42,0.72)] px-2.5 py-2 text-center text-xs font-semibold text-[color:var(--text-main)] transition-all duration-200 motion-reduce:transition-none hover:border-[color:var(--border-cyan)] hover:text-[color:var(--accent-cyan)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-cyan)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg-deep)]"
                       >
                         {project.links.demo
                           ? messages.caseStudiesSection.open
-                          : project.links.repo
-                            ? messages.caseStudiesSection.code
-                            : messages.caseStudiesSection.article}
+                          : messages.caseStudiesSection.article}
                       </Link>
-                    )}
+                    ) : null}
+                    {project.links.repo ? (
+                      <ProjectGitHubLink
+                        href={project.links.repo}
+                        label={`${messages.caseStudiesSection.openSourceCodeFor} ${project.title}`}
+                        onClick={() => {
+                          trackEvent("portfolio_click", {
+                            project_slug: project.slug,
+                            project_category:
+                              project.themes[0] || "uncategorized",
+                            link_type: "code",
+                            button_id: "portfolio_github_action",
+                            button_label:
+                              messages.caseStudiesSection.openSourceCodeFor,
+                            button_location: "case_studies_card_footer",
+                            button_position: index + 1,
+                          });
+                        }}
+                      />
+                    ) : null}
                   </div>
                 </div>
               </article>
