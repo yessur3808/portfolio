@@ -1,5 +1,69 @@
 [
   {
+    "id": "atmosphere",
+    "slug": "atmosphere",
+    "title": "Atmosphere",
+    "image": "/projects/featured/atmosphere.jpg",
+    "summary": "A cinematic ambient sound and video player for focus, reading, relaxation, and sleep.",
+    "description": "Built a responsive Svelte experience that combines 29 ambient themes with layered sound mixing, cinematic loops, saved and shareable mixes, optional weather, and a Tauri desktop shell for Windows, macOS, and Linux.",
+    "impact": "Shipped one privacy-conscious experience across the web and desktop with local-first preferences and an audited media library.",
+    "technologies": [
+      "Svelte",
+      "Tauri 2",
+      "JavaScript",
+      "Rust",
+      "Rollup"
+    ],
+    "themes": [
+      "Ambient Media",
+      "Cross-Platform",
+      "Product Design"
+    ],
+    "company": "Personal",
+    "period": "2026",
+    "featured": true,
+    "links": {
+      "demo": "https://youratmosphere.app",
+      "repo": "https://github.com/yessur3808/atmosphere"
+    }
+  },
+  {
+    "id": "stop-perfect-timing",
+    "slug": "stop-perfect-timing",
+    "title": "STOP: Perfect Timing",
+    "image": "/projects/featured/stop-perfect-timing.webp",
+    "summary": "A focused one-tap timing game for quick runs on iOS and Android.",
+    "description": "Built an offline-first Flutter game with precise timing, instant retries, evolving transit lines, day-and-night scenery, local score history, haptics, sound, and privacy-minimized analytics.",
+    "impact": "Prepared a cross-platform mobile release with production store artwork, accessibility-minded controls, and tested iOS and Android builds.",
+    "technologies": [
+      "Flutter",
+      "Dart",
+      "CustomPainter",
+      "Firebase Analytics",
+      "iOS",
+      "Android"
+    ],
+    "themes": [
+      "Mobile Game",
+      "Casual Arcade",
+      "Offline-First"
+    ],
+    "company": "Personal",
+    "period": "2026",
+    "featured": true,
+    "releaseStatus": [
+      {
+        "platform": "Google Play",
+        "status": "Coming soon"
+      },
+      {
+        "platform": "iOS",
+        "status": "Awaiting approval"
+      }
+    ],
+    "links": {}
+  },
+  {
     "id": "defi-wallet-and-token-intelligence",
     "slug": "defi-wallet-and-token-intelligence",
     "title": "DeFi Wallet and Token Intelligence",

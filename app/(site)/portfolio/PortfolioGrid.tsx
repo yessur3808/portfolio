@@ -5,6 +5,7 @@ import { ExternalLink } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { PortfolioCard } from "@/src/components/ui/PortfolioCard";
+import { ProjectReleaseStatus } from "@/src/components/ui/ProjectReleaseStatus";
 import { useI18n } from "@/src/i18n/locale-context";
 import {
   getPreferredProjectLink,
@@ -182,6 +183,11 @@ export const PortfolioGrid = ({ projects }: PortfolioGridProps) => {
                   <h3 className="line-clamp-2 text-[1rem] font-semibold leading-snug text-[color:var(--text-main)] sm:text-[1.02rem]">
                     {project.title}
                   </h3>
+
+                  <ProjectReleaseStatus
+                    items={project.releaseStatus}
+                    label={messages.projectDetailPage.releaseStatus}
+                  />
 
                   <p className="line-clamp-3 text-sm leading-6 text-[color:var(--text-muted)]">
                     {project.summary}

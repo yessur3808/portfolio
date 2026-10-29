@@ -6,6 +6,11 @@ export type ProjectLinkSet = {
   article?: string;
 };
 
+export type ProjectReleaseStatus = {
+  platform: string;
+  status: string;
+};
+
 export type ProjectRecord = {
   id: string;
   slug: string;
@@ -19,6 +24,7 @@ export type ProjectRecord = {
   company?: string;
   period?: string;
   featured: boolean;
+  releaseStatus?: ProjectReleaseStatus[];
   links: ProjectLinkSet;
 };
 
@@ -46,6 +52,11 @@ const normalizeProject = (input: RawProjectRecord): ProjectRecord => ({
   company: input.company,
   period: input.period,
   featured: Boolean(input.featured),
+  releaseStatus: Array.isArray(input.releaseStatus)
+    ? input.releaseStatus.filter(
+        (item) => Boolean(item?.platform?.trim() && item?.status?.trim()),
+      )
+    : undefined,
   links: input.links ?? {},
 });
 

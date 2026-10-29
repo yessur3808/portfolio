@@ -8,6 +8,7 @@ import { Card } from "@/src/components/ui/Card";
 import { Section } from "@/src/components/ui/Section";
 import { ClientMetadata } from "@/src/components/i18n/ClientMetadata";
 import type { ProjectRecord } from "@/src/data/projects";
+import { ProjectReleaseStatus } from "@/src/components/ui/ProjectReleaseStatus";
 
 type ProjectDetailClientProps = {
   project: ProjectRecord;
@@ -86,6 +87,18 @@ const ProjectDetailClient = ({ project }: ProjectDetailClientProps) => {
                   {project.period ?? messages.projectDetailPage.dateNotListed}
                 </p>
               </section>
+
+              {project.releaseStatus?.length ? (
+                <section className="space-y-2">
+                  <h3 className="text-base font-semibold text-slate-100">
+                    {messages.projectDetailPage.releaseStatus}
+                  </h3>
+                  <ProjectReleaseStatus
+                    items={project.releaseStatus}
+                    label={messages.projectDetailPage.releaseStatus}
+                  />
+                </section>
+              ) : null}
 
               <section className="space-y-2">
                 <h3 className="text-base font-semibold text-slate-100">
